@@ -1,0 +1,567 @@
+<script setup lang='ts'>
+import EditorCodeBlock from '@/components/ui/Tiptap/EditorCodeBlock.vue'
+import { useDatabaseStore } from '@/stores/database'
+
+import { useDocumentStore } from '@/stores/document'
+
+import { useEditorStore } from '@/stores/editor'
+import Blockquote from '@tiptap/extension-blockquote'
+import Bold from '@tiptap/extension-bold'
+import BulletList from '@tiptap/extension-bullet-list'
+import Code from '@tiptap/extension-code'
+import { Color } from '@tiptap/extension-color'
+import Document from '@tiptap/extension-document'
+import Gapcursor from '@tiptap/extension-gapcursor'
+import HardBreak from '@tiptap/extension-hard-break'
+import Heading from '@tiptap/extension-heading'
+import History from '@tiptap/extension-history'
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
+import Italic from '@tiptap/extension-italic'
+import Link from '@tiptap/extension-link'
+import ListItem from '@tiptap/extension-list-item'
+import OrderedList from '@tiptap/extension-ordered-list'
+import Paragraph from '@tiptap/extension-paragraph'
+import Placeholder from '@tiptap/extension-placeholder'
+import Strike from '@tiptap/extension-strike'
+import Table from '@tiptap/extension-table'
+import TableCell from '@tiptap/extension-table-cell'
+import TableHeader from '@tiptap/extension-table-header'
+import TableRow from '@tiptap/extension-table-row'
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
+import Text from '@tiptap/extension-text'
+import TextAlign from '@tiptap/extension-text-align'
+import TextStyle from '@tiptap/extension-text-style'
+import Typography from '@tiptap/extension-typography'
+import Underline from '@tiptap/extension-underline'
+import Youtube from '@tiptap/extension-youtube'
+import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-3'
+import { storeToRefs } from 'pinia'
+import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
+import CodeBlockShiki from 'tiptap-extension-code-block-shiki'
+import { onBeforeUnmount, onMounted, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
+import WebFrame from './addIframe'
+import Video from './addVideo'
+import EditorContextMenu from './EditorContextMenu.vue'
+import { ResizableMedia } from './resizableMedia'
+
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
+  },
+  toolbar: {
+    type: Boolean,
+    default: false,
+  },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+})
+const emit = defineEmits(['update:modelValue'])
+const database = useDatabaseStore()
+const document = useDocumentStore()
+const editor_store = useEditorStore()
+const { editor } = storeToRefs(editor_store)
+const { content_editable } = storeToRefs(document)
+const { t } = useI18n()
+const { document_name, document_body } = storeToRefs(database)
+watchEffect(() => {
+  if (document_name.value || document_body.value)
+    database.auto_save()
+})
+
+onMounted(() => {
+  editor.value = new Editor({
+    extensions: [
+      Document,
+      Blockquote,
+      BulletList,
+      OrderedList,
+      ListItem,
+      Heading,
+      HardBreak,
+      Paragraph,
+      HorizontalRule,
+      Strike,
+      Bold,
+      Italic,
+      Underline,
+      Text,
+      Code,
+      History,
+      Color.configure({ types: [TextStyle.name, ListItem.name] }),
+      TextStyle.configure(),
+      TaskList,
+      TaskItem.configure({
+        nested: false,
+      }),
+      ResizableMedia,
+      // Image.configure({
+      //   allowBase64: true,
+      //   inline: true,
+      //   HTMLAttributes: {
+      //     class: "w-full my-6",
+      //   },
+      // }),
+      Gapcursor,
+      Video,
+      WebFrame,
+      Typography,
+      Link.configure({
+        openOnClick: true,
+        defaultProtocol: 'https',
+        autolink: true,
+        linkOnPaste: true,
+        HTMLAttributes: {
+          target: '_blank',
+          rel: 'noopener',
+          class: 'px-1 underline-offset-2 text-primary cursor-pointer hover:text-primary/80',
+        },
+      }),
+      Table.configure({
+        resizable: false,
+        allowTableNodeSelection: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      Placeholder.configure({
+        placeholder: t('editor.placeholder'),
+      }),
+      Youtube.configure({
+        controls: true,
+        ccLanguage: 'es',
+        nocookie: true,
+      }),
+      CodeBlockShiki.extend({
+        addNodeView() {
+          return VueNodeViewRenderer(EditorCodeBlock)
+        },
+      }).configure({
+        HTMLAttributes: {
+          spellcheck: 'false',
+        },
+        defaultTheme: 'houston',
+      }),
+    ],
+    content: props.modelValue,
+    editable: !props.editable,
+    onCreate: () => {
+
+    },
+    onUpdate: () => {
+      emit('update:modelValue', editor.value.getHTML())
+    },
+  })
+})
+
+onBeforeUnmount(() => {
+  editor.value.destroy()
+})
+</script>
+
+<template>
+  <div v-if="editor" class="EditorTiptap">
+    <ScrollAreaRoot
+      class="ScrollAreaEditor group"
+      :class="[
+        toolbar ? 'with-toolbar' : '',
+        content_editable ? 'is-editable' : 'is-preview',
+        database.loaded_id === '' || editor.isEmpty ? 'is-empty' : '',
+      ]"
+      style="--scrollbar-size: 10px"
+    >
+      <ScrollAreaViewport
+        class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
+      >
+        <EditorContextMenu>
+          <div class="max-w-full mx-auto prose dark:prose-invert" spellcheck="false">
+            <slot />
+            <EditorContent :editor="editor" />
+          </div>
+        </EditorContextMenu>
+      </ScrollAreaViewport>
+      <ScrollAreaScrollbar
+        class="print:hidden! flex select-none touch-none p-0.5 ease-out data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+        orientation="vertical"
+      >
+        <ScrollAreaThumb
+          class="flex-1 bg-secondary-foreground/30 ease-out transition-colors hover:bg-primary/90 rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
+        />
+      </ScrollAreaScrollbar>
+    </ScrollAreaRoot>
+  </div>
+</template>
+
+<style>
+@reference "@/assets/main.css";
+
+.EditorTiptap {
+  @apply grid w-full min-h-full;
+}
+
+/* .EditorTiptap .prose .tiptap {
+  p:first-of-type {
+    @apply mt-0;
+  }
+} */
+
+[data-reka-scroll-area-viewport] {
+  @apply print:overflow-y-visible! print:!border-0;
+}
+
+@media print {
+  html {
+    @apply !text-xs;
+  }
+
+  @page {
+    @bottom-right {
+      font-family: "JetBrains Mono Variable";
+      margin: 0 0 10pt 0;
+      font-size: 8pt;
+      color: #333;
+      content: counter(page) "-" counter(pages);
+    }
+  }
+
+  h1 + p,
+  h2 + p,
+  h3 + p {
+    page-break-before: avoid;
+  }
+
+  [data-reka-scroll-area-viewport] {
+    --secondary: 240 4.8% 90.9%;
+    @apply overflow-y-visible! !border;
+  }
+
+  .tiptap td,
+  .tiptap th {
+    @apply border! !border-muted/20;
+  }
+
+  h2,
+  h3,
+  h4 {
+    page-break-after: avoid;
+  }
+
+  pre,
+  blockquote {
+    page-break-inside: avoid;
+  }
+}
+
+.ScrollAreaEditor {
+  @apply w-full scrollbar-none border-0 print:h-full! print:max-h-none! overflow-x-hidden print:!overflow-y-auto;
+
+  &.is-editable {
+    @apply bg-secondary/30 border-t border-t-transparent;
+    height: calc(100dvh - var(--editorToolbar));
+
+    .tiptap td,
+    .tiptap th {
+      @apply border-secondary/50! border-4 p-0;
+    }
+  }
+
+  &.with-toolbar {
+    height: calc(100dvh - var(--editorToolbar));
+  }
+
+  &.is-preview {
+    height: calc(100dvh);
+    @apply max-h-screen bg-background;
+
+    .tiptap td,
+    .tiptap th {
+      @apply border-secondary/20! border-4 p-0;
+    }
+
+    .ProseMirror-trailingBreak,
+    .ProseMirror-separator {
+      @apply !hidden;
+    }
+  }
+}
+
+.tiptap {
+  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary min-h-[70dvh];
+  /* @apply font-mono font-normal; */
+  @apply font-serif;
+}
+
+.tiptap table:first-of-type,
+.tiptap h1:first-of-type,
+.tiptap h2:first-of-type,
+.tiptap h3:first-of-type,
+.tiptap h4:first-of-type,
+.tiptap h5:first-of-type,
+.tiptap h6:first-of-type {
+  @apply mt-4;
+}
+
+.tiptap p a span {
+  @apply !text-inherit;
+}
+
+.tiptap p {
+  @apply break-words;
+  hyphens: auto;
+}
+
+.tiptap p:has(img) {
+  margin: 0;
+}
+
+.tiptap p:has(img) img {
+  margin: 0;
+}
+
+.tiptap p a {
+  @apply break-all underline-offset-4 decoration-dotted print:decoration-solid underline;
+}
+
+.tiptap pre {
+  @apply my-0;
+}
+
+.tiptap p code {
+  @apply bg-primary/20 break-all px-1 mx-0.5 rounded py-0.5 text-foreground ring-1 ring-primary/30 font-light text-sm;
+  @apply print:bg-primary/20! print:rounded-none print:ring-0;
+}
+
+.medium-zoom--opened .medium-zoom-overlay {
+  z-index: 99;
+}
+
+.medium-zoom-image--opened {
+  z-index: 100;
+  margin: 0;
+}
+
+.medium-zoom-image {
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1) !important;
+}
+
+.tiptap code::after,
+.tiptap code::before {
+  display: none;
+}
+
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  /* Optional, if you also want font styles */
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  @apply text-foreground/50;
+}
+
+/* Bubble menu */
+.bubble-menu {
+  @apply bg-secondary border border-secondary p-1 flex text-xs gap-2 items-center;
+}
+
+.bubble-menu button {
+  background-color: unset;
+  @apply h-8 px-2;
+}
+
+.iframeContainer {
+  @apply w-full relative border! border-primary! pt-8 ring-transparent bg-primary/5;
+}
+
+.is-preview .iframeContainer  {
+  @apply pt-0!
+}
+
+.is-preview .iframeContainer iframe {
+  @apply h-[90vh];
+}
+
+.iframeContainer iframe {
+  @apply mx-auto h-[80vh] relative w-full;
+}
+
+.iframeContainer .iframeEditButton {
+  @apply absolute flex items-center font-mono justify-center top-0 right-0 bg-primary text-primary-foreground hover:bg-primary/90 px-2 py-1 text-xs rounded-none z-10
+}
+
+.iframeContainer .iframeTitle {
+  @apply absolute left-0 top-2  px-2 font-mono flex text-xs justify-start items-center
+}
+
+.tiptap .ProseMirror-gapcursor {
+  @apply w-0.5 h-6 bg-primary -translate-x-3;
+}
+
+.tiptap table {
+  border-collapse: collapse;
+  margin: 0;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.tiptap td,
+.tiptap th {
+  @apply border border-muted ;
+  box-sizing: border-box;
+  min-width: 1em;
+  padding: 6px 8px;
+  position: relative;
+  vertical-align: top;
+}
+
+.tiptap th {
+  background-color: var(--gray-1);
+  font-weight: bold;
+  text-align: left;
+}
+
+.tiptap .selectedCell:after {
+  @apply bg-primary/20 ring-1 ring-primary/50;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.tiptap .tableWrapper {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.tiptap table iframe {
+  @apply w-full max-w-full;
+}
+
+.tiptap.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
+}
+
+.tiptap .ProseMirror-selectednode {
+  @apply ring-2 ring-primary border-secondary/5 border-2;
+}
+
+.is-editable .tiptap .media-node-view {
+  @apply border-primary/5 border-2 bg-primary/[0.0005];
+}
+
+.is-editable .tiptap .media-node-view.ProseMirror-selectednode {
+  @apply ring-0! ring-transparent! bg-primary/[0.02] border-2 border-primary border-dashed;
+}
+
+.tiptap li p {
+  @apply m-0;
+}
+
+.tiptap ul[data-type="taskList"] {
+  list-style: none;
+  margin-left: 0;
+  padding: 0;
+}
+
+.tiptap ul[data-type="taskList"] li {
+  align-items: flex-start;
+  display: flex;
+}
+.tiptap ul[data-type="taskList"] label {
+  flex: 0 0 auto;
+  margin-right: 0.5rem;
+  user-select: none;
+}
+
+.tiptap ul[data-type="taskList"] > div {
+  flex: 1 1 auto;
+}
+
+.tiptap ul[data-type="taskList"] {
+  margin: 0;
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked] input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  /* cursor: pointer; */
+  height: 0;
+  width: 0;
+
+}
+.tiptap ul[data-type="taskList"] li:focus-within span {
+  @apply bg-primary/40! border-primary/10
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked] label span {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  @apply bg-primary/10 border-primary/50 border-2 -translate-y-px ;
+  vertical-align: middle;
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked="true"] label span {
+  @apply bg-primary/10 border-primary/50;
+}
+
+.ScrollAreaEditor.is-editable ul[data-type="taskList"] li[data-checked]:hover label span {
+  @apply bg-primary/20 border-primary/90;
+}
+
+.ScrollAreaEditor.is-preview ul[data-type="taskList"] li[data-checked] {
+  @apply pointer-events-none;
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked="true"] label span::after {
+  content: "";
+  position: absolute;
+  display: block;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark .tiptap ul[data-type="taskList"] li[data-checked="true"] label span::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked] {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.tiptap ul[data-type="taskList"] li[data-checked] div {
+  flex: 1;
+}
+</style>

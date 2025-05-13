@@ -1,0 +1,45 @@
+<script setup lang="ts">
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useDocumentStore } from '@/stores/document'
+import { BookOpenText, PencilLine } from 'lucide-vue-next'
+import { useI18n } from 'vue-i18n'
+
+const document = useDocumentStore()
+const { t } = useI18n()
+</script>
+
+<template>
+  <div
+    class="fixed bottom-0 z-10 flex items-center justify-center left-12 md:left-0 right-12 print:hidden lg:left-auto md:justify-start lg:bottom-auto lg:top-1 lg:right-0"
+    :class="document.content_editable ? '' : ''"
+  >
+    <Tooltip
+      :name="
+        document.content_editable
+          ? t('sidebar.contentPreview')
+          : t('sidebar.contentEditable')
+      "
+      shortcut="Ctrl Alt P"
+      side="top"
+    >
+      <button
+        class="relative flex items-center justify-center ToggleEditable bg-background text-primary hover:text-primary-foreground  hover:bg-primary/80 size-10"
+        @click="document.toggle_editable()"
+      >
+        <BookOpenText
+          v-if="document.content_editable"
+          class="pointer-events-none size-5"
+        />
+        <PencilLine
+          v-if="!document.content_editable"
+          class="pointer-events-none size-5"
+        />
+        <span class="sr-only">{{
+          document.content_editable
+            ? t("sidebar.contentPreview")
+            : t("sidebar.contentEditable")
+        }}</span>
+      </button>
+    </Tooltip>
+  </div>
+</template>

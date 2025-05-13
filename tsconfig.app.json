@@ -1,0 +1,26 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": [],
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": [
+    "src/global.d.ts",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/**/*.css"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
+}
