@@ -51,7 +51,7 @@ function toggleFixedFilter() {
       </button>
       <Tooltip :name="t('settings.editDBname')" side="top">
         <button
-          class="text-xs outline-hidden w-44  text-primary flex justify-start items-center gap-1 hover:outline-1 hover:outline-primary hover:outline-offset-4 focus-visible:outline-offset-4 focus-visible:outline-dotted focus-visible:outline-1 focus-visible:outline-primary"
+          class="text-xs outline-hidden w-40 text-primary flex justify-start items-center gap-1 hover:outline-1 hover:outline-primary hover:outline-offset-4 focus-visible:outline-offset-4 focus-visible:outline-dotted focus-visible:outline-1 focus-visible:outline-primary"
           @click="modal.show_export_db = true"
         >
           <NumberFlow
