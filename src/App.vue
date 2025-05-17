@@ -13,7 +13,7 @@ import ToggleEditable from './components/ui/ToggleEditable.vue'
 
 const database = useDatabaseStore()
 
-const colorTheme = useStorage('theme', 'theme-forground')
+const colorTheme = useStorage('theme', 'theme-foreground')
 const cursor_pointer = useStorage('cursor', true)
 
 onMounted(() => {
