@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import type { Documents } from '@/db'
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useLocaleTimeAgo } from '@/composables/useTimeAgoLocale'
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
-import { useDatabaseStore } from '@/stores/database'
-import { useDocumentStore } from '@/stores/document'
-import { useEditorStore } from '@/stores/editor'
-import { useModalStore } from '@/stores/modal'
 import { breakpointsTailwind, useBreakpoints, useDateFormat } from '@vueuse/core'
-
 import { Circle, Pin } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
 import { computed, ref } from 'vue'
-
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useLocaleTimeAgo } from '@/composables/useTimeAgoLocale'
+
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import { useDatabaseStore } from '@/stores/database'
+import { useDocumentStore } from '@/stores/document'
+import { useEditorStore } from '@/stores/editor'
+
+import { useModalStore } from '@/stores/modal'
 
 const props = defineProps({
   data: {
@@ -87,7 +87,7 @@ function toggleFixed(item: any, isfixed: any) {
         }}</span>
       </button>
     </div>
-    <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="1000">
+    <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="0">
       <HoverCardTrigger
         class="flex hover:text-primary! focus-visible:text-primary focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-2 focus-visible:outline-dashed px-0.5 h-6 w-full items-center outline-hidden justify-start text-sm text-left"
         :class="loaded_id === props.data.id ? 'text-primary' : ''" @dblclick="document.toggle_editable()"
