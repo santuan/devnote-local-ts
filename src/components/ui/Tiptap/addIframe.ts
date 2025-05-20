@@ -1,5 +1,5 @@
-import { useModalStore } from '@/stores/modal'
 import { mergeAttributes, Node } from '@tiptap/core'
+import { useModalStore } from '@/stores/modal'
 
 export interface IframeOptions {
   allowFullscreen: boolean
@@ -67,9 +67,13 @@ export default Node.create<IframeOptions>({
       iframe.src = node.attrs.src
 
       if (editor.isEditable) {
-        const title = document.createElement('span')
-        title.className = 'iframeTitle' // Add a class for styling
-        title.textContent = node.attrs.src // Set the text content to the iframe src
+        const link = document.createElement('a')
+        link.className = 'iframeTitle' // Add a class for styling
+        link.textContent = node.attrs.src // Set the text content to the iframe src
+        link.href = node.attrs.src // Set the href to the iframe src
+        link.target = '_blank' // Open in new tab
+        link.rel = 'noopener noreferrer' // Security best practice
+
         const editButton = document.createElement('button')
         editButton.className = 'iframeEditButton'
         editButton.textContent = 'Edit URL'
@@ -78,9 +82,11 @@ export default Node.create<IframeOptions>({
           modal.show_iframe_url_dialog = true
           modal.editing_iframe_pos = editor.state.selection.from
         }
-        container.appendChild(title)
+
+        container.appendChild(link)
         container.appendChild(editButton)
       }
+
       container.appendChild(iframe)
       return { dom: container }
     }
@@ -97,7 +103,6 @@ export default Node.create<IframeOptions>({
             if (dispatch) {
               tr.replaceRangeWith(selection.from, selection.to, node)
             }
-
             return true
           },
       updateIframe:
