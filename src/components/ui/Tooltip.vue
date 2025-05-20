@@ -27,7 +27,7 @@ withDefaults(defineProps<TooltipProps>(), {
 
 <template>
   <TooltipProvider>
-    <TooltipRoot ignore-non-keyboard-focus>
+    <TooltipRoot ignore-non-keyboard-focus  :delay-duration="0">
       <TooltipTrigger as-child>
         <slot />
       </TooltipTrigger>
