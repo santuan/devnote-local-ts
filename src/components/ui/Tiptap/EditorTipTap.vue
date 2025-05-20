@@ -1,13 +1,9 @@
 <script setup lang='ts'>
-import EditorCodeBlock from '@/components/ui/Tiptap/EditorCodeBlock.vue'
-import { useDatabaseStore } from '@/stores/database'
-
-import { useDocumentStore } from '@/stores/document'
-
-import { useEditorStore } from '@/stores/editor'
 import Blockquote from '@tiptap/extension-blockquote'
 import Bold from '@tiptap/extension-bold'
+
 import BulletList from '@tiptap/extension-bullet-list'
+
 import Code from '@tiptap/extension-code'
 import { Color } from '@tiptap/extension-color'
 import Document from '@tiptap/extension-document'
@@ -41,6 +37,10 @@ import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewpor
 import CodeBlockShiki from 'tiptap-extension-code-block-shiki'
 import { onBeforeUnmount, onMounted, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
+import EditorCodeBlock from '@/components/ui/Tiptap/EditorCodeBlock.vue'
+import { useDatabaseStore } from '@/stores/database'
+import { useDocumentStore } from '@/stores/document'
+import { useEditorStore } from '@/stores/editor'
 import WebFrame from './addIframe'
 import Video from './addVideo'
 import EditorContextMenu from './EditorContextMenu.vue'
@@ -401,11 +401,23 @@ html.dark .shiki span {
 }
 
 .iframeContainer .iframeEditButton {
-  @apply absolute flex items-center font-mono justify-center top-0 right-0 bg-primary text-primary-foreground hover:bg-primary/90 px-2 py-1 text-xs rounded-none z-10
+  @apply absolute flex items-center font-mono justify-center top-0.5 right-0.5 bg-primary text-primary-foreground hover:bg-primary/90 px-2 py-1 text-xs rounded-none z-10
 }
 
 .iframeContainer .iframeTitle {
-  @apply absolute left-0 top-2  px-2 font-mono flex text-xs justify-start items-center
+  @apply absolute left-0.5 border-primary border top-1 px-2 font-mono flex text-xs justify-start items-center bg-background py-1
+}
+
+.iframeContainer:has(iframe[src*="youtube"]) {
+  @apply pt-0;
+
+  .iframeTitle {
+    display: none;
+  }
+
+  iframe {
+    @apply aspect-video h-96
+  }
 }
 
 .tiptap .ProseMirror-gapcursor {
