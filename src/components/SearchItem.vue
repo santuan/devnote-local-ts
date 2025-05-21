@@ -35,7 +35,7 @@ const { editor } = storeToRefs(editor_store)
 const { hasUnsavedChanges } = useUnsavedChanges()
 const { t, locale } = useI18n()
 
-const date_created = useDateFormat(props?.data.document_data?.date_created, 'dddd YY MMM YYYY HH:mm', { locales: locale })
+const date_created = useDateFormat(props?.data.document_data?.date_created, 'D MMM YYYY HH:mm', { locales: locale })
 const date_updated = computed(() => {
   return useLocaleTimeAgo(props?.data.date)
 })
