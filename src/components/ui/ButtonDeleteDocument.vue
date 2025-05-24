@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useDatabaseStore } from '@/stores/database'
-import { useModalStore } from '@/stores/modal'
 import { Trash2, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
@@ -15,6 +13,8 @@ import {
   AlertDialogTrigger,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import { useDatabaseStore } from '@/stores/database'
+import { useModalStore } from '@/stores/modal'
 import Tooltip from './Tooltip.vue'
 
 const database = useDatabaseStore()
@@ -40,7 +40,7 @@ const { t } = useI18n()
       <AlertDialogContent
         class="fixed z-80 w-[95vw] max-w-sm rounded-lg p-4 md:w-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-background text-foreground border border-secondary font-mono"
       >
-        <AlertDialogTitle class="text-sm font-light">
+        <AlertDialogTitle class="text-sm font-light pr-12">
           {{ t("editor.delete") }} <strong class="font-bold">{{ database.document_name }}</strong>
         </AlertDialogTitle>
         <AlertDialogDescription class="mt-3 mb-5 text-xs">

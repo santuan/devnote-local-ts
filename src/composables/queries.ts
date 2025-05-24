@@ -1,9 +1,9 @@
-import type { Documents } from '@/db'
 import type { Ref } from 'vue'
-import { db } from '@/db'
+import type { Documents } from '@/db'
 import { useObservable } from '@vueuse/rxjs'
 import { liveQuery } from 'dexie'
 import { from } from 'rxjs'
+import { db } from '@/db'
 
 // Convert Dexie's liveQuery to an rxjs Observable using 'from'
 export const allItemsTodo = useObservable(

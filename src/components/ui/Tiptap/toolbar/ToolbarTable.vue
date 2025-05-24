@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import CornerBottomRight from '@/assets/corner-bottom-right.vue'
-
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useEditorStore } from '@/stores/editor'
-
 import { Table } from 'lucide-vue-next'
+
 import { storeToRefs } from 'pinia'
 import {
   DropdownMenuContent,
@@ -16,7 +12,11 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
 } from 'reka-ui'
+
 import { useI18n } from 'vue-i18n'
+import CornerBottomRight from '@/assets/corner-bottom-right.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useEditorStore } from '@/stores/editor'
 
 const document = useEditorStore()
 const { editor } = storeToRefs(document)

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Driver from '@/composables/driver.ts'
+import { Plane } from 'lucide-vue-next'
 
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
+import Driver from '@/composables/driver.ts'
 import { useDocumentStore } from '@/stores/document'
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'
-import { Plane } from 'lucide-vue-next'
-import { storeToRefs } from 'pinia'
-import { useI18n } from 'vue-i18n'
 
 const setting = useSettingsStore()
 const document = useDocumentStore()

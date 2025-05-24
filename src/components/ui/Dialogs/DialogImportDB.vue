@@ -1,7 +1,4 @@
 <script setup lang='ts'>
-import { useDatabaseStore } from '@/stores/database'
-import { useModalStore } from '@/stores/modal'
-
 import { useDropZone, useFileDialog, useTimeoutFn } from '@vueuse/core'
 import { DatabaseZap, X } from 'lucide-vue-next'
 
@@ -15,8 +12,11 @@ import {
   AlertDialogRoot,
   AlertDialogTitle,
 } from 'reka-ui'
+
 import { shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useDatabaseStore } from '@/stores/database'
+import { useModalStore } from '@/stores/modal'
 
 const { t } = useI18n()
 

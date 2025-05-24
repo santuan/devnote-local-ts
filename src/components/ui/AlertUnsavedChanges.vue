@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { useDatabaseStore } from '@/stores/database'
-import { useDocumentStore } from '@/stores/document'
-import { useFocusStore } from '@/stores/focus'
-import { useModalStore } from '@/stores/modal'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import {
   AlertDialogAction,
@@ -14,6 +10,10 @@ import {
   AlertDialogTitle,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import { useDatabaseStore } from '@/stores/database'
+import { useDocumentStore } from '@/stores/document'
+import { useFocusStore } from '@/stores/focus'
+import { useModalStore } from '@/stores/modal'
 
 defineProps<{
   label?: string

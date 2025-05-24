@@ -1,16 +1,6 @@
 <script setup lang="ts">
-import CornerBottomRight from '@/assets/corner-bottom-right.vue'
-
-import DialogImageUrl from '@/components/ui/Dialogs/DialogImageUrl.vue'
-import DialogVideoUrl from '@/components/ui/Dialogs/DialogVideoUrl.vue'
-
-import DialogYoutubeUrl from '@/components/ui/Dialogs/DialogYoutubeUrl.vue'
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useAddImageBase64 } from '@/composables/useAddImageBase64'
-import { useSetVideo } from '@/composables/useSetVideo'
-import { useEditorStore } from '@/stores/editor'
-import { useModalStore } from '@/stores/modal'
 import { Video as IconVideo, Youtube as IconYoutube, ImageDown, ImagePlus } from 'lucide-vue-next'
+
 import { storeToRefs } from 'pinia'
 import {
   DropdownMenuContent,
@@ -20,7 +10,17 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
 } from 'reka-ui'
+
 import { useI18n } from 'vue-i18n'
+import CornerBottomRight from '@/assets/corner-bottom-right.vue'
+import DialogImageUrl from '@/components/ui/Dialogs/DialogImageUrl.vue'
+import DialogVideoUrl from '@/components/ui/Dialogs/DialogVideoUrl.vue'
+import DialogYoutubeUrl from '@/components/ui/Dialogs/DialogYoutubeUrl.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useAddImageBase64 } from '@/composables/useAddImageBase64'
+import { useSetVideo } from '@/composables/useSetVideo'
+import { useEditorStore } from '@/stores/editor'
+import { useModalStore } from '@/stores/modal'
 
 const editorStore = useEditorStore()
 const modal = useModalStore()

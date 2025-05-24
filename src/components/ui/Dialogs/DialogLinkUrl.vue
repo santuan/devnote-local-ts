@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useModalStore } from '@/stores/modal'
 import { X } from 'lucide-vue-next'
 import {
   DialogClose,
@@ -12,6 +11,7 @@ import {
 } from 'reka-ui'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useModalStore } from '@/stores/modal'
 
 const emit = defineEmits<{
   (e: 'submit', url: string): void

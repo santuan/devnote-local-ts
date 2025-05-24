@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
-import { useI18n } from 'vue-i18n'
 import Ripple from './Inspira/Ripple/Ripple.vue'
 
 const document = useDocumentStore()
@@ -36,7 +36,7 @@ function focusOnTitleEsc(e: { keyCode: number }) {
   </div>
   <button
     :class="document.show_sidebar_documents ? 'left-80 ' : ' ml-12'"
-    class="m-1 fixed bg-primary/5 ring-2 ring-primary  flex justify-center items-center  z-59 inset-0"
+    class="m-1 fixed ring-2 ring-primary  flex justify-center items-center inset-0"
     @click="focusOnTitle()" @keydown="focusOnTitleEsc($event)"
   >
     <span class="sr-only">{{ t('message.clickToEdit') }}</span>

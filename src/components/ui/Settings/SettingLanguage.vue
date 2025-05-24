@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DropdownLanguage from '@/components/ui/DropdownLanguage.vue'
 import { useI18n } from 'vue-i18n'
+import DropdownLanguage from '@/components/ui/DropdownLanguage.vue'
 
 const { t } = useI18n()
 </script>

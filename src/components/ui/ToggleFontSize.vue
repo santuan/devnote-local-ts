@@ -1,7 +1,4 @@
 <script setup lang='ts'>
-import CornerBottomRight from '@/assets/corner-bottom-right.vue'
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useDocumentStore } from '@/stores/document'
 import { useStorage } from '@vueuse/core'
 import { AArrowDown, AArrowUp, Check } from 'lucide-vue-next'
 import {
@@ -14,6 +11,9 @@ import {
 } from 'reka-ui'
 import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import CornerBottomRight from '@/assets/corner-bottom-right.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useDocumentStore } from '@/stores/document'
 
 const document_store = useDocumentStore()
 const appFontSize = useStorage('appFontSize', 'app-font-size-md')

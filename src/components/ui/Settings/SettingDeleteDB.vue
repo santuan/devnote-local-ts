@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DialogDeleteDB from '@/components/ui/Dialogs/DialogDeleteDB.vue'
 import { useI18n } from 'vue-i18n'
+import DialogDeleteDB from '@/components/ui/Dialogs/DialogDeleteDB.vue'
 
 const { t } = useI18n()
 </script>

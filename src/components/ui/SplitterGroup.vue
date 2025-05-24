@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useDatabaseStore } from '@/stores/database'
-import { useDocumentStore } from '@/stores/document'
 import { useMagicKeys, whenever } from '@vueuse/core'
 import { ArrowRightToLine } from 'lucide-vue-next'
 import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'reka-ui'
 import { shallowRef } from 'vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useDatabaseStore } from '@/stores/database'
+import { useDocumentStore } from '@/stores/document'
 
 const document = useDocumentStore()
 const database = useDatabaseStore()

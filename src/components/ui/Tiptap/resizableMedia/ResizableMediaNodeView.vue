@@ -2,9 +2,8 @@
 import type { Editor, Node } from '@tiptap/vue-3'
 import type { Node as ProseMirrorNode } from 'prosemirror-model'
 import type { Decoration } from 'prosemirror-view'
-import { useDocumentStore } from '@/stores/document'
-
 import NumberFlow, { continuous } from '@number-flow/vue'
+
 import { NodeViewWrapper } from '@tiptap/vue-3'
 import {
   AlignCenterVertical,
@@ -19,13 +18,14 @@ import {
 } from 'lucide-vue-next'
 import { DialogClose, DialogContent, DialogDescription, DialogOverlay, DialogPortal, DialogRoot, DialogTitle, DialogTrigger, NumberFieldInput, NumberFieldRoot, PopoverContent, PopoverPortal, PopoverRoot, PopoverTrigger, SliderRange, SliderRoot, SliderThumb, SliderTrack, ToggleGroupItem, ToggleGroupRoot, TooltipContent, TooltipPortal, TooltipProvider, TooltipRoot, TooltipTrigger } from 'reka-ui'
 import { computed, onMounted, ref, watch } from 'vue'
-
 /* Disclaimer. All this folder is based upon work of sereneinserenade tiptap-media-resize
 Tiptap Extension for having resizable, alignable, floatable, movable media.
 https://github.com/sereneinserenade/tiptap-media-resize
 
 ** I have made some changes to the original code. */
 import { useI18n } from 'vue-i18n'
+
+import { useDocumentStore } from '@/stores/document'
 import { resizableMediaActions } from './resizableMediaMenuUtil'
 
 const props = defineProps<Props>()

@@ -1,8 +1,5 @@
 <script setup lang='ts'>
-import { useDatabaseStore } from '@/stores/database'
-import { useModalStore } from '@/stores/modal'
 import { refDebounced } from '@vueuse/core'
-
 import { Upload, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 
@@ -16,7 +13,10 @@ import {
   DialogTitle,
 } from 'reka-ui'
 import { shallowRef, watch } from 'vue'
+
 import { useI18n } from 'vue-i18n'
+import { useDatabaseStore } from '@/stores/database'
+import { useModalStore } from '@/stores/modal'
 
 const database = useDatabaseStore()
 const modal = useModalStore()

@@ -73,7 +73,8 @@
     "contentEditable": "Cambiar a modo editable",
     "contentPreview": "Cambiar a previsualizar",
     "markAsDone": "Marcar como completo",
-    "markAsUndone": "Descarmar"
+    "markAsUndone": "Descarmar",
+    "showPinned": "Mostrar solo fijados"
   },
   "settings": {
     "title": "Configuraciones",
@@ -129,7 +130,7 @@
     "focusSidebar": "Lateral",
     "focusDocumentsList": "Listado de documentos",
     "focusTitle": "Título del documento",
-    "focusEditor": "En el editor",
+    "focusEditor": "Al editor",
     "focusToolbar": "Barra de herramientas"
   },
   "message": {

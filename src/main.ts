@@ -5,6 +5,7 @@ import App from './App.vue'
 import { i18n } from './i18n'
 import './assets/main.css'
 import './assets/driver.css'
+import 'vue-sonner/style.css'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

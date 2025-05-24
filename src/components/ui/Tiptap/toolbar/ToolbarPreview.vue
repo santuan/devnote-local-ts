@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useDocumentStore } from '@/stores/document'
 import { Eye } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useDocumentStore } from '@/stores/document'
 
 const document = useDocumentStore()
 const { t } = useI18n()

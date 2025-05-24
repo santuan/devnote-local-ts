@@ -1,8 +1,6 @@
 <script setup lang='ts'>
-import { useDatabaseStore } from '@/stores/database'
-
-import { useModalStore } from '@/stores/modal'
 import { X } from 'lucide-vue-next'
+
 import { storeToRefs } from 'pinia'
 import {
   DialogClose,
@@ -16,6 +14,8 @@ import {
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
+import { useDatabaseStore } from '@/stores/database'
+import { useModalStore } from '@/stores/modal'
 
 const database = useDatabaseStore()
 const modal = useModalStore()

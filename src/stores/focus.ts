@@ -1,6 +1,6 @@
-import { useDocumentStore } from '@/stores/document'
 import { defineStore } from 'pinia'
 import { shallowRef } from 'vue'
+import { useDocumentStore } from '@/stores/document'
 
 export const useFocusStore = defineStore('focus', () => {
   const focus_title_textarea = shallowRef<HTMLElement | null>(null)

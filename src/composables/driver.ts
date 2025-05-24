@@ -1,6 +1,6 @@
-import { useSettingsStore } from '@/stores/settings'
 import { driver } from 'driver.js'
 import { storeToRefs } from 'pinia'
+import { useSettingsStore } from '@/stores/settings'
 import 'driver.js/dist/driver.css'
 
 function DriverJsInit() {

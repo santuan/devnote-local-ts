@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import ButtonCreateDocument from '@/components/ui/ButtonCreateDocument.vue'
-import TextGenerateEffect from '@/components/ui/Inspira/TextGenerateEffect.vue'
-import { allItemsChecked } from '@/composables/queries'
-import { useDatabaseStore } from '@/stores/database'
-import { useFocusStore } from '@/stores/focus'
-import { useModalStore } from '@/stores/modal'
-import { useSettingsStore } from '@/stores/settings'
 import NumberFlow from '@number-flow/vue'
-
 import { Pin } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
@@ -17,6 +9,14 @@ import {
   ScrollAreaViewport,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import ButtonCreateDocument from '@/components/ui/ButtonCreateDocument.vue'
+import TextGenerateEffect from '@/components/ui/Inspira/TextGenerateEffect.vue'
+import { allItemsChecked } from '@/composables/queries'
+
+import { useDatabaseStore } from '@/stores/database'
+import { useFocusStore } from '@/stores/focus'
+import { useModalStore } from '@/stores/modal'
+import { useSettingsStore } from '@/stores/settings'
 import SearchItem from './SearchItem.vue'
 import SearchItemChecked from './SearchItemChecked.vue'
 import SelectSort from './ui/SelectSort.vue'
@@ -41,15 +41,17 @@ function toggleFixedFilter() {
   <div class="h-full @container">
     <ButtonCreateDocument />
     <div
-      class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary bg-primary/5 border-t border-primary/5 justify-start items-center"
+      class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary border-t border-primary/5 justify-start items-center"
     >
-      <button ref="focus_documents" class="p-2 size-8" title="Show only fixed items" @click="toggleFixedFilter()">
-        <Pin
-          class="origin-center size-4"
-          :class="[{ 'fill-current text-primary': setting.show_favorites }]"
-        />
-      </button>
-      <Tooltip :name="t('settings.editDBname')" side="top">
+      <Tooltip :name="t('sidebar.showPinned')" side="top" shortcut="ctrl + alt + shift + F">
+        <button ref="focus_documents" class="p-2 size-8" title="Show only fixed items" @click="toggleFixedFilter()">
+          <Pin
+            class="origin-center size-4"
+            :class="[{ 'fill-current text-primary': setting.show_favorites }]"
+          />
+        </button>
+      </Tooltip>
+      <Tooltip :name="t('settings.editDBname')" side="top" shortcut="ctrl + alt + shift + E">
         <button
           class="text-xs outline-hidden w-40 text-primary flex justify-start items-center gap-1 hover:outline-1 hover:outline-primary hover:outline-offset-4 focus-visible:outline-offset-4 focus-visible:outline-dotted focus-visible:outline-1 focus-visible:outline-primary"
           @click="modal.show_export_db = true"
@@ -85,7 +87,7 @@ function toggleFixedFilter() {
             class="flex items-center justify-center w-full text-center"
           >
             <p
-              class="flex flex-col items-center justify-center w-64 gap-3 p-3 text-xs bg-primary/10 text-muted-foreground text-pretty"
+              class="flex flex-col items-center justify-center w-64 gap-3 p-3 text-xs bg-primary/10 text-foreground text-pretty"
             >
               <TextGenerateEffect :words="t('sidebar.noPinDocuments')" :delay="150" />
             </p>

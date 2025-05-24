@@ -1,15 +1,6 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-
-import { allItemsTodo } from '@/composables/queries'
-import { useIsMobile } from '@/composables/useIsMobile'
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
-import { useDatabaseStore } from '@/stores/database'
-import { useDocumentStore } from '@/stores/document'
-import { useEditorStore } from '@/stores/editor'
-import { useFocusStore } from '@/stores/focus'
-import { useModalStore } from '@/stores/modal'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
 import { Search, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
@@ -31,6 +22,15 @@ import {
 } from 'reka-ui'
 import { nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { allItemsTodo } from '@/composables/queries'
+import { useIsMobile } from '@/composables/useIsMobile'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import { useDatabaseStore } from '@/stores/database'
+import { useDocumentStore } from '@/stores/document'
+import { useEditorStore } from '@/stores/editor'
+import { useFocusStore } from '@/stores/focus'
+import { useModalStore } from '@/stores/modal'
 
 const focus = useFocusStore()
 const database = useDatabaseStore()

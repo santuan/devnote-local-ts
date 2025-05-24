@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useDocumentStore } from '@/stores/document'
-
-import { useEditorStore } from '@/stores/editor'
 import { storeToRefs } from 'pinia'
+
 import {
   ContextMenuContent,
   ContextMenuItem,
@@ -13,6 +11,8 @@ import {
   ContextMenuTrigger,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import { useDocumentStore } from '@/stores/document'
+import { useEditorStore } from '@/stores/editor'
 
 const document = useDocumentStore()
 const editor_store = useEditorStore()

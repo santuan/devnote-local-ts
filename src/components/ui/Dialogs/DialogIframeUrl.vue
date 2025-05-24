@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useEditorStore } from '@/stores/editor'
-import { useModalStore } from '@/stores/modal'
 import { X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
@@ -14,6 +12,8 @@ import {
 } from 'reka-ui'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useEditorStore } from '@/stores/editor'
+import { useModalStore } from '@/stores/modal'
 
 const emit = defineEmits<{
   (e: 'submit', url: string): void

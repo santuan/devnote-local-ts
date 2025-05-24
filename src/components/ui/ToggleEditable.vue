@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useDocumentStore } from '@/stores/document'
 import { BookOpenText, PencilLine } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useDocumentStore } from '@/stores/document'
 
 const document = useDocumentStore()
 const { t } = useI18n()
@@ -10,7 +10,7 @@ const { t } = useI18n()
 
 <template>
   <div
-    class="fixed bottom-0 z-10 flex items-center justify-center left-12 md:left-0 right-12 print:hidden lg:left-auto md:justify-start lg:bottom-auto lg:top-1 lg:right-0"
+    class="fixed bottom-0 z-30 flex items-center justify-center left-0 md:left-0 print:hidden lg:left-auto md:justify-start lg:bottom-auto lg:top-1 lg:right-0"
     :class="document.content_editable ? '' : ''"
   >
     <Tooltip

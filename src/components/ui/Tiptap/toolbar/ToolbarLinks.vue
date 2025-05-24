@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import DialogLinkUrl from '@/components/ui/Dialogs/DialogLinkUrl.vue'
-
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useSetLink } from '@/composables/useSetLink'
-import { useEditorStore } from '@/stores/editor'
 import { Link2, Unlink2 } from 'lucide-vue-next'
+
 import { storeToRefs } from 'pinia'
 import { ToolbarButton } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import DialogLinkUrl from '@/components/ui/Dialogs/DialogLinkUrl.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useSetLink } from '@/composables/useSetLink'
+import { useEditorStore } from '@/stores/editor'
 
 const document = useEditorStore()
 const { editor } = storeToRefs(document)

@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 import SidebarDocuments from '@/components/SidebarDocuments.vue'
 import SidebarTop from '@/components/SidebarTop.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
 import { useMagicKeysStore } from '@/stores/magic-keys'
-import { storeToRefs } from 'pinia'
-import { useI18n } from 'vue-i18n'
 import Tooltip from './ui/Tooltip.vue'
 
 const focus_store = useFocusStore()
@@ -21,11 +21,11 @@ function toggleMenu() {
 </script>
 
 <template>
-  <div v-if="!document.show_sidebar_documents" class="fixed bottom-0 md:bottom-auto md:top-0.5 left-0 bg-background md:m-1 z-50">
+  <div v-if="!document.show_sidebar_documents" class="fixed top-0.5 left-0 bg-background m-1 z-[999] md:z-50">
     <Tooltip :name="`${t('verb.open')} panel`" shortcut="Ctrl m" side="bottom">
       <button
         ref="focus_menu"
-        class="flex items-center justify-center gap-2 p-1 md:justify-start size-10 md:w-8 md:h-8 focus-visible:ring-1 focus-within:ring-1 focus-within:ring-primary focus-visible:ring-primary"
+        class="flex items-center justify-center gap-2 p-1 md:justify-start size-8 md:w-8 md:h-8 focus-visible:ring-1 focus-within:ring-1 focus-within:ring-primary focus-visible:ring-primary"
         @click="toggleMenu()"
       >
         <svg

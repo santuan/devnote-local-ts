@@ -1,16 +1,16 @@
 import type { Documents } from '@/db'
-import { allItemsTodo } from '@/composables/queries'
-import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
-import { db } from '@/db'
-
-import { useDocumentStore } from '@/stores/document'
-import { useModalStore } from '@/stores/modal'
 import { useStorage } from '@vueuse/core'
 import { exportDB, importInto } from 'dexie-export-import'
 import { defineStore } from 'pinia'
+
 import { computed, ref, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
+import { allItemsTodo } from '@/composables/queries'
+import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
+import { db } from '@/db'
+import { useDocumentStore } from '@/stores/document'
+import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from './settings'
 
 export const useDatabaseStore = defineStore('database', () => {
@@ -119,7 +119,6 @@ export const useDatabaseStore = defineStore('database', () => {
           date_created: item.document_data?.date_created,
         },
       })
-      // document_fixed.value = !isFixed
     }
     catch (error) {
       handle_error('Error al marcar el proyecto', error)
@@ -162,6 +161,12 @@ export const useDatabaseStore = defineStore('database', () => {
     try {
       await db.documents.delete(loaded_id.value)
       document_store.clear_editor()
+
+      // After deleting, try to load the first available document
+      const firstDoc = await db.documents.orderBy('date').first()
+      if (firstDoc) {
+        set_document(firstDoc.id)
+      }
     }
     catch (error) {
       handle_error('Error al eliminar el proyecto', error)
@@ -201,6 +206,23 @@ export const useDatabaseStore = defineStore('database', () => {
           file_name.value = dbFile[0].name
         }
       }
+      const documents = await db.documents.toArray()
+      const sortedDocs = documents
+        .filter(doc => doc.document_data?.date_created) // Filter out docs without date_created
+        .sort((a, b) => {
+          const dateA = new Date(a.document_data.date_created)
+          const dateB = new Date(b.document_data.date_created)
+          return dateB - dateA // Ascending order (oldest first)
+        })
+
+      if (sortedDocs.length > 0) {
+        set_document(sortedDocs[0].id)
+      }
+      // Load first document if any exists
+      // const firstDoc = await db.documents.orderBy('id').reverse().first()
+      // if (firstDoc) {
+      //   set_document(firstDoc.id)
+      // }
     }
     catch (error) {
       handle_error('Error al configurar la base de datos', error)

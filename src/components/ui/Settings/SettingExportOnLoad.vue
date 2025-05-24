@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useSettingsStore } from '@/stores/settings'
 import { DatabaseZap } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import { useSettingsStore } from '@/stores/settings'
 
 const settings = useSettingsStore()
 const { t } = useI18n()

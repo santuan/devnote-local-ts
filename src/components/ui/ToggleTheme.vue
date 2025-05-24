@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import CornerBottomRight from '@/assets/corner-bottom-right.vue'
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useToggleColorTheme } from '@/composables/useToggleColorTheme'
 import { useColorMode } from '@vueuse/core'
 import { Moon, SunMedium } from 'lucide-vue-next'
 import {
@@ -15,6 +12,9 @@ import {
   DropdownMenuTrigger,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import CornerBottomRight from '@/assets/corner-bottom-right.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useToggleColorTheme } from '@/composables/useToggleColorTheme'
 
 const mode = useColorMode()
 const { t } = useI18n()

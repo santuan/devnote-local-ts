@@ -1,7 +1,7 @@
-import { useDatabaseStore } from '@/stores/database'
-import { useEditorStore } from '@/stores/editor'
 import { defineStore, storeToRefs } from 'pinia'
 import { shallowRef } from 'vue'
+import { useDatabaseStore } from '@/stores/database'
+import { useEditorStore } from '@/stores/editor'
 
 export const useDocumentStore = defineStore('document', () => {
   const database = useDatabaseStore()

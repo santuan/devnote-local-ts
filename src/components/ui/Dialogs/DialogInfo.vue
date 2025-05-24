@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-
-import { useIsMobile } from '@/composables/useIsMobile'
-import { useModalStore } from '@/stores/modal'
 import { Info, X } from 'lucide-vue-next'
+
 import {
   DialogClose,
   DialogContent,
@@ -19,6 +16,9 @@ import {
   ScrollAreaViewport,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useIsMobile } from '@/composables/useIsMobile'
+import { useModalStore } from '@/stores/modal'
 
 const { isMobile } = useIsMobile()
 
@@ -57,7 +57,7 @@ const { t, locale } = useI18n()
                 class="max-w-full p-3 mx-auto prose prose-ul:list-none prose-ul:pl-0 dark:prose-invert"
               >
                 <DialogDescription
-                  class="inline-block p-3 mt-3 mb-3 text-sm leading-relaxed rounded text-foreground bg-primary/20"
+                  class="inline-block p-3 mt-3 mb-3 text-sm leading-relaxed rounded text-foreground border border-primary"
                 >
                   Esto es una beta, no utilizar más que para realizar pruebas.
                 </DialogDescription>
@@ -185,7 +185,7 @@ const { t, locale } = useI18n()
                 class="max-w-full p-3 mx-auto prose prose-ul:list-none prose-ul:pl-0 dark:prose-invert"
               >
                 <DialogDescription
-                  class="inline-block p-3 mt-3 mb-3 leading-relaxed text-sm rounded text-foreground bg-primary/20"
+                  class="inline-block p-3 mt-3 mb-3 text-sm leading-relaxed rounded text-foreground border border-primary"
                 >
                   This is an beta version; use it only for testing purposes. Currently adapting to
                   work well with <a href="https://nvda.es/">NVDA</a>.
@@ -333,7 +333,7 @@ const { t, locale } = useI18n()
 @reference "@/assets/main.css";
 
 code {
-  @apply bg-primary/20 break-all px-1 mx-0.5 rounded py-0.5 text-foreground ring-1 ring-primary/30 font-light text-sm;
+  @apply border border-primary break-all px-1 mx-0.5 rounded py-0.5 text-foreground ring-1 ring-primary/30 font-light text-sm;
 }
 
 code::after,

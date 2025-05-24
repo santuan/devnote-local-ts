@@ -1,6 +1,6 @@
-import { useModalStore } from '@/stores/modal'
 import { onMounted, onUnmounted, ref } from 'vue'
 import { toast } from 'vue-sonner'
+import { useModalStore } from '@/stores/modal'
 
 export function usePullToRefresh(elementRef: any) {
   const modal = useModalStore()

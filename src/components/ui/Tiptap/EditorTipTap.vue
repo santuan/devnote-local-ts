@@ -397,7 +397,7 @@ html.dark .shiki span {
 }
 
 .iframeContainer iframe {
-  @apply mx-auto h-[80vh] relative w-full;
+  @apply mx-auto h-[70vh] relative w-full;
 }
 
 .iframeContainer .iframeEditButton {

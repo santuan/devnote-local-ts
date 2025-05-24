@@ -1,11 +1,11 @@
 <script lang="ts">
-import RadixVirtual from '@/components/ui/Tiptap/RadixVirtual.vue'
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { useElementSize } from '@vueuse/core'
 import { Clipboard, ClipboardCheck, FoldVertical, UnfoldVertical } from 'lucide-vue-next'
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
 import { bundledLanguages } from 'shiki/bundle/web'
 import { shallowRef } from 'vue'
+import RadixVirtual from '@/components/ui/Tiptap/RadixVirtual.vue'
 
 export default {
   components: {

@@ -70,7 +70,7 @@ function toggleFixed(item: any, isfixed: any) {
 <template>
   <div
     class="relative flex items-center justify-between w-full pr-3 pl-0.5 min-h-8 gap-2 md:pr-2 hover:ring-1 hover:bg-primary/10 hover:ring-primary"
-    :class="loaded_id === props.data.id ? ' ring-1 bg-primary/10 ring-primary/70' : ''
+    :class="loaded_id === props.data.id ? ' ring-1 ring-primary/70' : ''
     "
   >
     <div class="flex items-center">

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Documents } from '@/db'
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { useDatabaseStore } from '@/stores/database'
 import { CircleOff } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useDatabaseStore } from '@/stores/database'
 
 const props = defineProps({
   data: {

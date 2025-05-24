@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useDocumentStore } from '@/stores/document'
 import { useStorage } from '@vueuse/core'
 import { Check, ChevronDown, RotateCcw, X } from 'lucide-vue-next'
 import {
@@ -17,6 +16,7 @@ import {
 } from 'reka-ui'
 import { computed, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useDocumentStore } from '@/stores/document'
 
 const props = defineProps({
   modelValue: {

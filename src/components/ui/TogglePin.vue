@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-import { db } from '@/db'
-import { useDatabaseStore } from '@/stores/database'
 import { Pin } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { db } from '@/db'
+import { useDatabaseStore } from '@/stores/database'
 
 const database = useDatabaseStore()
 const { t } = useI18n()

@@ -1,3 +1,5 @@
+import { useMagicKeys, whenever } from '@vueuse/core'
+import { defineStore, storeToRefs } from 'pinia'
 // import { useFontSize } from '@/composables/useFontSize'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
@@ -5,8 +7,6 @@ import { useEditorStore } from '@/stores/editor'
 import { useFocusStore } from '@/stores/focus'
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'
-import { useMagicKeys, whenever } from '@vueuse/core'
-import { defineStore, storeToRefs } from 'pinia'
 
 export const useMagicKeysStore = defineStore('magic-keys', () => {
   const keys = useMagicKeys()

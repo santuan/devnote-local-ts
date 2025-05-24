@@ -73,7 +73,8 @@
     "contentEditable": "Editable mode",
     "contentPreview": "Preview mode",
     "markAsDone": "Mark as done",
-    "markAsUndone": "Mark as undone"
+    "markAsUndone": "Mark as undone",
+    "showPinned": "Show pinned only"
   },
   "settings": {
     "title": "Settings",

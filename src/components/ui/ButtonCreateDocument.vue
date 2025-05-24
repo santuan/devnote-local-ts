@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useDatabaseStore } from '@/stores/database'
-import { useDocumentStore } from '@/stores/document'
-import { useFocusStore } from '@/stores/focus'
 import { breakpointsTailwind, useBreakpoints, useMagicKeys, whenever } from '@vueuse/core'
 import { Plus } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
+import { useDatabaseStore } from '@/stores/database'
+import { useDocumentStore } from '@/stores/document'
+import { useFocusStore } from '@/stores/focus'
 
 const keys = useMagicKeys()
 const focus_store = useFocusStore()

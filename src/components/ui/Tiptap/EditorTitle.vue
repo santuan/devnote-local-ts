@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { Keyboard } from 'lucide-vue-next'
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useIsMobile } from '@/composables/useIsMobile'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
-import { Keyboard } from 'lucide-vue-next'
-import { storeToRefs } from 'pinia'
-import { useI18n } from 'vue-i18n'
 
 const { isMobile } = useIsMobile()
 
@@ -29,7 +29,7 @@ const { t } = useI18n()
         autocomplete="off"
         spellcheck="false"
         style="field-sizing: content"
-        class="w-full pr-8 px-2 py-0.5 overflow-hidden ring-1 outline-hidden resize-none leading-8 max-h-9 md:max-h-auto min-h-8 TextareaProjectName bg-secondary/30 text-foreground ring-secondary focus-within:ring-primary placeholder:text-primary/50 hover:ring-primary ring-inset focus:max-h-full line-clamp-1 focus:overflow-visible focus:line-clamp-none"
+        class="w-full ml-10 md:ml-0 pr-8 px-2 py-0.5 overflow-hidden ring-1 outline-hidden resize-none leading-8 max-h-9 md:max-h-auto min-h-8 TextareaProjectName bg-secondary/30 text-foreground ring-secondary focus-within:ring-primary placeholder:text-primary/50 hover:ring-primary ring-inset focus:max-h-full line-clamp-1 focus:overflow-visible focus:line-clamp-none"
         @keyup.ctrl.enter="db_store.loaded_id ? null : db_store.create_document()"
       />
     </label>

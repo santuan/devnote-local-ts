@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useEditorStore } from '@/stores/editor'
-
 import { ChevronDown } from 'lucide-vue-next'
+
 import { storeToRefs } from 'pinia'
 import {
   DropdownMenuContent,
@@ -11,6 +10,7 @@ import {
   ToolbarButton,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import { useEditorStore } from '@/stores/editor'
 
 const document = useEditorStore()
 const { editor } = storeToRefs(document)

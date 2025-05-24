@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { useDocumentStore } from '@/stores/document'
-import { useEditorStore } from '@/stores/editor'
-import { useFocusStore } from '@/stores/focus'
-import { useModalStore } from '@/stores/modal'
 import { ChevronDown, LucideArrowRight } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
@@ -16,6 +12,10 @@ import {
 } from 'reka-ui'
 import { nextTick, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useDocumentStore } from '@/stores/document'
+import { useEditorStore } from '@/stores/editor'
+import { useFocusStore } from '@/stores/focus'
+import { useModalStore } from '@/stores/modal'
 
 const modal = useModalStore()
 

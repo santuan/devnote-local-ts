@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { SquareMousePointer } from 'lucide-vue-next'
+import { storeToRefs } from 'pinia'
+import { ToolbarButton } from 'reka-ui'
 import DialogIframeUrl from '@/components/ui/Dialogs/DialogIframeUrl.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useEditorStore } from '@/stores/editor'
 import { useModalStore } from '@/stores/modal'
-import { SquareMousePointer } from 'lucide-vue-next'
-import { storeToRefs } from 'pinia'
-import { ToolbarButton } from 'reka-ui'
 
 const document = useEditorStore()
 const modal = useModalStore()

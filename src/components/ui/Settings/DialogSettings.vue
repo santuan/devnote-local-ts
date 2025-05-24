@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-
-import { useIsMobile } from '@/composables/useIsMobile'
-import { useModalStore } from '@/stores/modal'
 import { Settings2, X } from 'lucide-vue-next'
-import { storeToRefs } from 'pinia'
 
+import { storeToRefs } from 'pinia'
 import {
   DialogClose,
   DialogContent,
@@ -16,8 +12,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from 'reka-ui'
-
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
+
+import { useIsMobile } from '@/composables/useIsMobile'
+
+import { useModalStore } from '@/stores/modal'
 import SettingCursor from './SettingCursor.vue'
 import SettingDeleteDB from './SettingDeleteDB.vue'
 import SettingLanguage from './SettingLanguage.vue'

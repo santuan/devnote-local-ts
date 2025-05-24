@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Tooltip from '@/components/ui/Tooltip.vue'
-
-import { useEditorStore } from '@/stores/editor'
 import { storeToRefs } from 'pinia'
 
 import { ToolbarButton } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+
+import Tooltip from '@/components/ui/Tooltip.vue'
+import { useEditorStore } from '@/stores/editor'
 
 const document = useEditorStore()
 const { editor } = storeToRefs(document)
