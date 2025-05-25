@@ -64,6 +64,7 @@
     "noResultsDescription": "Aquí se mostrarán sus documentos.",
     "noPinDocuments": "Aquí se mostrarán sus documentos fijados.",
     "sort": {
+      "placeholder": "seleccionar",
       "sort": "Ordenar por",
       "name": "Nombre",
       "date": "Fecha"

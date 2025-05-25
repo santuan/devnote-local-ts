@@ -64,6 +64,7 @@
     "noResultsDescription": "Here you will find a list of your documents",
     "noPinDocuments": "No pin documents",
     "sort": {
+      "placeholder": "select",
       "sort": "Sort by",
       "name": "Title",
       "date": "Date"

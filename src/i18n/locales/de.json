@@ -64,8 +64,9 @@
     "noResultsDescription": "Hier finden Sie eine Liste Ihrer Dokumente",
     "noPinDocuments": "Keine angehefteten Dokumente",
     "sort": {
+      "placeholder": "auswählen",
       "sort": "Sortieren nach",
-      "name": "Titel",
+      "name": "Name",
       "date": "Datum"
     },
     "theme": "Farbthema",

@@ -18,16 +18,16 @@ import {
 import { useI18n } from 'vue-i18n'
 
 const sortOption = useStorage('sortItemsBy', 'name_asc')
-const { t } = useI18n()
+const { t, locale } = useI18n()
 </script>
 
 <template>
-  <SelectRoot v-model="sortOption">
+  <SelectRoot :key="locale" v-model="sortOption">
     <SelectTrigger
       class="flex items-center justify-between ml-2 w-28 h-8.5 px-1 text-xs border min-w-24 border-secondary shrink-0 bg-background text-secondary-foreground"
       :aria-label="`${t('sidebar.sort.sort')} documents list`"
     >
-      <SelectValue placeholder="Seleccionar" />
+      <SelectValue :placeholder="t('sidebar.sort.placeholder')" />
       <ChevronDown class="h-3.5 w-3.5" />
       <span class="sr-only">{{ t('sidebar.sort.sort') }}</span>
     </SelectTrigger>
@@ -50,7 +50,7 @@ const { t } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.name') }} asc</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.name') }} AZ</SelectItemText>
             </SelectItem>
             <SelectItem
               class="text-xs leading-none text-foreground flex items-center h-8 px-1 py-2 pr-12 relative select-none data-disabled:text-foreground/30 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-secondary/50 data-highlighted:text-foreground"
@@ -59,7 +59,7 @@ const { t } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.name') }} desc</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.name') }} ZA</SelectItemText>
             </SelectItem>
             <SelectItem
               class="text-xs leading-none text-foreground flex items-center h-8 px-1 py-2 pr-12 relative select-none data-disabled:text-foreground/30 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-secondary/50 data-highlighted:text-foreground"
@@ -68,7 +68,7 @@ const { t } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.date') }} asc</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.date') }} AZ</SelectItemText>
             </SelectItem>
             <SelectItem
               class="text-xs leading-none text-foreground flex items-center h-8 px-1 py-2 pr-12 relative select-none data-disabled:text-foreground/30 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-secondary/50 data-highlighted:text-foreground"
@@ -77,7 +77,7 @@ const { t } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.date') }} desc</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.date') }} ZA</SelectItemText>
             </SelectItem>
           </SelectGroup>
         </SelectViewport>

@@ -64,6 +64,7 @@
     "noResultsDescription": "Vous trouverez ici une liste de vos documents",
     "noPinDocuments": "Aucun document épinglé",
     "sort": {
+      "placeholder": "sélectionner",
       "sort": "Trier par",
       "name": "Titre",
       "date": "Date"

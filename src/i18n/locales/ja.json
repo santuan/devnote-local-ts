@@ -64,8 +64,9 @@
     "noResultsDescription": "ドキュメントのリストがここに表示されます",
     "noPinDocuments": "固定されたドキュメントはありません",
     "sort": {
-      "sort": "並べ替え",
-      "name": "タイトル",
+      "placeholder": "選択する",
+      "sort": "並び替え",
+      "name": "名前",
       "date": "日付"
     },
     "theme": "カラーテーマ",
