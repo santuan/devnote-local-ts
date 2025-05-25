@@ -24,7 +24,7 @@ const { t, locale } = useI18n()
 <template>
   <SelectRoot :key="locale" v-model="sortOption">
     <SelectTrigger
-      class="flex items-center justify-between ml-2 w-28 h-8.5 px-1 text-xs border min-w-24 border-secondary shrink-0 bg-background text-secondary-foreground"
+      class="SelectTrigger flex items-center justify-between ml-2 w-28 h-8.5 px-1 text-xs border min-w-24 border-secondary shrink-0 bg-background text-secondary-foreground"
       :aria-label="`${t('sidebar.sort.sort')} documents list`"
     >
       <SelectValue :placeholder="t('sidebar.sort.placeholder')" />
@@ -85,3 +85,16 @@ const { t, locale } = useI18n()
     </SelectPortal>
   </SelectRoot>
 </template>
+
+<style scoped>
+@reference "@/assets/main.css";
+
+.SelectTrigger span[data-placeholder="select"],
+.SelectTrigger span[data-placeholder="seleccionar"],
+.SelectTrigger span[data-placeholder="auswählen"],
+.SelectTrigger span[data-placeholder="sélectionner"],
+.SelectTrigger span[data-placeholder="выбирать"],
+.SelectTrigger span[data-placeholder="選択する"] {
+    @apply text-foreground/25
+}
+</style>

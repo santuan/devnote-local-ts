@@ -75,7 +75,7 @@ function toggleFixed(item: any, isfixed: any) {
   >
     <div class="flex items-center">
       <button
-        class="flex items-center justify-center w-6 h-6 py-1 mx-0 outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:outline-offset-2"
+        class="flex items-center justify-center w-6 h-6 py-1 mx-0 outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:!outline-offset-2"
         @click="toggleFixed(props.data, props.data.document_data?.fixed)"
       >
         <Pin
@@ -88,12 +88,13 @@ function toggleFixed(item: any, isfixed: any) {
       </button>
     </div>
     <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="0">
-      <HoverCardTrigger
-        class="flex hover:text-primary! focus-visible:text-primary focus-visible:outline-1 focus-visible:outline-primary focus-visible:outline-offset-2 focus-visible:outline-dashed px-0.5 h-6 w-full items-center outline-hidden justify-start text-sm text-left"
-        :class="loaded_id === props.data.id ? 'text-primary' : ''" @dblclick="document.toggle_editable()"
-        @click="set_active_document(props.data.id)"
-      >
-        <span class="@sm:max-w-full max-w-80">
+      <HoverCardTrigger class="flex hover:text-primary!  px-0.5 h-6 w-full items-center  justify-start text-sm text-left ">
+        <button
+          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
+          :class="loaded_id === props.data.id ? 'text-primary' : ''"
+          @dblclick="document.toggle_editable()"
+          @click="set_active_document(props.data.id)"
+        >
           <template v-if="props.data.document_data?.name">
             <span class="sr-only">{{ t("verb.open") }}</span>
             {{
@@ -106,7 +107,7 @@ function toggleFixed(item: any, isfixed: any) {
           <template v-else>
             <span class="opacity-50">{{ t("editor.untitled") }}</span>
           </template>
-        </span>
+        </button>
       </HoverCardTrigger>
       <HoverCardPortal>
         <HoverCardContent

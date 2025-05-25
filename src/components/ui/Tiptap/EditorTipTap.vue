@@ -298,6 +298,10 @@ onBeforeUnmount(() => {
   @apply font-serif;
 }
 
+.tiptap p.is-editor-empty:first-child::before {
+  @apply !text-foreground/25
+}
+
 .tiptap table:first-of-type,
 .tiptap h1:first-of-type,
 .tiptap h2:first-of-type,
