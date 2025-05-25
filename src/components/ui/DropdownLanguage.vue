@@ -26,10 +26,9 @@ function setLocale(lang: any) {
     >
       <Tooltip :name="t('settings.language')" side="top" align="end">
         <span class="size-8 flex justify-center uppercase items-center">
-          <!-- <Languages class="size-4" /> -->
           {{ locale }}
         </span>
-        <span class="sr-only"> {{ t("settings.languageDescription") }}</span>
+        <span class="sr-only"> {{ t('settings.languageDescription') }}</span>
       </Tooltip>
     </DropdownMenuTrigger>
     <DropdownMenuContent
@@ -37,6 +36,12 @@ function setLocale(lang: any) {
       align="start"
       class="z-10 grid w-32 text-xs bg-secondary border border-primary"
     >
+      <DropdownMenuItem
+        class="p-2 hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset"
+        @click="setLocale('de')"
+      >
+        Deutsch
+      </DropdownMenuItem>
       <DropdownMenuItem
         class="p-2 hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset"
         @click="setLocale('en')"
@@ -48,6 +53,24 @@ function setLocale(lang: any) {
         @click="setLocale('es')"
       >
         Español
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        class="p-2 hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset"
+        @click="setLocale('fr')"
+      >
+        Français
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        class="p-2 hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset"
+        @click="setLocale('ja')"
+      >
+        日本語
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        class="p-2 hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset"
+        @click="setLocale('ru')"
+      >
+        Русский
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenuRoot>
