@@ -30,7 +30,7 @@ const { height } = useElementSize(toolbarSize)
       <Editor v-model="database.document_body" :editable="!document.content_editable" :toolbar="show_editor_toolbar">
         <h2
           v-show="!content_editable"
-          class="px-2 md:ml-0 ml-6 md:pl-5 md:p-4 mb-0 font-serif text-4xl md:text-5xl text-foreground md:pb-[1.155rem] font-black text-balance"
+          class="px-2 md:pl-5 md:p-4 mb-0 font-serif text-4xl md:text-5xl text-foreground md:pb-[1.155rem] font-black text-balance"
           :class="settings.show_heading_one_preview ? '' : 'sr-only'"
         >
           {{ database.document_name }}
