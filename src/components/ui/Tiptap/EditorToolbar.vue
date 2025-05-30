@@ -32,7 +32,7 @@ const { editor } = storeToRefs(editor_store)
     <div class="relative grid w-full max-w-full mx-auto control-group focus-visible:ring-2 focus-visible:ring-primary">
       <span ref="focus_toolbar" class="sr-only" tabindex="-1"> Toolbar </span>
       <ToolbarRoot
-        class="flex gap-0.5 pr-12 lg:pr-0 gap-y-1 justify-start select-none button-group items-center md:w-auto focus-visible:outline! focus-visible:outline-primary/10! focus-visible:outline-offset-[1.5px]!"
+        class="flex gap-0.5 pr-0 gap-y-1 justify-start select-none button-group items-center md:w-auto focus-visible:outline! focus-visible:outline-primary/10! focus-visible:outline-offset-[1.5px]!"
       >
         <ToolbarUndo />
         <ToolbarRedo />

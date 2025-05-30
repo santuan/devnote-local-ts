@@ -21,27 +21,29 @@ const { t } = useI18n()
   <DropdownMenuRoot>
     <ToolbarButton as-child>
       <DropdownMenuTrigger class="headingSelector interactive">
-        <template v-if="editor.isActive('heading', { level: 1 })">
-          {{ t("toolbar.heading1") }}
-        </template>
-        <template v-else-if="editor.isActive('heading', { level: 2 })">
-          {{ t("toolbar.heading2") }}
-        </template>
-        <template v-else-if="editor.isActive('heading', { level: 3 })">
-          {{ t("toolbar.heading3") }}
-        </template>
-        <template v-else-if="editor.isActive('heading', { level: 4 })">
-          {{ t("toolbar.heading4") }}
-        </template>
-        <template v-else-if="editor.isActive('heading', { level: 5 })">
-          {{ t("toolbar.heading5") }}
-        </template>
-        <template v-else-if="editor.isActive('heading', { level: 6 })">
-          {{ t("toolbar.heading6") }}
-        </template>
-        <template v-else>
-          {{ t("toolbar.paragraph") }}
-        </template>
+        <span class="w-32 truncate text-left ">
+          <template v-if="editor.isActive('heading', { level: 1 })">
+            {{ t("toolbar.heading1") }}
+          </template>
+          <template v-else-if="editor.isActive('heading', { level: 2 })">
+            {{ t("toolbar.heading2") }}
+          </template>
+          <template v-else-if="editor.isActive('heading', { level: 3 })">
+            {{ t("toolbar.heading3") }}
+          </template>
+          <template v-else-if="editor.isActive('heading', { level: 4 })">
+            {{ t("toolbar.heading4") }}
+          </template>
+          <template v-else-if="editor.isActive('heading', { level: 5 })">
+            {{ t("toolbar.heading5") }}
+          </template>
+          <template v-else-if="editor.isActive('heading', { level: 6 })">
+            {{ t("toolbar.heading6") }}
+          </template>
+          <template v-else>
+            {{ t("toolbar.paragraph") }}
+          </template>
+        </span>
         <ChevronDown class="size-4 shrink-0" />
       </DropdownMenuTrigger>
     </ToolbarButton>
@@ -109,7 +111,7 @@ const { t } = useI18n()
 
 .headingSelector {
   /* grid-column: 1 / 8; */
-  @apply flex items-center text-xs! justify-between! bg-background px-2;
+  @apply flex items-center text-xs! truncate justify-between! bg-background px-2;
   @apply min-w-40! max-w-40! w-full hover:z-10;
 }
 </style>
