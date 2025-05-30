@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-import { Search, X } from 'lucide-vue-next'
+import { Pin, Search, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
   ComboboxContent,
@@ -44,6 +44,7 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const largerThanLg = breakpoints.greater('lg')
 
 const { editor } = storeToRefs(editor_store)
+const { loaded_id } = storeToRefs(database)
 const { isMobile } = useIsMobile()
 const { t } = useI18n()
 
@@ -125,7 +126,7 @@ function focusOnSidebar() {
         class="fixed top-4 md:top-[15%] left-[50%] max-h-256 w-[90vw] max-w-2xl translate-x-[-50%] text-sm overflow-hidden border bg-background border-muted-foreground/30 focus:outline-hidden z-100"
       >
         <VisuallyHidden>
-          <DialogTitle>{{ t("commandBar.title") }}</DialogTitle>
+          <DialogTitle>{{ t("commandBar.title") }} </DialogTitle>
           <DialogDescription>{{ t("commandBar.description") }}</DialogDescription>
         </VisuallyHidden>
 
@@ -151,10 +152,15 @@ function focusOnSidebar() {
                 v-for="item in allItemsTodo"
                 :key="item.id"
                 :value="item.document_data?.name || item.id || ''"
-                class="cursor-default font-mono text-xs px-4 py-2 rounded-md text-foreground data-highlighted:bg-muted inline-flex w-full items-center gap-4"
+                class="cursor-default font-mono text-xs px-4 py-2 rounded-md text-foreground data-highlighted:bg-muted inline-flex justify-between w-full items-center gap-4"
+                :class="item.id === loaded_id ? 'text-primary' : ''"
                 @select="select_document(item.id)"
               >
                 <span>{{ item.document_data?.name || item.id }}</span>
+                <Pin
+                  v-if="item.document_data?.fixed"
+                  class="size-4 fill-current  text-primary"
+                />
               </ComboboxItem>
             </ComboboxGroup>
             <ComboboxGroup class="mt-6">
