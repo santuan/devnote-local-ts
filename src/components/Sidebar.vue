@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { useSwipe } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
+import { useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SidebarDocuments from '@/components/SidebarDocuments.vue'
 import SidebarTop from '@/components/SidebarTop.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
+
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import Tooltip from './ui/Tooltip.vue'
 
@@ -18,6 +21,15 @@ const { t } = useI18n()
 function toggleMenu() {
   document.show_sidebar_documents = !document.show_sidebar_documents
 }
+
+const el = useTemplateRef('el')
+const { isSwiping, direction } = useSwipe(el)
+
+watch([isSwiping, direction], ([newIsSwiping, newDirection]) => {
+  if (newIsSwiping && newDirection === 'right') {
+    toggleMenu()
+  }
+})
 </script>
 
 <template>
@@ -42,6 +54,7 @@ function toggleMenu() {
         <span class="sr-only">{{ t('verb.open') }} panel</span>
       </button>
     </Tooltip>
+    <div ref="el" class="top-12 bottom-12 fixed w-10" />
   </div>
   <div>
     <header
