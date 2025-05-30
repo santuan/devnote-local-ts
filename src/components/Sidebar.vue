@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSwipe } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { computed, useTemplateRef, watch } from 'vue'
+import { useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SidebarDocuments from '@/components/SidebarDocuments.vue'
 import SidebarTop from '@/components/SidebarTop.vue'
@@ -13,6 +13,7 @@ import Tooltip from './ui/Tooltip.vue'
 
 const focus_store = useFocusStore()
 const { focus_menu } = storeToRefs(focus_store)
+
 useMagicKeysStore()
 const document = useDocumentStore()
 const { t } = useI18n()
@@ -22,21 +23,12 @@ function toggleMenu() {
 }
 
 const el = useTemplateRef('el')
-const { isSwiping, direction, lengthX } = useSwipe(el)
-const containerWidth = computed(() => el.value?.offsetWidth)
+const { isSwiping, direction } = useSwipe(el)
 
 watch([isSwiping, direction], ([newIsSwiping, newDirection]) => {
   if (newIsSwiping && newDirection === 'right') {
     toggleMenu()
   }
-})
-
-const progress = computed(() => {
-  if (!isSwiping.value || !containerWidth.value || lengthX.value >= 0) {
-    return 0 // Reset progress if not swiping or swiping left
-  }
-  const calculatedProgress = (Math.abs(lengthX.value) / containerWidth.value) * 100
-  return Math.min(100, Math.max(0, Math.floor(calculatedProgress))) // Ensure 0-100 and integer
 })
 </script>
 
@@ -62,7 +54,7 @@ const progress = computed(() => {
         <span class="sr-only">{{ t('verb.open') }} panel</span>
       </button>
     </Tooltip>
-    <div ref="el" class="top-12 bottom-12 bg-primary fixed w-10" :style="`opacity:${progress / 100}`" />
+    <div ref="el" class="top-12 bottom-12 fixed w-10" />
   </div>
   <div>
     <header

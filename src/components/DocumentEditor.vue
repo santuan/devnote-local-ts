@@ -53,7 +53,7 @@ const { height } = useElementSize(toolbarSize)
 @reference "@/assets/main.css";
 
 .editor {
-  @apply relative mx-auto lg:w-full pl-12 pr-0.5 print:grid-rows-none;
+  @apply relative mx-auto lg:w-full pl-12 md:pl-2 pr-0.5 print:grid-rows-none;
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;
