@@ -13,8 +13,8 @@ const database = useDatabaseStore()
 
 <template>
   <div
-    class="Document w-full min-h-screen bg-background print:pl-0"
-    :class="document.show_sidebar_documents ? 'pl-0!' : 'md:pl-8!'"
+    class="Document w-full min-h-screen bg-background duration-1000 print:pl-0"
+    :class="document.show_sidebar_documents ? 'md:pl-80!' : 'md:pl-8!'"
   >
     <SplitterGroup>
       <DocumentEditor />
