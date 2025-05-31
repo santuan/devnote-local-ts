@@ -14,25 +14,25 @@ import Tooltip from './ui/Tooltip.vue'
 const focus_store = useFocusStore()
 const { focus_menu } = storeToRefs(focus_store)
 
-useMagicKeysStore()
-const document = useDocumentStore()
-const { t } = useI18n()
-
-function toggleMenu() {
-  document.show_sidebar_documents = !document.show_sidebar_documents
-}
-
 const el = useTemplateRef('el')
-const container = shallowRef<HTMLElement | null>(null)
 const left = shallowRef('0')
 const opacity = shallowRef(1)
 
 function reset() {
   left.value = '0'
   opacity.value = 0
+  isSwiping.value = false
+}
+useMagicKeysStore()
+const document = useDocumentStore()
+const { t } = useI18n()
+
+function toggleMenu() {
+  document.show_sidebar_documents = !document.show_sidebar_documents
+  reset()
 }
 
-const { direction, lengthX } = useSwipe(
+const { lengthX, isSwiping, direction } = useSwipe(
   el,
   {
     passive: false,
@@ -41,9 +41,10 @@ const { direction, lengthX } = useSwipe(
         if (Math.abs(lengthX.value) / 9 > 0 && Math.abs(lengthX.value) / 9 < 100) {
           const length = Math.abs(lengthX.value) / 9
           left.value = `${length}rem`
-          opacity.value = 1.1 - length
+          opacity.value = length / 9
           if (length > 20) {
             left.value = '0rem'
+            opacity.value = 1
             toggleMenu()
           }
         }
@@ -57,6 +58,7 @@ const { direction, lengthX } = useSwipe(
       const length = Math.abs(lengthX.value) / 9
       if (length > 20) {
         left.value = '20rem'
+        opacity.value = 1
       }
       else {
         if (direction === 'right') {
@@ -66,29 +68,16 @@ const { direction, lengthX } = useSwipe(
           reset()
         }
       }
-
-      // if (document.show_sidebar_documents) {
-      //   left.value = '20'
-      // }
-      // else {
-      //   opacity.value = 0
-      // }
-      // if (direction === 'right') {
-      //   left.value = '-200'
-      //   opacity.value = 0
-      //   toggleMenu()
-      // }
-      // else {
-      //   left.value = '100'
-      //   opacity.value = 0
-      // }
     },
   },
 )
 </script>
 
 <template>
-  <div v-if="!document.show_sidebar_documents" class="fixed top-0.5 left-0 bg-background m-1 z-[89] md:z-50">
+  <div
+    v-if="!document.show_sidebar_documents"
+    class="fixed top-0.5 left-0 bg-background m-1 z-[89] md:z-50"
+  >
     <Tooltip :name="`${t('verb.open')} panel`" shortcut="Ctrl m" side="bottom">
       <button
         ref="focus_menu"
@@ -108,9 +97,12 @@ const { direction, lengthX } = useSwipe(
   </div>
   <div>
     <header
-      class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start h-screen border-r  bg-background focus-within:ring-1 border-secondary! duration-1000 focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80 "
+      class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start duration-1000 h-screen border-r  bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80  "
       :style="`transform: translateX(${left}) !important`"
-      :class="document.show_sidebar_documents ? '' : '!absolute -translate-x-80'"
+      :class="[
+        document.show_sidebar_documents ? 'duration-1000' : 'duration-1000 !absolute -translate-x-80 ',
+        isSwiping ? '!duration-0 ease-in-out' : 'duration-1000 ',
+      ]"
     >
       <SidebarTop />
       <SidebarDocuments />

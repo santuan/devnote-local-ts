@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-vue-next'
+import { ArrowLeftToLine } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import DialogCommandMenu from '@/components/ui/Dialogs/DialogCommandMenu.vue'
 import DialogInfo from '@/components/ui/Dialogs/DialogInfo.vue'
