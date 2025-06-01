@@ -145,7 +145,7 @@
     "updateButton": "Actualizar",
     "clickToUpdate": "Click para actualizar",
     "clickToEdit": "Click para editar",
-    "documentNotSaved": "Documento actual sin guardar. Click para editar",
+    "documentNotSaved": "Documento actual sin guardar. Click en cualquier lugar para editar",
     "unsavedChanges": "Cambios sin guardar",
     "unsavedChangesDescription": " El documento actual tiene cambios sin guardar.",
     "discardChanges": " Descartar cambios",

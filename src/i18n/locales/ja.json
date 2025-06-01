@@ -145,7 +145,7 @@
     "updateButton": "更新",
     "clickToUpdate": "クリックして更新",
     "clickToEdit": "クリックして編集",
-    "documentNotSaved": "現在のドキュメントは保存されていません。クリックして編集。",
+    "documentNotSaved": "保存されていないドキュメント。編集するには、どこでもクリックしてください。",
     "unsavedChanges": "未保存の変更",
     "unsavedChangesDescription": "現在のドキュメントには未保存の変更があります",
     "discardChanges": "変更を破棄",

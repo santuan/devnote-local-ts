@@ -145,7 +145,7 @@
     "updateButton": "Aktualisieren",
     "clickToUpdate": "Klicken zum Aktualisieren",
     "clickToEdit": "Klicken zum Bearbeiten",
-    "documentNotSaved": "Aktuelles Dokument nicht gespeichert. Klicken zum Bearbeiten.",
+    "documentNotSaved": "Ungespeichertes Dokument. Klicken Sie irgendwo zum Bearbeiten.",
     "unsavedChanges": "Ungespeicherte Änderungen",
     "unsavedChangesDescription": "Das aktuelle Dokument hat ungespeicherte Änderungen",
     "discardChanges": "Änderungen verwerfen",

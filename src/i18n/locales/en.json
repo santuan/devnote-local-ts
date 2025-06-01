@@ -145,7 +145,7 @@
     "updateButton": "Update",
     "clickToUpdate": "Click to update",
     "clickToEdit": "Click to editar",
-    "documentNotSaved": "Current ocument not saved. Click to edit.",
+    "documentNotSaved": "Current document not saved. Click anywhere to edit.",
     "unsavedChanges": "Has unsaved changes",
     "unsavedChangesDescription": "Curent document has changes that are not saved in indexededDb",
     "discardChanges": "Discard changes",

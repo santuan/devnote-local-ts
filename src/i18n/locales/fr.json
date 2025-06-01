@@ -145,7 +145,7 @@
     "updateButton": "Mettre à jour",
     "clickToUpdate": "Cliquer pour mettre à jour",
     "clickToEdit": "Cliquer pour éditer",
-    "documentNotSaved": "Document actuel non sauvegardé. Cliquez pour éditer.",
+    "documentNotSaved": "Document non enregistré. Cliquez n'importe où pour modifier.",
     "unsavedChanges": "Modifications non sauvegardées",
     "unsavedChangesDescription": "Le document actuel a des modifications non sauvegardées",
     "discardChanges": "Abandonner les modifications",
