@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useSwipe } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import { computed, shallowRef, useTemplateRef } from 'vue'
+import { shallowRef, useTemplateRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SidebarDocuments from '@/components/SidebarDocuments.vue'
 import SidebarTop from '@/components/SidebarTop.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
-
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import Tooltip from './ui/Tooltip.vue'
 
@@ -18,11 +17,6 @@ const el = useTemplateRef('el')
 const left = shallowRef('0')
 const opacity = shallowRef(1)
 
-function reset() {
-  left.value = '0'
-  opacity.value = 0
-  isSwiping.value = false
-}
 useMagicKeysStore()
 const document = useDocumentStore()
 const { t } = useI18n()
@@ -54,11 +48,12 @@ const { lengthX, isSwiping, direction } = useSwipe(
         }
       }
     },
-    onSwipeEnd(direction: any) {
+    onSwipeEnd(direction) {
       const length = Math.abs(lengthX.value) / 9
-      if (length > 20) {
-        left.value = '20rem'
+      if (length > 12) {
+        left.value = '0'
         opacity.value = 1
+        document.show_sidebar_documents = true
       }
       else {
         if (direction === 'right') {
@@ -71,13 +66,16 @@ const { lengthX, isSwiping, direction } = useSwipe(
     },
   },
 )
+
+function reset() {
+  left.value = '0'
+  opacity.value = 0
+  isSwiping.value = false
+}
 </script>
 
 <template>
-  <div
-    v-if="!document.show_sidebar_documents"
-    class="fixed top-0.5 left-0 bg-background m-1 z-[89] md:z-50"
-  >
+  <div v-if="!document.show_sidebar_documents" class="fixed top-0.5 left-0 bg-background m-1 z-[89] md:z-50">
     <Tooltip :name="`${t('verb.open')} panel`" shortcut="Ctrl m" side="bottom">
       <button
         ref="focus_menu"
@@ -93,26 +91,27 @@ const { lengthX, isSwiping, direction } = useSwipe(
         <span class="sr-only">{{ t('verb.open') }} panel</span>
       </button>
     </Tooltip>
-    <div ref="el" class="top-12  text-xs bottom-12 fixed w-10" />
+    <div ref="el" class="top-12  touch-pan-x text-xs bottom-12 fixed w-9" />
   </div>
   <div>
     <header
-      class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start duration-1000 h-screen border-r  bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80  "
-      :style="`transform: translateX(${left}) !important`"
-      :class="[
-        document.show_sidebar_documents ? 'duration-1000' : 'duration-1000 !absolute -translate-x-80 ',
-        isSwiping ? '!duration-0 ease-in-out' : 'duration-1000 ',
+      class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start motion-safe:duration-1000 h-screen border-r  bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80  "
+      :style="`transform: translateX(${left}) !important`" :class="[
+        document.show_sidebar_documents ? '' : ' absolute! -translate-x-80 ',
+        isSwiping ? 'duration-0! ease-in-out! delay-0!' : 'motion-safe:duration-[.4s]',
       ]"
     >
       <SidebarTop />
       <SidebarDocuments />
     </header>
-    <button
-      v-show="document.show_sidebar_documents"
-      class="fixed inset-0 print:hidden z-71! bg-background/90 border-0! ring-0! outline-hidden! lg:hidden"
-      @click="document.show_sidebar_documents = !document.show_sidebar_documents"
-    >
-      <span class="sr-only">{{ t("verb.close") }} panel</span>
-    </button>
+    <transition>
+      <button
+        v-if="document.show_sidebar_documents"
+        class="fixed inset-0 print:hidden z-71! bg-background/90 border-0! ring-0! outline-hidden! lg:hidden"
+        @click="document.show_sidebar_documents = !document.show_sidebar_documents"
+      >
+        <span class="sr-only">{{ t("verb.close") }} panel</span>
+      </button>
+    </transition>
   </div>
 </template>

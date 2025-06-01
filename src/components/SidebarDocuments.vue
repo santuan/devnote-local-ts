@@ -87,7 +87,7 @@ function toggleFixedFilter() {
             class="flex items-center justify-center w-full text-center"
           >
             <p
-              class="flex flex-col items-center justify-center w-64 gap-3 p-3 text-xs bg-primary/10 text-foreground text-pretty"
+              class="flex flex-col items-center justify-center w-64 gap-3 p-3 text-xs bg-secondary text-foreground text-pretty"
             >
               <TextGenerateEffect :words="t('sidebar.noPinDocuments')" :delay="150" />
             </p>

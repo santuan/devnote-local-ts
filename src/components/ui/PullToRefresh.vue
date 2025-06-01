@@ -13,7 +13,7 @@ const { t } = useI18n()
   <div ref="containerRef" class="relative">
     <div
       v-show="distance > 0 || isRefreshing"
-      class="absolute top-0 left-0 right-0 flex bg-linear-to-b from-background to-transparent items-center justify-center transition-transform py-2 px-5 duration-200 z-70"
+      class="absolute top-0 left-0 right-0 flex bg-linear-to-b from-background to-transparent items-center justify-center transition-transform py-2 px-5 duration-200 z-[99]"
       :style="{
         opacity: `${Math.min(distance, 150) / 100}`,
       }"
