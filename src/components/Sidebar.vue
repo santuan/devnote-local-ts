@@ -10,32 +10,26 @@ import { useFocusStore } from '@/stores/focus'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import Tooltip from './ui/Tooltip.vue'
 
+useMagicKeysStore()
 const focus_store = useFocusStore()
 const { focus_menu } = storeToRefs(focus_store)
-
-const el = useTemplateRef('el')
-const left = shallowRef('0')
-const opacity = shallowRef(1)
-
-useMagicKeysStore()
 const document = useDocumentStore()
 const { t } = useI18n()
 
-function toggleMenu() {
-  document.show_sidebar_documents = !document.show_sidebar_documents
-  reset()
-}
+const swipeTarget = useTemplateRef('swipeTarget')
+const opacity = shallowRef(1)
+const left = shallowRef('0')
 
-const { lengthX, isSwiping, direction } = useSwipe(
-  el,
+const { lengthX, isSwiping } = useSwipe(
+  swipeTarget,
   {
     passive: false,
     onSwipe() {
-      if (el.value) {
-        if (Math.abs(lengthX.value) / 9 > 0 && Math.abs(lengthX.value) / 9 < 100) {
-          const length = Math.abs(lengthX.value) / 9
+      const length = Math.abs(lengthX.value) / 9
+      if (swipeTarget.value) {
+        if (length > 0 && length < 100) {
           left.value = `${length}rem`
-          opacity.value = length / 9
+          opacity.value = length * 6 / 100
           if (length > 20) {
             left.value = '0rem'
             opacity.value = 1
@@ -48,7 +42,7 @@ const { lengthX, isSwiping, direction } = useSwipe(
         }
       }
     },
-    onSwipeEnd(direction) {
+    onSwipeEnd() {
       const length = Math.abs(lengthX.value) / 9
       if (length > 12) {
         left.value = '0'
@@ -56,20 +50,19 @@ const { lengthX, isSwiping, direction } = useSwipe(
         document.show_sidebar_documents = true
       }
       else {
-        if (direction === 'right') {
-          toggleMenu()
-        }
-        else {
-          reset()
-        }
+        reset()
       }
     },
   },
 )
+function toggleMenu() {
+  document.show_sidebar_documents = !document.show_sidebar_documents
+  reset()
+}
 
 function reset() {
   left.value = '0'
-  opacity.value = 0
+  opacity.value = 1
   isSwiping.value = false
 }
 </script>
@@ -91,12 +84,14 @@ function reset() {
         <span class="sr-only">{{ t('verb.open') }} panel</span>
       </button>
     </Tooltip>
-    <div ref="el" class="top-12  touch-pan-x text-xs bottom-12 fixed w-9" />
+    <div ref="swipeTarget" class="top-12  touch-pan-x text-xs bottom-12 fixed w-9" />
   </div>
   <div>
     <header
       class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start motion-safe:duration-1000 h-screen border-r  bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80  "
-      :style="`transform: translateX(${left}) !important`" :class="[
+      :style="`transform: translateX(${left}) !important; opacity: ${opacity}`"
+
+      :class="[
         document.show_sidebar_documents ? '' : ' absolute! -translate-x-80 ',
         isSwiping ? 'duration-0! ease-in-out! delay-0!' : 'motion-safe:duration-[.4s]',
       ]"
