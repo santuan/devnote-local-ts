@@ -68,7 +68,7 @@ const { editor } = storeToRefs(editor_store)
 }
 
 .control-group button {
-  @apply disabled:text-foreground/30 disabled:pointer-events-none;
+  @apply  disabled:opacity-50 hover:disabled:text-foreground! disabled:pointer-events-none;
 }
 
 .button-group button.is-active {

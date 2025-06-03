@@ -1,11 +1,12 @@
 <script lang="ts">
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { useElementSize } from '@vueuse/core'
-import { Clipboard, ClipboardCheck, FoldVertical, UnfoldVertical } from 'lucide-vue-next'
+import { Clipboard, ClipboardCheck, Maximize, Minimize2 } from 'lucide-vue-next'
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
 import { bundledLanguages } from 'shiki/bundle/web'
 import { shallowRef } from 'vue'
 import RadixVirtual from '@/components/ui/Tiptap/RadixVirtual.vue'
+import { useDocumentStore } from '@/stores/document'
 
 export default {
   components: {
@@ -14,8 +15,8 @@ export default {
     RadixVirtual,
     Clipboard,
     ClipboardCheck,
-    UnfoldVertical,
-    FoldVertical,
+    Maximize,
+    Minimize2,
     ScrollAreaRoot,
     ScrollAreaScrollbar,
     ScrollAreaThumb,
@@ -25,9 +26,12 @@ export default {
   props: nodeViewProps,
 
   setup() {
+    const documentStore = useDocumentStore()
     const codeHeight = shallowRef(null)
+
     const { width, height } = useElementSize(codeHeight)
     return {
+      documentStore,
       codeHeight,
       width,
       height,
@@ -93,8 +97,14 @@ export default {
 </script>
 
 <template>
-  <NodeViewWrapper class="code-block group" spellcheck="false">
-    <ScrollAreaRoot class="w-full h-full" style="--scrollbar-size: 10px">
+  <NodeViewWrapper
+    class="code-block group not-prose ring-1 ring-muted"
+    spellcheck="false"
+    :class="[
+      showFullCode ? 'fixed! z-[90] !my-0 inset-0 bg-background!' : '',
+    ]"
+  >
+    <ScrollAreaRoot class="w-full ScrollAreaRootCodeBlock h-full" style="--scrollbar-size: 10px">
       <ScrollAreaViewport class="w-full" :class="showFullCode ? 'h-full' : 'max-h-[400px]'">
         <div ref="codeHeight" spellcheck="false">
           <pre><code class="text-xs leading-6 break-all"><NodeViewContent /></code></pre>
@@ -109,32 +119,36 @@ export default {
         />
       </ScrollAreaScrollbar>
     </ScrollAreaRoot>
-    <div
-      class="absolute top-0 right-0 z-40 flex items-center justify-end gap-1 -translate-x-1 translate-y-1"
-    >
-      <Transition mode="out-in">
-        <span v-if="copyTextError" class="flex items-center justify-center duration-100 font-mono h-6 shrink-0 text-xs px-2 bg-primary/80 text-primary-foreground">
-          No text detected
-        </span>
-      </Transition>
-      <RadixVirtual v-model="selectedLanguage" :items="languages" />
-      <button
-        class="print:hidden flex items-center justify-center size-6 bg-secondary shrink-0"
-        :class="copyText === 'Copied' ? 'bg-primary!' : ''"
-        @click="copyToClipboard()"
+    <div class=" absolute top-0 right-0">
+      <div
+        class="sticky codeBlockActions top-0 right-0  flex items-center duration-100 justify-end gap-1  translate-y-1"
+        :class="showFullCode ? '-translate-x-3 z-[91]' : '-translate-x-2 z-30'"
       >
-        <ClipboardCheck v-show="copyText === 'Copied'" class="size-4 text-primary-foreground" />
-        <Clipboard v-show="copyText !== 'Copied'" class="size-4" />
-        <span class="sr-only">Copy to clipboard</span>
-      </button>
-      <button
-        v-if="height > 600"
-        class="flex items-center justify-center duration-100 size-6 bg-secondary shrink-0"
-        @click="showFullCode = !showFullCode"
-      >
-        <FoldVertical v-if="showFullCode" class="size-4" />
-        <UnfoldVertical v-else class="size-4" />
-      </button>
+        <Transition mode="out-in">
+          <span
+            v-if="copyTextError"
+            class="flex items-center justify-center duration-100 font-mono h-6 shrink-0 text-xs px-2 bg-primary/80 text-primary-foreground"
+          >
+            No text detected
+          </span>
+        </Transition>
+        <RadixVirtual v-model="selectedLanguage" :items="languages" />
+        <button
+          class="print:hidden flex items-center justify-center size-8 bg-secondary shrink-0"
+          :class="copyText === 'Copied' ? 'bg-primary!' : ''" @click="copyToClipboard()"
+        >
+          <ClipboardCheck v-show="copyText === 'Copied'" class="size-5 text-primary-foreground" />
+          <Clipboard v-show="copyText !== 'Copied'" class="size-5" />
+          <span class="sr-only">Copy to clipboard</span>
+        </button>
+        <button
+          v-if="height > 600" class="flex items-center justify-center duration-100 size-8 bg-secondary shrink-0"
+          @click="showFullCode = !showFullCode"
+        >
+          <Minimize2 v-if="showFullCode" class="size-5 pointer-events-none" />
+          <Maximize v-else class="size-5 pointer-events-none" />
+        </button>
+      </div>
     </div>
   </NodeViewWrapper>
 </template>
@@ -153,6 +167,11 @@ export default {
 
 .tiptap .code-block [data-reka-scroll-area-viewport]:hover {
   @apply border border-primary/50;
+}
+
+.tiptap .code-block:hover  .codeBlockActions  {
+    @apply  -translate-x-3
+
 }
 
 .tiptap .code-block [data-reka-scroll-area-viewport]:focus,
@@ -186,8 +205,9 @@ export default {
   }
 
   .tiptap .code-block [data-reka-scroll-area-viewport] {
-    @apply border! ring-0! border-foreground/20! !outline-none;
+    @apply border ring-0! border-foreground/20! outline-none!;
   }
+
   .tiptap .code-block span {
     filter: brightness(0.5);
   }

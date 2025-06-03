@@ -53,7 +53,7 @@ function expandAllScreen() {
       >
         <button
           v-show="database.loaded_id !== '' || document.content_editable === true"
-          class="z-100 flex items-center cursor-auto! justify-center bg-background/30 size-8"
+          class="z-40 flex items-center cursor-auto! justify-center bg-background/30 size-8"
           :class="layout[1] >= 3 ? '' : 'rotate-180'"
           @click="expandAllScreen"
           @keyup.enter="

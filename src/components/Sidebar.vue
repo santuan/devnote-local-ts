@@ -27,10 +27,10 @@ const { lengthX, isSwiping } = useSwipe(
     onSwipe() {
       const length = Math.abs(lengthX.value) / 9
       if (swipeTarget.value) {
-        if (length > 0 && length < 100) {
+        if (length > 0) {
           left.value = `${length}rem`
           opacity.value = length * 6 / 100
-          if (length > 20) {
+          if (length > 13) {
             left.value = '0rem'
             opacity.value = 1
             toggleMenu()
@@ -44,12 +44,7 @@ const { lengthX, isSwiping } = useSwipe(
     },
     onSwipeEnd() {
       const length = Math.abs(lengthX.value) / 9
-      if (length > 12) {
-        left.value = '0'
-        opacity.value = 1
-        document.show_sidebar_documents = true
-      }
-      else {
+      if (length < 13) {
         reset()
       }
     },
@@ -89,12 +84,10 @@ function reset() {
   <div>
     <header
       class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start motion-safe:duration-1000 h-screen border-r  bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80  "
-      :style="`transform: translateX(${left}) !important; opacity: ${opacity}`"
-
       :class="[
-        document.show_sidebar_documents ? '' : ' absolute! -translate-x-80 ',
+        document.show_sidebar_documents ? '' : '-translate-x-80',
         isSwiping ? 'duration-0! ease-in-out! delay-0!' : 'motion-safe:duration-[.4s]',
-      ]"
+      ]" :style="`transform: translateX(${left}) !important; opacity: ${opacity}`"
     >
       <SidebarTop />
       <SidebarDocuments />
@@ -102,7 +95,7 @@ function reset() {
     <transition>
       <button
         v-if="document.show_sidebar_documents"
-        class="fixed inset-0 print:hidden z-71! bg-background/90 border-0! ring-0! outline-hidden! lg:hidden"
+        class="fixed inset-0 print:hidden z-71! bg-background/90 border-0! ring-0! outline-hidden! xl:hidden"
         @click="document.show_sidebar_documents = !document.show_sidebar_documents"
       >
         <span class="sr-only">{{ t("verb.close") }} panel</span>

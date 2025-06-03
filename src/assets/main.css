@@ -596,6 +596,10 @@ body:has(.cursor_initial) button {
   cursor: default !important;
 }
 
+body:has(.cursor_pointer) button {
+  cursor: pointer;
+}
+
 body:has(.cursor_pointer) [role="menuitem"] {
   cursor: pointer;
 }

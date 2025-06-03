@@ -263,7 +263,7 @@ onBeforeUnmount(() => {
   @apply w-full scrollbar-none border-0 print:h-full! print:max-h-none! overflow-x-hidden print:!overflow-y-auto;
 
   &.is-editable {
-    @apply bg-secondary/30 border-t border-t-transparent;
+    @apply bg-background border-t border-t-transparent;
     height: calc(100dvh - var(--editorToolbar));
 
     .tiptap td,
@@ -293,7 +293,7 @@ onBeforeUnmount(() => {
 }
 
 .tiptap {
-  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary min-h-[70dvh];
+  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary min-h-[90dvh];
   /* @apply font-mono font-normal; */
   @apply font-serif;
 }
