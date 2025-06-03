@@ -35,8 +35,8 @@ function focusOnTitleEsc(e: { keyCode: number }) {
     </div>
   </div>
   <button
-    :class="document.show_sidebar_documents ? 'left-80 ' : ' ml-0'"
-    class="m-1 mb-0 fixed ring-2 ring-primary  flex justify-center items-center inset-0"
+    :class="document.show_sidebar_documents ? 'md:left-80 ' : ' ml-0'"
+    class="m-1 mb-0 fixed ring-2 ring-primary  flex duration-1000 justify-center items-center inset-0"
     @click="focusOnTitle()" @keydown="focusOnTitleEsc($event)"
   >
     <span class="sr-only">{{ t('message.clickToEdit') }}</span>
