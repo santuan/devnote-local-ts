@@ -41,7 +41,7 @@ function toggleFixedFilter() {
   <div class="h-full @container">
     <ButtonCreateDocument />
     <div
-      class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary border-t border-primary/5 justify-start items-center"
+      class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary border-t border-muted justify-start items-center"
     >
       <Tooltip :name="t('sidebar.showPinned')" side="top" shortcut="ctrl + alt + shift + F">
         <button ref="focus_documents" class="p-2 size-8" title="Show only fixed items" @click="toggleFixedFilter()">
