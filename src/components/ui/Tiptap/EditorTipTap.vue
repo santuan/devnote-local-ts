@@ -167,7 +167,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="editor" class="EditorTiptap">
+  <div v-if="editor" class="EditorTiptap  @container">
     <ScrollAreaRoot
       class="ScrollAreaEditor group"
       :class="[
@@ -405,11 +405,11 @@ html.dark .shiki span {
 }
 
 .iframeContainer .iframeControls {
-@apply flex justify-between w-full border-b border-secondary h-10 items-center z-30
+@apply flex justify-between w-full border-b border-secondary bg-background h-10 items-center z-30
 }
 
 .iframeContainer .iframeTitle {
-  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate max-w-10/12
+  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate max-w-xl
 }
 
 .iframeContainer .iframeEditButton {
@@ -554,7 +554,7 @@ html.dark .shiki span {
 
 }
 .tiptap ul[data-type="taskList"] li:focus-within span {
-  @apply bg-primary/40! border-primary/10
+  @apply outline-2! border-primary
 }
 
 .tiptap ul[data-type="taskList"] li[data-checked] label span {
@@ -568,11 +568,11 @@ html.dark .shiki span {
 }
 
 .tiptap ul[data-type="taskList"] li[data-checked="true"] label span {
-  @apply bg-primary/10 border-primary/50;
+  @apply bg-primary border-primary;
 }
 
 .ScrollAreaEditor.is-editable ul[data-type="taskList"] li[data-checked]:hover label span {
-  @apply bg-primary/20 border-primary/90;
+  @apply bg-primary border-primary;
 }
 
 .ScrollAreaEditor.is-preview ul[data-type="taskList"] li[data-checked] {
@@ -588,14 +588,14 @@ html.dark .shiki span {
   width: 12px;
   height: 12px;
   transform: translate(-50%, -50%);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .dark .tiptap ul[data-type="taskList"] li[data-checked="true"] label span::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 .tiptap ul[data-type="taskList"] li[data-checked] {

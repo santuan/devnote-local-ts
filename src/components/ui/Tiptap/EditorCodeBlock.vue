@@ -98,10 +98,10 @@ export default {
 
 <template>
   <NodeViewWrapper
-    class="code-block group not-prose ring-1 ring-muted"
+    class="code-block group  ring-1 ring-muted"
     spellcheck="false"
     :class="[
-      showFullCode ? 'fixed! z-[90] !my-0 inset-0 bg-background!' : '',
+      showFullCode ? 'fixed! z-[90] !my-0 inset-0 !' : '',
     ]"
   >
     <ScrollAreaRoot class="w-full ScrollAreaRootCodeBlock h-full" style="--scrollbar-size: 10px">
@@ -169,9 +169,8 @@ export default {
   @apply border border-primary/50;
 }
 
-.tiptap .code-block:hover  .codeBlockActions  {
+.tiptap .code-block .codeBlockActions  {
     @apply  -translate-x-3
-
 }
 
 .tiptap .code-block [data-reka-scroll-area-viewport]:focus,

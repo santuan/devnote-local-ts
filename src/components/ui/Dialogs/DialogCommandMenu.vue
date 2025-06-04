@@ -153,7 +153,7 @@ function focusOnSidebar() {
                 :key="item.id"
                 :value="item.document_data?.name || item.id || ''"
                 class="cursor-default font-mono text-xs px-4 py-2 rounded-md text-foreground data-highlighted:bg-muted inline-flex justify-between w-full items-center gap-4"
-                :class="item.id === loaded_id ? 'text-primary' : ''"
+                :class="item.id === loaded_id ? 'text-primary underline underline-offset-2 font-extrabold' : ''"
                 @select="select_document(item.id)"
               >
                 <span>{{ item.document_data?.name || item.id }}</span>

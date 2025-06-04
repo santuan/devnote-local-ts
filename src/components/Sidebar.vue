@@ -63,7 +63,7 @@ function reset() {
 </script>
 
 <template>
-  <div v-if="!document.show_sidebar_documents" class="fixed top-0.5 left-0 bg-background m-1 z-[89] md:z-50">
+  <div v-if="!document.show_sidebar_documents" class="fixed top-0 left-0 bg-background m-1 z-[89] md:z-50">
     <Tooltip :name="`${t('verb.open')} panel`" shortcut="Ctrl m" side="bottom">
       <button
         ref="focus_menu"
@@ -83,10 +83,10 @@ function reset() {
   </div>
   <div>
     <header
-      class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start motion-safe:duration-1000 h-screen border-r  bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50  focus-visible:outline-dashed min-w-80 max-w-80  "
+      class="fixed top-0 print:hidden z-[90] select-none! flex flex-col justify-start motion-safe:duration-1000 transition-transform h-screen border-r bg-background focus-within:ring-1 border-secondary!   focus-within:ring-primary/50 focus-visible:outline-dashed min-w-80 max-w-80  "
       :class="[
         document.show_sidebar_documents ? '' : '-translate-x-80',
-        isSwiping ? 'duration-0! ease-in-out! delay-0!' : 'motion-safe:duration-[.4s]',
+        isSwiping ? 'duration-0! ease-in-out! delay-0!' : 'motion-safe:duration-[.9s]',
       ]" :style="`transform: translateX(${left}) !important; opacity: ${opacity}`"
     >
       <SidebarTop />

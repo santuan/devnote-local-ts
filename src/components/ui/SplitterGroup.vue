@@ -31,6 +31,7 @@ function expandAllScreen() {
 
 <template>
   <SplitterGroup
+    class="SplitterGroup"
     direction="horizontal"
     auto-save-id="splitter"
     :keyboard-resize-by="2"
@@ -77,3 +78,11 @@ function expandAllScreen() {
     />
   </SplitterGroup>
 </template>
+
+<style>
+@reference "@/assets/main.css";
+
+.SplitterGroup:has([data-resize-handle-state="drag"]) iframe {
+  @apply pointer-events-none
+}
+</style>

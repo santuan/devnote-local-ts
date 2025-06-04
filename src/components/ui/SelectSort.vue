@@ -68,7 +68,7 @@ const { t, locale } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.date') }} AZ</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.date') }} Old</SelectItemText>
             </SelectItem>
             <SelectItem
               class="text-xs leading-none text-foreground flex items-center h-8 px-1 py-2 pr-12 relative select-none data-disabled:text-foreground/30 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-secondary/50 data-highlighted:text-foreground"
@@ -77,7 +77,7 @@ const { t, locale } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.date') }} ZA</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.date') }} New</SelectItemText>
             </SelectItem>
           </SelectGroup>
         </SelectViewport>
