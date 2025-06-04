@@ -416,6 +416,10 @@ html.dark .shiki span {
   @apply absolute right-10 flex items-center font-mono justify-center   hover:bg-background  size-8 bg-secondary rounded-none  shrink-0
 }
 
+.iframeContainer.fullscreen .iframeEditButton {
+  display: none !important
+}
+
 .iframeContainer .iframeFullscreenButton {
   @apply absolute right-1 flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none
 }
