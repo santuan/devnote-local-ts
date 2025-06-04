@@ -389,7 +389,7 @@ html.dark .shiki span {
 }
 
 .iframeContainer {
-  @apply w-full relative border! border-primary! pt-8 ring-transparent bg-primary/5;
+  @apply w-full relative border! border-primary! grid ring-transparent bg-background;
 }
 
 .is-preview .iframeContainer  {
@@ -401,15 +401,23 @@ html.dark .shiki span {
 }
 
 .iframeContainer iframe {
-  @apply mx-auto h-[70vh] relative w-full;
+  @apply mx-auto h-[90vh] relative w-full;
 }
 
-.iframeContainer .iframeEditButton {
-  @apply absolute flex items-center font-mono justify-center top-0.5 right-0.5 bg-primary text-primary-foreground hover:bg-primary/90 px-2 py-1 text-xs rounded-none z-10
+.iframeContainer .iframeControls {
+@apply flex justify-between w-full border-b border-secondary h-10 items-center z-30
 }
 
 .iframeContainer .iframeTitle {
-  @apply absolute left-0.5 border-primary border top-1 px-2 font-mono flex text-xs justify-start items-center bg-background py-1
+  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate max-w-10/12
+}
+
+.iframeContainer .iframeEditButton {
+  @apply absolute right-10 flex items-center font-mono justify-center   hover:bg-background  size-8 bg-secondary rounded-none  shrink-0
+}
+
+.iframeContainer .iframeFullscreenButton {
+  @apply absolute right-1 flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none
 }
 
 .iframeContainer:has(iframe[src*="youtube"]) {
@@ -422,6 +430,21 @@ html.dark .shiki span {
   iframe {
     @apply aspect-video h-96
   }
+}
+
+.iframeContainer.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background: black;
+}
+
+.iframeContainer.fullscreen iframe {
+  width: 100%;
+  height: 90vh;
 }
 
 .tiptap .ProseMirror-gapcursor {

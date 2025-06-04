@@ -19,6 +19,7 @@ import ToolbarTaskList from './toolbar/ToolbarTaskList.vue'
 import ToolbarTextAlign from './toolbar/ToolbarTextAlign.vue'
 import ToolbarUndo from './toolbar/ToolbarUndo.vue'
 import ToolbarWebFrame from './toolbar/ToolbarWebFrame.vue'
+import ToolbarWebFrameNote from './toolbar/ToolbarWebFrameNote.vue'
 
 const focus_store = useFocusStore()
 const { focus_toolbar } = storeToRefs(focus_store)
@@ -37,6 +38,7 @@ const { editor } = storeToRefs(editor_store)
         <ToolbarUndo />
         <ToolbarRedo />
         <ToolbarCodeBlock />
+        <ToolbarWebFrameNote />
         <ToolbarHeadingSelector />
         <ToolbarCharacters />
         <ToolbarInlineCode />

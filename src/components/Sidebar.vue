@@ -56,7 +56,7 @@ function toggleMenu() {
 }
 
 function reset() {
-  left.value = '0'
+  left.value = 'auto'
   opacity.value = 1
   isSwiping.value = false
 }
