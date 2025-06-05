@@ -57,7 +57,8 @@
     "addTask": "タスクを追加"
   },
   "sidebar": {
-    "newDocument": "新しいドキュメント",
+    "newDocument": "新規ドキュメント",
+    "creatingNewDocument": "新しいドキュメントを作成中",
     "search": "フィルタリング...",
     "navigation": "アプリナビゲーション",
     "noResults": "結果がありません",
@@ -67,7 +68,9 @@
       "placeholder": "選択する",
       "sort": "並び替え",
       "name": "名前",
-      "date": "日付"
+      "date": "日付",
+      "date_desc": "最新順",
+      "date_asc": "古い順"
     },
     "theme": "カラーテーマ",
     "about": "このアプリについて",

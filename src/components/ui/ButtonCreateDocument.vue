@@ -51,7 +51,7 @@ function focusOnTitle() {
     >
       <Plus v-show="database.loaded_id !== ''" class="size-4 text-primary-foreground" />
       <span v-show="database.loaded_id === ''" class="flex items-center gap-1 text-primary">
-        * {{ t("sidebar.newDocument") }}
+        * {{ t("sidebar.creatingNewDocument") }}
         <span
           v-show="database.document_name"
           class="inline-block font-bold truncate opacity-80 max-w-24"

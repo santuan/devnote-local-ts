@@ -1,6 +1,6 @@
 import type { Documents } from '@/db'
 import { useStorage } from '@vueuse/core'
-import { exportDB, importInto } from 'dexie-export-import'
+import { exportDB } from 'dexie-export-import'
 import { defineStore } from 'pinia'
 
 import { computed, ref, shallowRef } from 'vue'
@@ -15,6 +15,7 @@ import { useSettingsStore } from './settings'
 
 export const useDatabaseStore = defineStore('database', () => {
   const { t } = useI18n()
+  const show_last_open = useStorage('show_last_open', '')
   const { hasUnsavedChanges } = useUnsavedChanges()
   const document_store = useDocumentStore()
   const settings = useSettingsStore()
@@ -24,7 +25,7 @@ export const useDatabaseStore = defineStore('database', () => {
   const file_name = shallowRef<string | undefined | null>('')
   const select_id = shallowRef<string | undefined>('')
   const loaded_id = shallowRef<string | undefined>('')
-  const document_name = shallowRef<string | undefined>('Welcome')
+  const document_name = shallowRef<string | undefined>('')
   const document_body = shallowRef<string | undefined>('')
   const document_checked = shallowRef<boolean | undefined>(false)
   const document_fixed = shallowRef<boolean | undefined>(false)
@@ -50,6 +51,7 @@ export const useDatabaseStore = defineStore('database', () => {
       })
       loaded_id.value = new_document_id
       document_date_created.value = new_date
+      show_last_open.value = new_document_id
       toast.success(`document created with title: ${document_name.value}`)
     }
     catch (error) {
@@ -150,6 +152,7 @@ export const useDatabaseStore = defineStore('database', () => {
         console.error('Selected document not found')
       }
       loaded_id.value = set_id
+      show_last_open.value = set_id
     }
     catch (error) {
       handle_error('Error al seleccionar el proyecto', error)
@@ -206,23 +209,9 @@ export const useDatabaseStore = defineStore('database', () => {
           file_name.value = dbFile[0].name
         }
       }
-      const documents = await db.documents.toArray()
-      const sortedDocs = documents
-        .filter(doc => doc.document_data?.date_created) // Filter out docs without date_created
-        .sort((a, b) => {
-          const dateA = new Date(a.document_data.date_created)
-          const dateB = new Date(b.document_data.date_created)
-          return dateB - dateA // Ascending order (oldest first)
-        })
-
-      if (sortedDocs.length > 0) {
-        set_document(sortedDocs[0].id)
+      if (show_last_open.value !== '') {
+        set_document(Number(show_last_open.value))
       }
-      // Load first document if any exists
-      // const firstDoc = await db.documents.orderBy('id').reverse().first()
-      // if (firstDoc) {
-      //   set_document(firstDoc.id)
-      // }
     }
     catch (error) {
       handle_error('Error al configurar la base de datos', error)
@@ -242,7 +231,6 @@ export const useDatabaseStore = defineStore('database', () => {
       link.click()
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
-      // toast.success('Base de datos exportada');
       return blob
     }
     catch (error) {
@@ -255,12 +243,39 @@ export const useDatabaseStore = defineStore('database', () => {
     const replace_file_name = file.name.replace('.json', '')
 
     try {
-      await clear_database()
-      await importInto(db, file, {})
-      update_database(replace_file_name)
-      document_store.clear_editor()
-      toast.success(t('message.databaseImported'))
-      modal.show_import_db = false
+    // Create a backup of the current database before attempting import
+      const backup = await db.export()
+
+      try {
+      // Clear and import the new data
+        await db.import(file, {
+          clearTablesBeforeImport: true,
+          acceptMissingTables: true,
+          acceptVersionDiff: true,
+          acceptNameDiff: true,
+          overwriteValues: true,
+        })
+
+        // If we reach here, import was successful
+        update_database(replace_file_name)
+        document_store.clear_editor()
+        toast.success(t('message.databaseImported'))
+        modal.show_import_db = false
+      }
+      catch (importError) {
+      // Import failed, restore from backup
+
+        await db.import(backup, {
+          clearTablesBeforeImport: true,
+          acceptMissingTables: true,
+          acceptVersionDiff: true,
+          acceptNameDiff: true,
+          overwriteValues: true,
+        })
+
+        // Re-throw the original import error
+        throw importError
+      }
     }
     catch (error) {
       toast.error('Error al importar la base de datos')

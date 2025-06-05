@@ -1,3 +1,4 @@
+import { useStorage } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'
 import { shallowRef } from 'vue'
 import { useDatabaseStore } from '@/stores/database'
@@ -7,6 +8,7 @@ export const useDocumentStore = defineStore('document', () => {
   const database = useDatabaseStore()
   const editor_store = useEditorStore()
   const { editor } = storeToRefs(editor_store)
+  const show_last_open = useStorage('show_last_open', '')
 
   const show_sidebar_documents = shallowRef(true)
   const show_editor_toolbar = shallowRef(true)
@@ -21,6 +23,7 @@ export const useDocumentStore = defineStore('document', () => {
     database.loaded_id = ''
     database.document_name = ''
     database.document_body = ''
+    show_last_open.value = ''
   }
 
   return {

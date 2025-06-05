@@ -58,6 +58,7 @@
   },
   "sidebar": {
     "newDocument": "New document",
+    "creatingNewDocument": "Creating new document",
     "search": "Filter...",
     "navigation": "App Navigation",
     "noResults": "No results",
@@ -67,7 +68,9 @@
       "placeholder": "select",
       "sort": "Sort by",
       "name": "Title",
-      "date": "Date"
+      "date": "Date",
+      "date_desc": "Most recent",
+      "date_asc": "Oldest first"
     },
     "theme": "Theme color",
     "about": "About this app",

@@ -1,6 +1,5 @@
 <script setup lang='ts'>
 import { useStorage } from '@vueuse/core'
-
 import { Check, ChevronDown } from 'lucide-vue-next'
 import {
   SelectContent,
@@ -33,7 +32,7 @@ const { t, locale } = useI18n()
     </SelectTrigger>
     <SelectPortal>
       <SelectContent
-        class="min-w-[160px] bg-background  z-100 font-mono border border-secondary"
+        class="min-w-[160px] bg-background z-100 font-mono border border-secondary"
         position="popper"
         :side-offset="5"
         align="end"
@@ -68,7 +67,7 @@ const { t, locale } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.date') }} Old</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.date_asc') }}</SelectItemText>
             </SelectItem>
             <SelectItem
               class="text-xs leading-none text-foreground flex items-center h-8 px-1 py-2 pr-12 relative select-none data-disabled:text-foreground/30 data-disabled:pointer-events-none data-highlighted:outline-hidden data-highlighted:bg-secondary/50 data-highlighted:text-foreground"
@@ -77,7 +76,7 @@ const { t, locale } = useI18n()
               <SelectItemIndicator class="absolute text-primary right-0 w-[25px] inline-flex items-center justify-center">
                 <Check class="size-4" />
               </SelectItemIndicator>
-              <SelectItemText>{{ t('sidebar.sort.date') }} New</SelectItemText>
+              <SelectItemText>{{ t('sidebar.sort.date_desc') }}</SelectItemText>
             </SelectItem>
           </SelectGroup>
         </SelectViewport>

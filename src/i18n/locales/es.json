@@ -57,7 +57,8 @@
     "addTask": "Agregar tarea"
   },
   "sidebar": {
-    "newDocument": "Crear nuevo documento",
+    "newDocument": "nuevo documento",
+    "creatingNewDocument": "Creando nuevo documento",
     "search": "Filtrar por título",
     "navigation": "Navegación principal",
     "noResults": "Sin resultados",
@@ -67,7 +68,9 @@
       "placeholder": "seleccionar",
       "sort": "Ordenar por",
       "name": "Nombre",
-      "date": "Fecha"
+      "date": "Fecha",
+      "date_desc": "Más recientes",
+      "date_asc": "Más antiguos"
     },
     "theme": "Modo de color",
     "about": "Acerca de esta app",

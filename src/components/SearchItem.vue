@@ -98,8 +98,8 @@ function toggleFixed(item: any, isfixed: any) {
           <template v-if="props.data.document_data?.name">
             <span class="sr-only">{{ t("verb.open") }}</span>
             {{
-              props.data.document_data?.name.length > 25
-                ? `${props.data.document_data?.name.substring(0, 25)}…`
+              props.data.document_data?.name.length > 24
+                ? `${props.data.document_data?.name.substring(0, 24)}…`
                 : props.data.document_data?.name
             }}
             <span class="sr-only">document in editor</span>
