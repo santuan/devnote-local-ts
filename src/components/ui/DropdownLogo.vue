@@ -137,7 +137,7 @@ function showImportModal() {
               Ctrl Shit Alt G
             </kbd>
           </DropdownMenuItem>
-          <DropdownMenuSeparator class="border-t border-primary/20" />
+          <DropdownMenuSeparator class="border-t border-border" />
           <DropdownMenuLabel class="text-primary font-semibold px-2 my-2">
             {{ t("settings.database") }}
           </DropdownMenuLabel>
