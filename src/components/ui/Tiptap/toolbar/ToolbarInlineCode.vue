@@ -22,7 +22,7 @@ const { t } = useI18n()
       @click="editor.chain().focus().toggleCode().run()"
     >
       <span
-        class="flex items-center justify-center text-xs rounded size-5 bg-secondary/30 text-inherit"
+        class="flex items-center justify-center text-xs rounded size-5 bg-foreground text-background"
       >
         M
       </span>

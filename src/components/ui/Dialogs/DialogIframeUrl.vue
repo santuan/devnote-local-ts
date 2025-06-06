@@ -54,7 +54,7 @@ function handleSubmit() {
         class="font-mono fixed top-6 translate-y-0 sm:top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] sm:translate-y-[-50%] rounded-[6px] bg-background p-6 shadow-sm focus:outline-hidden border z-[101] border-secondary"
       >
         <DialogTitle class="text-foreground m-0 text-[17px] font-medium">
-          WebFrame
+          Iframe url
         </DialogTitle>
         <DialogDescription class="text-foreground/60 mt-3 mb-5 text-[15px] leading-normal">
           {{ modal.editing_iframe_pos !== null ? t("verb.edit") : t("verb.add") }} URL

@@ -123,7 +123,7 @@ function focusOnSidebar() {
     <DialogPortal>
       <DialogOverlay class="bg-background/80 fixed inset-0 z-[92]" />
       <DialogContent
-        class="fixed top-4 md:top-[15%] left-[50%] max-h-256 w-[90vw] max-w-2xl translate-x-[-50%] text-sm overflow-hidden border bg-background border-muted-foreground/30 focus:outline-hidden z-100"
+        class="fixed top-4 md:top-[15%] left-[50%] w-[90vw] max-w-2xl translate-x-[-50%] text-sm overflow-hidden border bg-background border-muted-foreground/30 focus:outline-hidden z-100"
       >
         <VisuallyHidden>
           <DialogTitle>{{ t("commandBar.title") }} </DialogTitle>
@@ -138,7 +138,7 @@ function focusOnSidebar() {
             @keydown.enter.prevent
           />
           <ComboboxContent
-            class="border-t border-muted-foreground/30 p-2 overflow-y-auto h-96"
+            class="border-t border-muted-foreground/30 p-2 overflow-y-auto h-64 sm:h-96"
             @escape-key-down="modal.show_commandbar = false"
           >
             <ComboboxEmpty class="text-center text-muted-foreground p-4">

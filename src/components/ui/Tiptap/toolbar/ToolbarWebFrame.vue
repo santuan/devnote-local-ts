@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SquareMousePointer } from 'lucide-vue-next'
+import { Globe } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { ToolbarButton } from 'reka-ui'
 import DialogIframeUrl from '@/components/ui/Dialogs/DialogIframeUrl.vue'
@@ -28,7 +28,7 @@ function handleIframeSubmit(url: string) {
       value="WebFrame"
       @click="showIframeDialog()"
     >
-      <SquareMousePointer class="size-4" />
+      <Globe class="size-4" />
       <span class="sr-only">WebFrame</span>
     </ToolbarButton>
   </Tooltip>
