@@ -30,7 +30,7 @@ const { lengthX, isSwiping } = useSwipe(
         if (length > 0) {
           left.value = `${length}rem`
           opacity.value = length * 6 / 100
-          if (length > 13) {
+          if (length > 18) {
             left.value = '0rem'
             opacity.value = 1
             toggleMenu()
@@ -44,7 +44,7 @@ const { lengthX, isSwiping } = useSwipe(
     },
     onSwipeEnd() {
       const length = Math.abs(lengthX.value) / 9
-      if (length < 13) {
+      if (length < 18) {
         reset()
       }
     },

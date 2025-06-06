@@ -23,10 +23,10 @@ const { t, locale } = useI18n()
 <template>
   <SelectRoot :key="locale" v-model="sortOption">
     <SelectTrigger
-      class="SelectTrigger flex items-center justify-between ml-2 w-28 h-8.5 px-1 text-xs border min-w-24 border-secondary shrink-0 bg-background text-secondary-foreground"
+      class="SelectTrigger flex items-center justify-between ml-2 w-32 h-8.5 px-1 text-xs border min-w-32 border-secondary shrink-0 bg-background text-secondary-foreground"
       :aria-label="`${t('sidebar.sort.sort')} documents list`"
     >
-      <SelectValue :placeholder="t('sidebar.sort.placeholder')" />
+      <SelectValue :placeholder="t('sidebar.sort.placeholder')" class="whitespace-nowrap" />
       <ChevronDown class="h-3.5 w-3.5" />
       <span class="sr-only">{{ t('sidebar.sort.sort') }}</span>
     </SelectTrigger>

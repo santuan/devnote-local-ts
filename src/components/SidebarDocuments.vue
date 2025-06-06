@@ -41,7 +41,7 @@ function toggleFixedFilter() {
   <div class="h-full @container">
     <ButtonCreateDocument />
     <div
-      class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary border-t border-border outline-none justify-start items-center"
+      class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary border-t border-secondary outline-none justify-start items-center"
     >
       <Tooltip :name="t('sidebar.showPinned')" side="top" shortcut="ctrl + alt + shift + F">
         <button ref="focus_documents" class="p-2 size-8" title="Show only fixed items" @click="toggleFixedFilter()">
@@ -53,7 +53,7 @@ function toggleFixedFilter() {
       </Tooltip>
       <Tooltip :name="t('settings.editDBname')" side="top" shortcut="ctrl + alt + shift + E">
         <button
-          class="text-xs outline-hidden w-40 text-primary flex justify-start items-center gap-1 hover:outline-1 hover:outline-primary hover:outline-offset-4 focus-visible:outline-offset-4 focus-visible:outline-dotted focus-visible:outline-1 focus-visible:outline-primary"
+          class="text-xs outline-hidden w-36 text-primary flex justify-start items-center gap-1 hover:outline-1 hover:outline-primary hover:outline-offset-4 focus-visible:outline-offset-4 focus-visible:outline-dotted focus-visible:outline-1 focus-visible:outline-primary"
           @click="modal.show_export_db = true"
         >
           <NumberFlow
@@ -62,9 +62,9 @@ function toggleFixedFilter() {
           />
           <span
             v-show="!file_name"
-            class="truncate text-left min-w-32 max-w-32"
+            class="truncate text-left min-w-28 max-w-28"
           >{{ t("commandBar.documents") }}</span>
-          <span class="truncate text-left min-w-32 max-w-32">{{
+          <span class="truncate text-left min-w-28 max-w-28">{{
             file_name
           }}</span>
         </button>

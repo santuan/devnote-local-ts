@@ -22,7 +22,7 @@ const { height } = useElementSize(toolbarSize)
 
 <template>
   <div :key="database.loaded_id">
-    <article class="editor" :style="`--editorToolbar:${height + 60}px`">
+    <article class="editor" :style="`--editorToolbar:${height + 50}px`">
       <div v-if="content_editable" class="editor-top">
         <EditorTitle />
         <EditorToolbar v-if="show_editor_toolbar" ref="toolbarSize" />

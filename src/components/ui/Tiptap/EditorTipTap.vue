@@ -272,12 +272,12 @@ onBeforeUnmount(() => {
     }
   }
 
-  &.with-toolbar {
+  /* &.with-toolbar {
     height: calc(100dvh - var(--editorToolbar));
-  }
+  } */
 
   &.is-preview {
-    height: calc(100dvh);
+    /* height: calc(100dvh); */
     @apply max-h-screen bg-background;
 
     .tiptap td,
@@ -293,7 +293,7 @@ onBeforeUnmount(() => {
 }
 
 .tiptap {
-  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary min-h-[90dvh];
+  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary;
   /* @apply font-mono font-normal; */
   @apply font-serif;
 }
@@ -378,16 +378,6 @@ html.dark .shiki span {
   @apply text-foreground/50;
 }
 
-/* Bubble menu */
-.bubble-menu {
-  @apply bg-secondary border border-secondary p-1 flex text-xs gap-2 items-center;
-}
-
-.bubble-menu button {
-  background-color: unset;
-  @apply h-8 px-2;
-}
-
 .iframeContainer {
   @apply w-full relative border! border-primary! grid ring-transparent bg-background;
 }
@@ -397,11 +387,11 @@ html.dark .shiki span {
 }
 
 .is-preview .iframeContainer iframe {
-  @apply h-[90vh];
+  @apply h-[70vh] md:h-[90vh];
 }
 
 .iframeContainer iframe {
-  @apply mx-auto h-[90vh] relative w-full;
+  @apply mx-auto h-[70vh] md:h-[90vh] relative w-full;
 }
 
 .iframeContainer .iframeControls {
@@ -409,11 +399,11 @@ html.dark .shiki span {
 }
 
 .iframeContainer .iframeTitle {
-  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate max-w-xl
+  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate w-56 sm:w-auto sm:max-w-xl
 }
 
 .iframeContainer .iframeEditButton {
-  @apply absolute right-10 flex items-center font-mono justify-center   hover:bg-background  size-8 bg-secondary rounded-none  shrink-0
+  @apply absolute right-1 md:right-10 flex items-center font-mono justify-center   hover:bg-background  size-8 bg-secondary rounded-none  shrink-0
 }
 
 .iframeContainer.fullscreen .iframeEditButton {
@@ -421,18 +411,22 @@ html.dark .shiki span {
 }
 
 .iframeContainer .iframeFullscreenButton {
-  @apply absolute right-1 flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none
+  @apply absolute hidden right-1 md:flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none
 }
 
 .iframeContainer:has(iframe[src*="youtube"]) {
-  @apply pt-0;
+  @apply pt-0 max-w-5xl mx-auto;
 
-  .iframeTitle {
-    display: none;
+  .iframeEditButton {
+    @apply right-1!
+  }
+
+  .iframeFullscreenButton {
+    @apply hidden
   }
 
   iframe {
-    @apply aspect-video h-96
+    @apply aspect-video h-[32rem]
   }
 }
 
@@ -448,7 +442,7 @@ html.dark .shiki span {
 
 .iframeContainer.fullscreen iframe {
   width: 100%;
-  height: 90vh;
+  height: 94vh;
 }
 
 .tiptap .ProseMirror-gapcursor {

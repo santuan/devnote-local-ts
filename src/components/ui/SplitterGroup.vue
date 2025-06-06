@@ -83,6 +83,6 @@ function expandAllScreen() {
 @reference "@/assets/main.css";
 
 .SplitterGroup:has([data-resize-handle-state="drag"]) iframe {
-  @apply pointer-events-none
+  @apply pointer-events-none opacity-10 duration-300
 }
 </style>
