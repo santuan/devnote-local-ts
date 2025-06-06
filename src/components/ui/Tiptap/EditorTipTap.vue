@@ -338,8 +338,8 @@ onBeforeUnmount(() => {
 }
 
 .tiptap p code {
-  @apply bg-primary/20 break-all px-1 mx-0.5 rounded py-0.5 text-foreground ring-1 ring-primary/30 font-light text-sm;
-  @apply print:bg-primary/20! print:rounded-none print:ring-0;
+  @apply bg-primary break-all px-1 mx-0.5 rounded py-0.5 text-primary-foreground ring-1 ring-primary/30 font-light text-sm;
+  @apply print:bg-primary! print:rounded-none print:ring-0;
 }
 
 .medium-zoom--opened .medium-zoom-overlay {
