@@ -414,6 +414,10 @@ html.dark .shiki span {
   @apply absolute hidden right-1 md:flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none
 }
 
+.iframeContainer .iframeFullscreenButton svg {
+  @apply pointer-events-none
+}
+
 .iframeContainer:has(iframe[src*="youtube"]) {
   @apply pt-0 max-w-5xl mx-auto;
 

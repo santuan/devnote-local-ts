@@ -88,9 +88,9 @@ function toggleFixed(item: any, isfixed: any) {
       </button>
     </div>
     <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="0">
-      <HoverCardTrigger class="flex hover:text-primary!  px-0.5 h-6 w-full items-center  justify-start text-sm text-left ">
+      <HoverCardTrigger as="div" class="flex hover:text-primary!  px-0.5 h-8 w-full items-center  justify-start text-sm text-left ">
         <button
-          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
+          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary h-8 outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
           :class="loaded_id === props.data.id ? 'text-primary' : ''"
           @dblclick="document.toggle_editable()"
           @click="set_active_document(props.data.id)"
