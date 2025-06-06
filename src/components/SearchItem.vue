@@ -75,11 +75,11 @@ function toggleFixed(item: any, isfixed: any) {
   >
     <div class="flex items-center">
       <button
-        class="flex items-center justify-center w-6 h-6 py-1 mx-0 outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:!outline-offset-2"
+        class="flex items-center justify-center w-6 h-6 py-1 mx-0  outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:!outline-offset-2"
         @click="toggleFixed(props.data, props.data.document_data?.fixed)"
       >
         <Pin
-          class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : ''
+          class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : 'opacity-50'
           "
         />
         <span class="sr-only">{{
@@ -125,15 +125,15 @@ function toggleFixed(item: any, isfixed: any) {
               <p class="text-xs ">
                 {{ t("verb.created") }} {{ date_created }}hs
               </p>
-              <div v-if="props.data.document_data?.fixed" class="absolute right-0 m-1 bottom-1">
-                <Pin class="fill-current size-4 text-primary" />
+              <div v-if="props.data.document_data?.fixed" class="absolute  right-0 m-1 bottom-1">
+                <Pin class="fill-current size-4 text-primary " />
               </div>
             </div>
           </div>
         </HoverCardContent>
       </HoverCardPortal>
     </HoverCardRoot>
-    <Tooltip :name="t('sidebar.markAsDone')" side="top">
+    <Tooltip :name="t('sidebar.markAsDone')" side="right">
       <span>
         <label :for="`item-${props.data.id}`" class="">
           <input

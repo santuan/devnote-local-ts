@@ -8,6 +8,7 @@ import SidebarTop from '@/components/SidebarTop.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
 import { useMagicKeysStore } from '@/stores/magic-keys'
+import SidebarMiddle from './SidebarMiddle.vue'
 import Tooltip from './ui/Tooltip.vue'
 
 useMagicKeysStore()
@@ -90,6 +91,7 @@ function reset() {
       ]" :style="`transform: translateX(${left}) !important; opacity: ${opacity}`"
     >
       <SidebarTop />
+      <SidebarMiddle />
       <SidebarDocuments />
     </header>
     <transition>

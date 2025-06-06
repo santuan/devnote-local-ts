@@ -309,15 +309,6 @@ export const useDatabaseStore = defineStore('database', () => {
 
     // Then sort the filtered items
     const sortedItems = filteredItems.sort((a: any, b: any) => {
-      const aFixed = a.document_data?.fixed ?? false
-      const bFixed = b.document_data?.fixed ?? false
-
-      // Keep favorite items at the top
-      if (aFixed !== bFixed) {
-        return aFixed ? -1 : 1 // Fixed items come first
-      }
-
-      // Sorting logic based on sortOption
       if (sortOption.value === 'name_asc') {
       // Handle potential null or undefined names
         const nameA = a.document_data?.name || ''

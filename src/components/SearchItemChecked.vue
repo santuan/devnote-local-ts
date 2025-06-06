@@ -29,7 +29,7 @@ function toggleCheck(item: Documents, event: Event) {
       :class="database.loaded_id === props.data?.id ? 'text-primary' : ''"
     >
       <p
-        class="@sm:max-w-full max-w-80 py-1 md:py-0 line-clamp-1 line-through decoration-wavy decoration-primary/50 text-foreground/50 decoration-1"
+        class="@sm:max-w-full max-w-80 py-1 md:py-0 line-clamp-1 text-foreground/50"
       >
         {{ props.data?.document_data.name }}
       </p>

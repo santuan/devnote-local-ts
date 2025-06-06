@@ -17,8 +17,12 @@ const { editor } = storeToRefs(document)
 
 const iframeOptions = [
   {
-    label: 'Devnote Playground',
+    label: 'Devnote Stackblitz Playground',
     src: 'https://stackblitz.com/github/santuan/devnote-local-ts?embed=1&theme=dark&preset=node&file=src/App.vue',
+  },
+  {
+    label: 'Devnote Bolt Playground',
+    src: 'https://bolt.new/github.com/santuan/devnote-local-ts',
   },
 ]
 
