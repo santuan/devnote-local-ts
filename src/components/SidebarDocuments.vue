@@ -61,7 +61,7 @@ function toggleFixedFilter() {
           </div>
           <div
             v-if="!setting.show_favorites && setting.show_completed"
-            class="py-1 px-0.5 flex flex-col justify-start items-start relative gap-1 w-full "
+            class="py-1 px-0.5 mt-2.5 flex flex-col justify-start items-start relative gap-1 w-full "
           >
             <SearchItemChecked
               v-for="item in allItemsChecked" :key="item.id" :data="item"
