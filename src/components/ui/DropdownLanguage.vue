@@ -72,6 +72,12 @@ function setLocale(lang: any) {
       >
         Русский
       </DropdownMenuItem>
+      <DropdownMenuItem
+        class="p-2 hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset"
+        @click="setLocale('zh')"
+      >
+        简体中文
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenuRoot>
 </template>

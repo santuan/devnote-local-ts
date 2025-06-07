@@ -52,18 +52,17 @@ function toggleFixedFilter() {
             </p>
           </div>
           <div
-            v-auto-animate="{ duration: 500 }"
-            class="py-1 px-0.5 flex flex-col transition-transform justify-start items-start relative gap-1 w-full min-h-6"
+            v-if="!setting.show_completed"
+            class="py-1 px-0.5 flex flex-col transition-transform justify-start items-start relative gap-1 w-full "
           >
             <SearchItem
               v-for="item in results" :key="item.id" :data="item"
             />
           </div>
           <div
-            v-if="!setting.show_favorites"
-            class="py-1 mt-6 px-0.5 flex flex-col justify-start items-start relative gap-1 w-full min-h-6"
+            v-if="!setting.show_favorites && setting.show_completed"
+            class="py-1 px-0.5 flex flex-col justify-start items-start relative gap-1 w-full "
           >
-            <span v-if="allItemsChecked?.length !== 0" class="text-xs pl-1 text-secondary-foreground">Completados</span>
             <SearchItemChecked
               v-for="item in allItemsChecked" :key="item.id" :data="item"
             />

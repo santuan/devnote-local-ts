@@ -852,6 +852,131 @@ const { t, locale } = useI18n()
                 </template>
               </article>
             </template>
+            <template v-else-if="locale === 'zh'">
+              <article
+                class="max-w-full p-3 mx-auto prose prose-ul:list-none prose-ul:pl-0 dark:prose-invert"
+              >
+                <DialogDescription
+                  class="inline-block p-3 mt-3 mb-3 text-sm leading-relaxed rounded text-foreground border border-primary"
+                >
+                  这是一个测试版本；仅用于测试目的。目前正在适配以更好地与
+                  <a href="https://nvda.es/">NVDA</a> 配合。
+                </DialogDescription>
+                <p class="mt-3 mb-5 text-sm leading-relaxed text-foreground select-text!">
+                  此应用程序使用
+                  <a
+                    href="https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API/Using_IndexedDB"
+                    class="underline underline-offset-2"
+                  >IndexedDB</a>
+                  技术在浏览器内存储数据。这些数据保存在该浏览器的会话中（清除浏览器数据时会丢失）。
+                </p>
+                <p class="mt-2 mb-5 text-sm leading-relaxed text-foreground select-text!">
+                  您可以将 IndexedDB 导出和导入为 JSON 格式，以在本地保留数据库。
+                </p>
+                <template v-if="!isMobile">
+                  <h3 class="text-lg">
+                    键盘快捷键
+                  </h3>
+                  <ul class="text-sm divide-y-[0.1125rem] pl-0 divide-secondary">
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl M</code> 折叠菜单
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Alt N</code> 创建新文档
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Alt P</code> 切换编辑或预览模式
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Alt O</code> 命令栏导航文档
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Shift Delete</code> 删除当前文档
+                      </p>
+                    </li>
+
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift +</code> 增大应用尺寸。仅限数字小键盘
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift -</code> 减小应用尺寸。仅限数字小键盘
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift Alt .</code> 展开/折叠编辑区域
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift Alt S</code> 显示设置
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift Alt T</code> 切换工具栏
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift Alt G</code> 聚焦工具栏
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code class="inline-flex gap-1">Ctrl Shift Alt &larr;</code> 聚焦侧边栏
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code class="inline-flex gap-1">Ctrl Shift Alt &rarr;</code> 聚焦标题
+                      </p>
+                    </li>
+                    <li class="pl-0">
+                      <p class="flex justify-between items-center w-full flex-col sm:flex-row-reverse gap-2">
+                        <code>Ctrl Shift Alt U</code> 聚焦编辑器
+                      </p>
+                    </li>
+                  </ul>
+                </template>
+                <template v-if="isMobile">
+                  <h3 class="text-lg text-center">
+                    移动设备快捷方式
+                  </h3>
+                  <ul class="text-sm divide-y-[0.1125rem] pl-0 divide-secondary">
+                    <li class="pl-0 flex justify-center flex-col items-center gap-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                      >
+                        <!-- Icon from TDesign Icons by TDesign - https://github.com/Tencent/tdesign-icons/blob/main/LICENSE -->
+                        <path
+                          fill="currentColor"
+                          d="m5.222 3.222l.707-.707l-1.414-1.414l-.707.707c-4.541 4.54-5.02 11.605-1.44 16.678H.499v2h5.7V15.5h-2v2.1C.958 13.29 1.3 7.144 5.222 3.222m2.752 1.416a2.26 2.26 0 0 0-.827 3.087l4.032 6.983l-2.583.88c-.719.246-1.22.9-1.268 1.658l-.11 1.71l6.518 2.692c.792.327 1.69.268 2.431-.16l6.137-3.543a2.76 2.76 0 0 0 1.322-2.94l-1.132-5.526a2.76 2.76 0 0 0-2.687-2.203l-4.197-.02a2.76 2.76 0 0 0-1.392.37l-1.432.826l-1.725-2.987a2.26 2.26 0 0 0-3.087-.827"
+                        />
+                      </svg>
+                      <p class="flex justify-between text-center items-center w-full flex-col gap-2">
+                        <code class="break-words">Slide down on toolbar</code> 显示命令栏
+                      </p>
+                    </li>
+                  </ul>
+                </template>
+              </article>
+            </template>
             <template v-else>
               <article
                 class="max-w-full p-3 mx-auto prose prose-ul:list-none prose-ul:pl-0 dark:prose-invert"

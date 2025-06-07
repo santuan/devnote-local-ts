@@ -7,6 +7,7 @@ export const useSettingsStore = defineStore('settings', {
       show_heading_one_preview: false,
       media_base64: false,
       show_favorites: false,
+      show_completed: false,
       product_tour_seen: false,
     }
   },
@@ -23,6 +24,9 @@ export const useSettingsStore = defineStore('settings', {
     },
     toggle_show_favorites() {
       this.show_favorites = !this.show_favorites
+    },
+    toggle_show_completed() {
+      this.show_completed = !this.show_completed
     },
     toggle_product_tour_seen(value: boolean) {
       this.product_tour_seen = value

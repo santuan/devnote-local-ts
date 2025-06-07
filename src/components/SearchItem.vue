@@ -69,7 +69,7 @@ function toggleFixed(item: any, isfixed: any) {
 
 <template>
   <div
-    class="relative flex items-center justify-between w-full pr-3 pl-0.5 min-h-8 gap-2 md:pr-2 hover:ring-1 hover:bg-primary/10 hover:ring-primary"
+    class="relative flex min-w-80 items-center justify-between w-full pr-3 pl-0.5 min-h-8 gap-2 md:pr-2 hover:ring-1 hover:bg-primary/10 hover:ring-primary"
     :class="loaded_id === props.data.id ? ' ring-1 ring-primary/70' : ''
     "
   >
@@ -88,20 +88,27 @@ function toggleFixed(item: any, isfixed: any) {
       </button>
     </div>
     <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="0">
-      <HoverCardTrigger as="div" class="flex hover:text-primary!  px-0.5 h-8 w-full items-center  justify-start text-sm text-left ">
+      <HoverCardTrigger as="div" class="flex hover:text-primary!  px-0.5  w-full items-center  justify-start text-sm text-left ">
         <button
-          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary h-8 outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
+          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary  outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
           :class="loaded_id === props.data.id ? 'text-primary' : ''"
           @dblclick="document.toggle_editable()"
           @click="set_active_document(props.data.id)"
         >
           <template v-if="props.data.document_data?.name">
             <span class="sr-only">{{ t("verb.open") }}</span>
-            {{
-              props.data.document_data?.name.length > 24
-                ? `${props.data.document_data?.name.substring(0, 24)}…`
-                : props.data.document_data?.name
-            }}
+            <span class="hidden @lg:line-clamp-1">
+              {{
+                props.data.document_data?.name
+              }}
+            </span>
+            <span class="@lg:hidden">
+              {{
+                props.data.document_data?.name.length > 24
+                  ? `${props.data.document_data?.name.substring(0, 24)}…`
+                  : props.data.document_data?.name
+              }}
+            </span>
             <span class="sr-only">document in editor</span>
           </template>
           <template v-else>

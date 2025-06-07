@@ -22,14 +22,14 @@ function toggleCheck(item: Documents, event: Event) {
 
 <template>
   <div
-    class="z-20 flex items-center justify-between w-full pr-3 min-h-8 md:pr-2 opacity-70"
+    class="z-20 flex items-center min-w-80 justify-between pr-3 min-h-8 md:pr-2 w-full opacity-70"
   >
     <span
-      class="flex py-0.5 ml-1 rounded-full w-full items-center outline-hidden justify-start gap-2 text-sm text-left focus-within:ring-1 ring-primary"
+      class="flex py-0.5 ml-1  mr-auto rounded-full w-full items-center outline-hidden justify-start gap-2 text-sm text-left focus-within:ring-1 ring-primary"
       :class="database.loaded_id === props.data?.id ? 'text-primary' : ''"
     >
       <p
-        class="@sm:max-w-full max-w-80 py-1 md:py-0 line-clamp-1 text-foreground/50"
+        class="@sm:max-w-full  py-1 md:py-0 line-clamp-1 text-foreground/50"
       >
         {{ props.data?.document_data.name }}
       </p>

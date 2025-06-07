@@ -1,4 +1,3 @@
-import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { createApp } from 'vue'
@@ -13,5 +12,4 @@ pinia.use(piniaPluginPersistedstate)
 const app = createApp(App)
 app.use(pinia)
 app.use(i18n)
-app.use(autoAnimatePlugin)
 app.mount('#app')

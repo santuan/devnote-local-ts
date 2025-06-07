@@ -51,7 +51,7 @@ function handleSubmit() {
     <DialogPortal>
       <DialogOverlay class="bg-background/80 fixed inset-0 z-[100]" />
       <DialogContent
-        class="font-mono fixed top-6 translate-y-0 sm:top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] sm:translate-y-[-50%] rounded-[6px] bg-background p-6 shadow-sm focus:outline-hidden border z-[101] border-secondary"
+        class="font-mono fixed top-6 translate-y-0 sm:top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-3xl translate-x-[-50%] sm:translate-y-[-50%] rounded-[6px] bg-background p-6 shadow-sm focus:outline-hidden border z-[101] border-secondary"
       >
         <DialogTitle class="text-foreground m-0 text-[17px] font-medium">
           Iframe url
