@@ -37,12 +37,13 @@ function toggleShowCompleted() {
 <template>
   <div>
     <ButtonCreateDocument />
-    <div class="flex items-center justify-between w-full bg-secondary px-1 py-1 text-xs">
-      <div class="w-full pl-1 !border-0 !outline-0 !ring-0 flex justify-between items-center capitalize gap-1">
-        <span v-if="!setting.show_completed">{{ t("message.completed") }}</span>
-        <span v-if="setting.show_completed">{{ t("message.unmarked") }}</span>
-        <button ref="focus_documents" class="h-8 items-center  justify-center flex" @click="toggleShowCompleted()">
-          <div class="size-8 flex justify-center items-center" :class="!setting.show_completed ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'">
+    <div class="flex items-center justify-between w-full px-1 py-1 text-xs" :class="!setting.show_completed ? 'bg-secondary' : ' '">
+      <div class="w-full pl-1 !border-0 !outline-0 !ring-0 flex justify-between items-center gap-1">
+        <span>{{ t("commandBar.documents") }}</span>
+        <button ref="focus_documents" class="h-8 items-center gap-1 pl-2 capitalize text-xs justify-center flex" @click="toggleShowCompleted()">
+          <span v-if="setting.show_completed">{{ t("message.completed") }}</span>
+          <span v-if="!setting.show_completed">{{ t("message.unmarked") }}</span>
+          <div class="size-8 flex justify-center items-center">
             <Circle v-if="!setting.show_completed" class="size-4 duration-300" />
             <CircleOff v-if="setting.show_completed" class="size-4 duration-300" />
           </div>

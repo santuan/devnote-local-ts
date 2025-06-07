@@ -142,7 +142,7 @@
     "databaseCleared": "Base de datos eliminada",
     "databaseImported": "Base de datos importada",
     "completed": "completado",
-    "unmarked": "desmarcado",
+    "unmarked": "pendiente",
     "offlineReady": "Aplicación lista para trabajar sin conexión",
     "newVersionAvailable": "Nueva versión disponible",
     "updateButton": "Actualizar",
