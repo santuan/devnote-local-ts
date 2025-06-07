@@ -34,6 +34,7 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
   const magic_export_db = keys['ctrl+alt+shift+e']
   const magic_import_db = keys['ctrl+alt+shift+i']
   const magic_show_fixed = keys['ctrl+alt+shift+f']
+  const magic_show_completed = keys['ctrl+alt+shift+y']
 
   whenever(magic_task_list, () => {
     editor.value.chain().focus().toggleTaskList().run()
@@ -41,6 +42,10 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
 
   whenever(magic_show_fixed, () => {
     settings.toggle_show_favorites()
+  })
+
+  whenever(magic_show_completed, () => {
+    settings.toggle_show_completed()
   })
 
   whenever(magic_focus_sidebar, (n) => {

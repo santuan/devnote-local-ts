@@ -23,9 +23,18 @@ export const useSettingsStore = defineStore('settings', {
       this.media_base64 = !this.media_base64
     },
     toggle_show_favorites() {
-      this.show_favorites = !this.show_favorites
+      if (this.show_completed === true) {
+        this.show_favorites = true
+        this.show_completed = false
+      }
+      else {
+        this.show_favorites = !this.show_favorites
+      }
     },
     toggle_show_completed() {
+      if (this.show_favorites === true) {
+        this.show_favorites = false
+      }
       this.show_completed = !this.show_completed
     },
     toggle_product_tour_seen(value: boolean) {

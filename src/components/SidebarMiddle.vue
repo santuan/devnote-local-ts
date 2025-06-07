@@ -30,6 +30,7 @@ function toggleFixedFilter() {
 // Toggle function for the fixed filter
 function toggleShowCompleted() {
   setting.toggle_show_completed()
+  setting.show_favorites = false
 }
 </script>
 
@@ -37,29 +38,23 @@ function toggleShowCompleted() {
   <div>
     <ButtonCreateDocument />
     <div class="flex items-center justify-between w-full bg-secondary px-1 py-1 text-xs">
-      <button class="w-full grid grid-cols-2 gap-1" @click="toggleShowCompleted()">
-        <div
-          class="flex items-center py-2 justify-center gap-2"
-          :class="!setting.show_completed ? 'bg-primary text-primary-foreground' : ''"
-        >
-          <Circle class="size-4" />
-          <span>{{ t("message.unmarked") }}</span>
-        </div>
-        <div
-          class="flex items-center py-2 justify-center gap-2"
-          :class="setting.show_completed ? 'bg-primary text-primary-foreground' : ''"
-        >
-          <CircleOff class="size-4" />
-          <span>{{ t("message.completed") }}</span>
-        </div>
-      </button>
+      <div class="w-full pl-1 !border-0 !outline-0 !ring-0 flex justify-between items-center capitalize gap-1">
+        <span v-if="!setting.show_completed">{{ t("message.completed") }}</span>
+        <span v-if="setting.show_completed">{{ t("message.unmarked") }}</span>
+        <button ref="focus_documents" class="h-8 items-center  justify-center flex" @click="toggleShowCompleted()">
+          <div class="size-8 flex justify-center items-center" :class="!setting.show_completed ? 'bg-primary text-primary-foreground' : 'bg-secondary text-secondary-foreground'">
+            <Circle v-if="!setting.show_completed" class="size-4 duration-300" />
+            <CircleOff v-if="setting.show_completed" class="size-4 duration-300" />
+          </div>
+        </button>
+      </div>
     </div>
     <div
       v-if="!setting.show_completed"
       class="flex pr-2 py-1.5 gap-0.5 mt-0 w-full focus-within:border-primary border-t border-secondary outline-none justify-start items-center"
     >
       <Tooltip :name="t('sidebar.showPinned')" side="top" shortcut="ctrl + alt + shift + F">
-        <button ref="focus_documents" class="p-2 size-8" title="Show only fixed items" @click="toggleFixedFilter()">
+        <button class="p-2 size-8" title="Show only fixed items" @click="toggleFixedFilter()">
           <Pin class="origin-center size-4" :class="[{ 'fill-current text-primary': setting.show_favorites }]" />
         </button>
       </Tooltip>

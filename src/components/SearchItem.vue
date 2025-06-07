@@ -79,7 +79,7 @@ function toggleFixed(item: any, isfixed: any) {
         @click="toggleFixed(props.data, props.data.document_data?.fixed)"
       >
         <Pin
-          class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : 'opacity-50'
+          class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : ''
           "
         />
         <span class="sr-only">{{

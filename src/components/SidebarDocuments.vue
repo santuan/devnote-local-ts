@@ -43,12 +43,12 @@ function toggleFixedFilter() {
           </div>
           <div
             v-if="setting.show_favorites && results?.length === 0"
-            class="flex items-center justify-center w-full text-center"
+            class="flex items-center flex-col pt-24 justify-center w-full text-center"
           >
             <p
               class="flex flex-col items-center justify-center w-64 gap-3 p-3 text-xs bg-secondary text-foreground text-pretty"
             >
-              <TextGenerateEffect :words="t('sidebar.noPinDocuments')" :delay="150" />
+              <TextGenerateEffect :words="t('sidebar.noPinDocuments')" :delay="1000" />
             </p>
           </div>
           <div
