@@ -62,9 +62,6 @@ function toggleCheck(item: Documents, event: Event) {
   database.change_document_checked(item, target.checked)
 }
 
-function toggleFixed(item: any, isfixed: any) {
-  database.change_document_fixed(item, isfixed)
-}
 </script>
 
 <template>
