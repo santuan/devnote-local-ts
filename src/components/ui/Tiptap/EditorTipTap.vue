@@ -424,10 +424,10 @@ html.dark .shiki span {
 .iframeContainer.fullscreen {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100vw;
+  left:0;
+  right: 0;
   height: 100vh;
-  z-index: 99999;
+  z-index: 200;
   background: black;
 }
 

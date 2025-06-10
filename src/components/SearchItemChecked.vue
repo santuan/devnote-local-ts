@@ -61,7 +61,6 @@ function toggleCheck(item: Documents, event: Event) {
   const target = event.target as HTMLInputElement
   database.change_document_checked(item, target.checked)
 }
-
 </script>
 
 <template>
