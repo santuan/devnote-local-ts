@@ -21,7 +21,7 @@ const { height } = useElementSize(toolbarSize)
 </script>
 
 <template>
-  <div :key="database.loaded_id">
+  <div :key="database.loaded_id" class="@container">
     <article class="editor" :style="`--editorToolbar:${height + 50}px`">
       <div v-if="content_editable" class="editor-top">
         <EditorTitle />
@@ -53,7 +53,7 @@ const { height } = useElementSize(toolbarSize)
 @reference "@/assets/main.css";
 
 .editor {
-  @apply relative mx-auto lg:w-full pl-12 md:pl-2 pr-0.5 print:grid-rows-none;
+  @apply relative mx-auto lg:w-full pl-12 @xl:pl-6 md:pl-0 pr-0.5 print:grid-rows-none;
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;
