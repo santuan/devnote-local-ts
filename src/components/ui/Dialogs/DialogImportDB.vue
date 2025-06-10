@@ -68,11 +68,11 @@ function onDrop(files: any) {
   <AlertDialogRoot v-model:open="show_import_db">
     <AlertDialogPortal>
       <AlertDialogOverlay
-        class="bg-secondary/90 data-[state=open]:animate-overlayShow fixed inset-0 z-200"
+        class="bg-secondary/90 data-[state=open]:animate-overlayShow fixed inset-0 z-[800]"
       />
       <AlertDialogContent>
         <div
-          class="dropZone fixed flex-col font-mono inset-0 text-foreground z-200 justify-center flex items-center"
+          class="dropZone fixed flex-col font-mono inset-0 text-foreground z-[801] justify-center flex items-center"
         >
           <div
             class="flex flex-col items-center justify-center w-full"
@@ -103,7 +103,7 @@ function onDrop(files: any) {
               >
                 {{ t('verb.cancel') }}
               </AlertDialogCancel>
-              <AlertDialogCancel class="absolute top-0 size-6 flex justify-center items-center m-3 right-0 z-999 text-foreground">
+              <AlertDialogCancel class="absolute top-0 size-6 flex justify-center items-center m-3 right-0 z-[999] text-foreground">
                 <X class="size-4" />
                 <span class="sr-only">{{ t('verb.close') }}</span>
               </AlertDialogCancel>

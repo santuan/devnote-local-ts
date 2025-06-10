@@ -121,9 +121,9 @@ function focusOnSidebar() {
       </DialogTrigger>
     </Tooltip>
     <DialogPortal>
-      <DialogOverlay class="bg-background/80 fixed inset-0 z-[92]" />
+      <DialogOverlay class="bg-background/80 fixed inset-0 z-[700]" />
       <DialogContent
-        class="fixed top-4 md:top-[15%] left-[50%] w-[90vw] max-w-2xl translate-x-[-50%] text-sm overflow-hidden border bg-background border-muted-foreground/30 focus:outline-hidden z-100"
+        class="fixed top-4 md:top-[15%] left-[50%] w-[90vw] max-w-2xl translate-x-[-50%] text-sm overflow-hidden border bg-background border-muted-foreground/30 focus:outline-hidden z-[701]"
       >
         <VisuallyHidden>
           <DialogTitle>{{ t("commandBar.title") }} </DialogTitle>

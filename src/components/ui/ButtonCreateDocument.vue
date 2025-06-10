@@ -5,10 +5,12 @@ import { useI18n } from 'vue-i18n'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
+import { useSettingsStore } from '@/stores/settings'
 
 const keys = useMagicKeys()
 const focus_store = useFocusStore()
 const document = useDocumentStore()
+const setting = useSettingsStore()
 const database = useDatabaseStore()
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const magicNewDocument = keys['ctrl+alt+n']
@@ -28,6 +30,7 @@ function new_document() {
     document.clear_editor()
     document.show_sidebar_documents = false
     document.content_editable = true
+    setting.show_completed = false
   }
   focusOnTitle()
 }

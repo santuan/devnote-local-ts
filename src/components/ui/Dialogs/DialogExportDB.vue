@@ -38,9 +38,9 @@ watch(debounced, (value) => {
 <template>
   <DialogRoot v-model:open="show_export_db">
     <DialogPortal>
-      <DialogOverlay class="bg-background/80 data-[state=open]:animate-overlayShow fixed inset-0 z-200" />
+      <DialogOverlay class="bg-background/80 data-[state=open]:animate-overlayShow fixed inset-0 z-[799]" />
       <DialogContent
-        class="data-[state=open]:animate-contentShow font-mono fixed top-24 md:top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-3 md:p-6 md:pt-4 shadow-sm focus:outline-hidden z-99999"
+        class="data-[state=open]:animate-contentShow font-mono fixed top-24 md:top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-3 md:p-6 md:pt-4 shadow-sm focus:outline-hidden z-[800]"
       >
         <DialogTitle class="text-foreground flex items-center justify-start gap-3 m-0 text-[17px] font-semibold">
           <Upload class="size-5" />

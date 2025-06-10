@@ -342,19 +342,6 @@ onBeforeUnmount(() => {
   @apply print:bg-primary! print:rounded-none print:ring-0;
 }
 
-.medium-zoom--opened .medium-zoom-overlay {
-  z-index: 99;
-}
-
-.medium-zoom-image--opened {
-  z-index: 100;
-  margin: 0;
-}
-
-.medium-zoom-image {
-  transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1) !important;
-}
-
 .tiptap code::after,
 .tiptap code::before {
   display: none;
@@ -395,7 +382,7 @@ html.dark .shiki span {
 }
 
 .iframeContainer .iframeControls {
-@apply flex justify-between w-full border-b border-secondary bg-background h-10 items-center z-30
+@apply flex justify-between w-full border-b border-secondary bg-background h-10 items-center z-20
 }
 
 .iframeContainer .iframeTitle {

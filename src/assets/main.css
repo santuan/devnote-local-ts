@@ -28,6 +28,7 @@
   html,
   body {
     overscroll-behavior-y: none;
+    @apply bg-background
   }
 
   nav a.router-link-exact-active {

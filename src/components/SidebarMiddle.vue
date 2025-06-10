@@ -37,17 +37,24 @@ function toggleShowCompleted() {
 <template>
   <div>
     <ButtonCreateDocument />
-    <div class="flex items-center justify-between w-full px-1 py-1 text-xs" :class="!setting.show_completed ? 'bg-secondary' : ' '">
+    <div class="flex items-center justify-between w-full px-1 py-1 text-xs">
       <div class="w-full pl-1 !border-0 !outline-0 !ring-0 flex justify-between items-center gap-1">
-        <span>{{ t("commandBar.documents") }}</span>
-        <button ref="focus_documents" class="h-8 items-center gap-1 pl-2 capitalize text-xs justify-center flex" @click="toggleShowCompleted()">
+        <span>{{ t("commandBar.documents") }}
           <span v-if="setting.show_completed">{{ t("message.completed") }}</span>
           <span v-if="!setting.show_completed">{{ t("message.unmarked") }}</span>
-          <div class="size-8 flex justify-center items-center">
-            <Circle v-if="!setting.show_completed" class="size-4 duration-300" />
-            <CircleOff v-if="setting.show_completed" class="size-4 duration-300" />
-          </div>
-        </button>
+        </span>
+        <Tooltip :name="t('message.completed')" side="top" shortcut="ctrl + alt + shift + Y">
+          <button
+            ref="focus_documents"
+            class="h-8 items-center gap-3 p-2 outline-1 outline-secondary! hover:outline-primary! focus-visible:outline-primary! capitalize text-xs justify-center flex"
+            @click="toggleShowCompleted()"
+          >
+            <div class="gap-2 flex justify-center items-center">
+              <Circle class="size-4 " :class="!setting.show_completed ? 'text-primary' : ' '" />
+              <CircleOff class="size-4 " :class="setting.show_completed ? 'text-primary ' : ' '" />
+            </div>
+          </button>
+        </Tooltip>
       </div>
     </div>
     <div

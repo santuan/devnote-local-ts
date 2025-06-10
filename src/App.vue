@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
 import { onMounted } from 'vue'
-import Document from '@/components/Document.vue'
-import Sidebar from '@/components/Sidebar.vue'
-import PullToRefresh from '@/components/ui/PullToRefresh.vue'
 import Toasts from '@/components/ui/Toasts.vue'
+import { useIsMobile } from '@/composables/useIsMobile'
 import { useToggleColorTheme } from '@/composables/useToggleColorTheme'
 import { useDatabaseStore } from '@/stores/database'
+import AppDesktop from './components/AppDesktop.vue'
+import AppMobile from './components/AppMobile.vue'
+import ToggleSidebarLogo from './components/ToggleSidebarLogo.vue'
 import DialogExportDB from './components/ui/Dialogs/DialogExportDB.vue'
 import DialogImportDB from './components/ui/Dialogs/DialogImportDB.vue'
 import ToggleEditable from './components/ui/ToggleEditable.vue'
+
+const { isMobile } = useIsMobile()
 
 const database = useDatabaseStore()
 
@@ -27,15 +30,11 @@ onMounted(() => {
     class="w-full min-h-screen font-mono bg-background text-foreground"
     :class="cursor_pointer ? 'cursor_pointer' : 'cursor_initial'"
   >
-    <PullToRefresh>
-      <div class="flex w-full print:h-auto! print:overflow-y-auto! h-screen overflow-y-hidden">
-        <Sidebar />
-        <ToggleEditable />
-        <Document />
-      </div>
-    </PullToRefresh>
+    <AppDesktop v-if="!isMobile" />
+    <AppMobile v-else />
   </main>
-
+  <ToggleSidebarLogo />
+  <ToggleEditable />
   <Toasts />
   <DialogExportDB />
   <DialogImportDB />

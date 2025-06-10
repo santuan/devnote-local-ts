@@ -30,7 +30,10 @@ function toggleFixedFilter() {
 
 <template>
   <div class="h-full @container">
-    <div class="overflow-y-auto SidebarDocuments overflow-x-hidden h-[calc(100dvh-8rem)]">
+    <div
+      class="overflow-y-auto SidebarDocuments overflow-x-hidden "
+      :class="setting.show_completed ? 'h-[calc(100dvh-7.5rem)]' : 'h-[calc(100dvh-10.5rem)]'"
+    >
       <ScrollAreaRoot class="w-full h-full overflow-hidden" style="--scrollbar-size: 10px">
         <ScrollAreaViewport class="w-full h-full outline-primary/70">
           <div

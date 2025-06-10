@@ -27,22 +27,16 @@ withDefaults(defineProps<TooltipProps>(), {
 
 <template>
   <TooltipProvider>
-    <TooltipRoot ignore-non-keyboard-focus :delay-duration="0">
+    <TooltipRoot ignore-non-keyboard-focus>
       <TooltipTrigger as-child>
         <slot />
       </TooltipTrigger>
       <TooltipPortal>
         <TooltipContent
           class="print:hidden! ring-primary ring-1 select-none max-w-80 min-h-7 bg-secondary px-2.5 py-1.5 flex gap-2 items-center justify-center"
-          :class="shortcut ? 'flex-col' : ' '"
-          :side-offset="7"
-          :side="side"
-          :align="align"
+          :class="shortcut ? 'flex-col' : ' '" :side-offset="7" :side="side" :align="align"
         >
-          <span
-            v-show="name"
-            class="font-mono text-xs font-medium text-secondary-foreground"
-          >{{ name }}</span>
+          <span v-show="name" class="font-mono text-xs font-medium text-secondary-foreground">{{ name }}</span>
           <kbd
             v-show="shortcut"
             class="pointer-events-none uppercase inline-flex h-5 select-none items-center gap-1 rounded px-1.5 font-mono text-[10px] text-secondary-foreground font-extrabold"
