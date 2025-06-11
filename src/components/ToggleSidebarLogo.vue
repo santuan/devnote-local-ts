@@ -12,12 +12,12 @@ const { t } = useI18n()
 const { focus_menu } = storeToRefs(focus_store)
 
 function toggleMenu() {
-  document.show_sidebar_documents = true
+  document.show_sidebar_documents = !document.show_sidebar_documents
 }
 </script>
 
 <template>
-  <div v-if="!document.show_sidebar_documents" class="fixed top-0 left-0 m-1 z-[100] bg-background">
+  <div class="fixed top-0 left-0 m-1 z-[100] bg-background">
     <Tooltip :name="`${t('verb.open')} panel`" shortcut="Ctrl m" side="bottom">
       <button
         ref="focus_menu"

@@ -7,7 +7,6 @@ import { useToggleColorTheme } from '@/composables/useToggleColorTheme'
 import { useDatabaseStore } from '@/stores/database'
 import AppDesktop from './components/AppDesktop.vue'
 import AppMobile from './components/AppMobile.vue'
-import ToggleSidebarLogo from './components/ToggleSidebarLogo.vue'
 import DialogExportDB from './components/ui/Dialogs/DialogExportDB.vue'
 import DialogImportDB from './components/ui/Dialogs/DialogImportDB.vue'
 import ToggleEditable from './components/ui/ToggleEditable.vue'
@@ -33,7 +32,6 @@ onMounted(() => {
     <AppDesktop v-if="!isMobile" />
     <AppMobile v-else />
   </main>
-  <ToggleSidebarLogo />
   <ToggleEditable />
   <Toasts />
   <DialogExportDB />

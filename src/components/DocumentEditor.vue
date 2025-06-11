@@ -38,7 +38,7 @@ const { height } = useElementSize(toolbarSize)
       </Editor>
       <button
         v-show="!database.loaded_id" v-if="content_editable" :disabled="database.document_name === ''"
-        class=" fixed md:absolute right-0.5 select-none! bottom-0 z-20 h-10 px-3 text-xs text-center left-12 md:left-2 GuardarDocumento disabled:text-foreground/50 focus:bg-primary/50"
+        class=" fixed md:absolute right-0.5 select-none! bottom-0 z-20 h-10 px-3 text-xs text-center left-12 lg:left-2.5 GuardarDocumento disabled:text-foreground/50 focus:bg-primary/50"
         :class="[
           `${database.document_name ? 'bg-primary text-primary-foreground hover:bg-primary/80' : 'disabled bg-secondary pointer-events-none'}`,
         ]" @click="database.create_document()"
@@ -53,7 +53,7 @@ const { height } = useElementSize(toolbarSize)
 @reference "@/assets/main.css";
 
 .editor {
-  @apply relative mx-auto lg:w-full pl-12 @xl:pl-10 md:pl-0 pr-0.5 print:grid-rows-none;
+  @apply relative mx-auto lg:w-full pl-12 lg:pl-2 pr-0.5 print:grid-rows-none;
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr;

@@ -5,6 +5,7 @@ import Document from '@/components/Document.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import PullToRefresh from '@/components/ui/PullToRefresh.vue'
 import { useDocumentStore } from '@/stores/document'
+import ToggleSidebarLogo from './ToggleSidebarLogo.vue'
 
 const document = useDocumentStore()
 
@@ -56,6 +57,7 @@ const { lengthX, isSwiping } = useSwipe(
 <template>
   <PullToRefresh>
     <div class="flex w-full print:h-auto! print:overflow-y-auto! h-screen overflow-y-hidden">
+      <ToggleSidebarLogo />
       <div ref="swipeTarget" class="top-12 z-[198] bg-background touch-pan-x text-xs bottom-12 fixed w-9" />
       <Sidebar
         class="max-w-80"

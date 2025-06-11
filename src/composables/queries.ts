@@ -32,7 +32,6 @@ export const allItemsChecked = useObservable(
   from(
     liveQuery(() =>
       db.documents
-        .reverse()
         .toArray()
         .then(items => items.filter(item => item.document_data?.checked)),
     ),

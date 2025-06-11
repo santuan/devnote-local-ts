@@ -82,7 +82,7 @@ function toggleFixedFilter() {
       </ScrollAreaRoot>
       <button
         v-if="setting.show_favorites"
-        class="fixed bottom-0 left-0 h-10 p-2 mt-2 text-xs border-primary w-80 bg-secondary text-secondary-foreground"
+        class="absolute right-0 bottom-0 left-0 h-10 p-2 mt-2 text-xs border-primary bg-secondary text-secondary-foreground"
         @click="toggleFixedFilter()"
       >
         {{ t('verb.showAll') }}
