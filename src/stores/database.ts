@@ -15,7 +15,6 @@ import { useSettingsStore } from './settings'
 
 export const useDatabaseStore = defineStore('database', () => {
   const { t } = useI18n()
-  const show_last_open = useStorage('show_last_open', '')
   const { hasUnsavedChanges } = useUnsavedChanges()
   const document_store = useDocumentStore()
   const settings = useSettingsStore()
@@ -51,7 +50,6 @@ export const useDatabaseStore = defineStore('database', () => {
       })
       loaded_id.value = new_document_id
       document_date_created.value = new_date
-      show_last_open.value = new_document_id
       toast.success(`document created with title: ${document_name.value}`)
     }
     catch (error) {
@@ -152,7 +150,6 @@ export const useDatabaseStore = defineStore('database', () => {
         console.error('Selected document not found')
       }
       loaded_id.value = set_id
-      show_last_open.value = set_id
     }
     catch (error) {
       handle_error('Error al seleccionar el proyecto', error)
@@ -208,9 +205,6 @@ export const useDatabaseStore = defineStore('database', () => {
         if (dbFile && dbFile[0].name) {
           file_name.value = dbFile[0].name
         }
-      }
-      if (show_last_open.value !== '') {
-        set_document(Number(show_last_open.value))
       }
     }
     catch (error) {
