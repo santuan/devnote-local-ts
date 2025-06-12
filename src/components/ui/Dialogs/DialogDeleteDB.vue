@@ -43,7 +43,7 @@ function clear() {
       <span class="sr-only"> {{ t("settings.deleteDB") }}</span>
     </DialogTrigger>
     <DialogPortal>
-      <DialogOverlay class="bg-secondary/90 fixed inset-0 z-100" />
+      <DialogOverlay class="fixed inset-0 z-[904] bg-black/50" />
       <DialogContent
         class="font-mono fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-3 md:p-[25px] shadow-sm focus:outline-hidden z-9000"
       >

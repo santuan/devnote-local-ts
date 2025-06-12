@@ -37,9 +37,9 @@ const { t, locale } = useI18n()
       </DialogTrigger>
     </Tooltip>
     <DialogPortal>
-      <DialogOverlay class="bg-background/75 fixed inset-0 z-99" />
+      <DialogOverlay class="bg-background/75 fixed inset-0 z-[902]" />
       <DialogContent
-        class="font-mono fixed top-6 md:top-[50%] left-[50%] border border-secondary max-h-[85vh] w-[90vw] max-w-[850px] translate-x-[-50%] md:translate-y-[-50%] bg-background rounded p-4 focus:outline-hidden z-99"
+        class="font-mono fixed top-6 md:top-[50%] left-[50%] border border-secondary max-h-[85vh] w-[90vw] max-w-[850px] translate-x-[-50%] md:translate-y-[-50%] bg-background rounded p-4 focus:outline-hidden z-[903]"
       >
         <DialogTitle class="text-foreground m-0 text-sm pt-1 font-semibold">
           {{ t("sidebar.about") }}

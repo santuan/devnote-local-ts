@@ -36,9 +36,9 @@ const { t } = useI18n()
       </AlertDialogTrigger>
     </Tooltip>
     <AlertDialogPortal>
-      <AlertDialogOverlay class="fixed inset-0 z-80 bg-black/50" />
+      <AlertDialogOverlay class="fixed inset-0 z-[904] bg-black/50" />
       <AlertDialogContent
-        class="fixed z-80 w-[95vw] max-w-sm rounded-lg p-4 md:w-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-background text-foreground border border-secondary font-mono"
+        class="fixed z-[905] w-[95vw] max-w-sm rounded-lg p-4 md:w-full top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-background text-foreground border border-secondary font-mono"
       >
         <AlertDialogTitle class="text-sm font-light pr-12">
           {{ t("editor.delete") }} <strong class="font-bold">{{ database.document_name }}</strong>
@@ -56,7 +56,7 @@ const { t } = useI18n()
           </AlertDialogCancel>
           <AlertDialogAction as-child>
             <button
-              class="bg-red-600 text-white hover:bg-red-800 outline-hidden inline-flex ring-0 hover:ring-2 ring-red-600 h-[35px] items-center justify-center rounded-[4px] px-3 text-xs font-semibold leading-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white"
+              class="bg-red-600 text-white hover:bg-red-600/80 text-xs inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none hover:outline-hidden focus:outline-2 focus:outline-foreground focus:outline-dashed focus:outline-offset-2"
               @click="database.delete_document()"
             >
               {{ t("verb.delete") }}

@@ -14,6 +14,7 @@ import DialogCommandMenu from './ui/Dialogs/DialogCommandMenu.vue'
 import DialogInfo from './ui/Dialogs/DialogInfo.vue'
 import DialogSettings from './ui/Settings/DialogSettings.vue'
 import ToggleFontSize from './ui/ToggleFontSize.vue'
+import ToggleLeva from './ui/ToggleLeva.vue'
 import ToggleTheme from './ui/ToggleTheme.vue'
 
 const database = useDatabaseStore()
@@ -80,7 +81,7 @@ function showMenu() {
       v-if="panelRef?.isCollapsed"
     />
     <motion.div
-      v-if="panelRef?.isCollapsed" class="fixed! top-11!  left-1! flex flex-col gap-1 z-[81]!"
+      v-if="panelRef?.isCollapsed" class="fixed! top-11! left-1! flex flex-col gap-1 z-[81]!"
       :initial="{
         x: -10,
         opacity: 0,
@@ -103,6 +104,7 @@ function showMenu() {
       <DialogCommandMenu />
       <ToggleTheme />
       <ToggleFontSize />
+      <ToggleLeva />
     </motion.div>
 
     <SplitterGroup id="splitter-group-1" direction="horizontal" auto-save-id="app-desktop" @layout="layout = $event">

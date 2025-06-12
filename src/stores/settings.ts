@@ -9,6 +9,7 @@ export const useSettingsStore = defineStore('settings', {
       show_favorites: false,
       show_completed: false,
       product_tour_seen: false,
+      leva: false,
     }
   },
   persist: true,
