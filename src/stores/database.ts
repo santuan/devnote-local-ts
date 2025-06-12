@@ -30,6 +30,7 @@ export const useDatabaseStore = defineStore('database', () => {
   const document_fixed = shallowRef<boolean | undefined>(false)
   const document_date_created = shallowRef<string | undefined>('')
   const sortOption = useStorage('sortItemsBy', 'name')
+  const containerInbound = ref()
 
   async function create_document() {
     if (document_name.value === '') {
@@ -420,5 +421,6 @@ export const useDatabaseStore = defineStore('database', () => {
     results,
     status,
     update_document,
+    containerInbound,
   }
 })

@@ -95,7 +95,7 @@ const { t } = useI18n()
           />
         </ContextMenuItem>
         <ContextMenuSeparator class="h-[0.0125rem] bg-secondary my-1" /> -->
-        <ContextMenuLabel class="text-xs px-2 text-primary relative inline-block uppercase py-2">
+        <ContextMenuLabel class="text-xs px-2 text-primary relative inline-block opacity-50 uppercase py-2">
           {{ t("toolbar.table") }}
         </ContextMenuLabel>
         <ContextMenuItem
@@ -139,7 +139,7 @@ const { t } = useI18n()
         >
           {{ t("toolbar.addRowAfter") }}
         </ContextMenuItem>
-        <ContextMenuSeparator class="h-[0.0125rem] bg-secondary my-1" />
+        <ContextMenuSeparator v-if="editor.can().deleteTable()" class="h-[0.0125rem] bg-secondary my-1" />
         <ContextMenuItem
           :disabled="!editor.can().deleteTable()"
           class="cursor-default text-xs flex items-center h-6 px-2 hover:bg-primary/20 outline-hidden disabled:cursor-not-allowed disabled:text-gray-400 data-highlighted:bg-primary/20"
@@ -164,7 +164,7 @@ const { t } = useI18n()
         >
           {{ t("toolbar.deleteRow") }}
         </ContextMenuItem>
-        <ContextMenuSeparator class="h-[0.0125rem] bg-secondary my-1" />
+        <ContextMenuSeparator v-if="editor.can().mergeCells()" class="h-[0.0125rem] bg-secondary my-1" />
         <ContextMenuItem
           class="cursor-default text-xs flex items-center h-6 px-2 hover:bg-primary/20 outline-hidden disabled:cursor-not-allowed disabled:text-gray-400 data-highlighted:bg-primary/20"
           :disabled="!editor.can().mergeCells()"

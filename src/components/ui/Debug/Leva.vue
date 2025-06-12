@@ -1,18 +1,50 @@
 <script setup lang="ts">
-import { isClient, useDraggable } from '@vueuse/core'
+import { isClient, useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
 import { ChevronDown, GripHorizontal, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { CollapsibleContent, CollapsibleRoot, CollapsibleTrigger, Toggle } from 'reka-ui'
-import { ref, useTemplateRef } from 'vue'
+import { computed, ref, unref } from 'vue'
+import { useDatabaseStore } from '@/stores/database'
 import { useSettingsStore } from '@/stores/settings'
 
-const el = useTemplateRef<HTMLElement>('el')
+const database = useDatabaseStore()
+const { containerInbound } = storeToRefs(database)
 const innerWidth = isClient ? window.innerWidth : 200
-const { style } = useDraggable(el, {
+const el = ref<HTMLElement | null>(null)
+
+const {
+  top: boundsTop,
+  left: boundsLeft,
+  width: containerWidth,
+  height: containerHeight,
+} = useElementBounding(containerInbound)
+
+const { width: draggableWidth, height: draggableHeight } = useElementSize(el)
+
+const adjustedLeft = ref(0)
+const adjustedTop = ref(0)
+
+useDraggable(el, {
   initialValue: { x: innerWidth / 4.2, y: 80 },
-  preventDefault: true,
-  draggingElement: window,
+  onMove({ x, y }) {
+    const offsetX = x - unref(boundsLeft)
+    const offsetY = y - unref(boundsTop)
+
+    adjustedLeft.value = Math.min(
+      Math.max(0, offsetX),
+      containerWidth.value - draggableWidth.value,
+    )
+    adjustedTop.value = Math.min(
+      Math.max(0, offsetY),
+      containerHeight.value - draggableHeight.value,
+    )
+  },
 })
+
+const style = computed(() => ({
+  left: `${adjustedLeft.value}px`,
+  top: `${adjustedTop.value}px`,
+}))
 
 const settings = useSettingsStore()
 const { leva } = storeToRefs(settings)
@@ -21,42 +53,42 @@ const open = ref(false)
 
 <template>
   <transition>
-    <div v-show="leva" ref="el" :style="style" style="position: fixed" class="text-xs group z-[110] cursor-grab active:cursor-grabbing bg-secondary outline outline-secondary text-left">
-      <CollapsibleRoot
-        v-model:open="open"
-        class="w-64 "
-      >
-        <div
-          class="p-2 flex items-center justify-between "
-        >
-          <div class="flex gap-1 items-center justify-start">
-            <CollapsibleTrigger
-              class="cursor-default rounded-full h-5 w-5 inline-flex items-center justify-center text-foreground outline-none  hover:opacity-100 opacity-80"
-            >
-              <ChevronDown
-                class="h-3.5 w-3.5 duration-300"
-                :class="open ? '' : '-rotate-90'"
-              />
-            </CollapsibleTrigger>
+    <div
+      v-show="leva"
+      ref="el"
+      :style="style"
+      style="position: absolute"
+      class="text-xs group z-[110] cursor-grab active:cursor-grabbing bg-secondary outline outline-secondary text-left"
+    >
+      <CollapsibleRoot v-model:open="open" class="w-64">
+        <div class="px-2 py-1 flex items-center justify-between">
+          <CollapsibleTrigger
+            class="cursor-default size-5 inline-flex items-center text-foreground outline-none hover:bg-background hover:opacity-100 opacity-80 gap-1 w-20 justify-start"
+          >
+            <ChevronDown
+              class="h-3.5 w-3.5 duration-300"
+              :class="open ? '' : '-rotate-90'"
+            />
             <span class="text-foreground uppercase">Debug</span>
-          </div>
+          </CollapsibleTrigger>
+
           <GripHorizontal
             class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
           />
-          <Toggle
-            v-model="leva"
-            aria-label="Toggle leva"
-            class="flex items-center justify-center  border hover:bg-secondary/80 border-secondary size-6"
-          >
-            <X class="size-3.5" />
-          </Toggle>
+
+          <div class="w-20 flex justify-end items-center">
+            <Toggle
+              v-model="leva"
+              aria-label="Toggle leva"
+              class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
+            >
+              <X class="size-3.5" />
+            </Toggle>
+          </div>
         </div>
 
-        <!-- <div class="bg-secondary rounded-lg mt-[10px] p-[10px] border">
-        <span class="text-grass11 leading-[25px]">@unovue/reka-ui</span>
-      </div> -->
-        <CollapsibleContent class="CollapsibleContent bg-background  overflow-hidden">
-          <div class="px-3 text-xs ">
+        <CollapsibleContent class="CollapsibleContent bg-background overflow-hidden">
+          <div class="px-3 text-xs">
             <slot />
           </div>
         </CollapsibleContent>

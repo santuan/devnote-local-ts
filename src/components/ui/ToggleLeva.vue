@@ -11,18 +11,19 @@ const { leva } = storeToRefs(settings)
 </script>
 
 <template>
-  <Tooltip
-    name="Leva"
-    side="right"
+  <Toggle
+    v-model="leva"
+    aria-label="Toggle Leva"
+    class="flex items-center data-[state=on]:text-primary-foreground data-[state=on]:bg-primary justify-center border hover:bg-secondary/80 border-secondary bg-background size-8"
   >
-    <Toggle
-      v-model="leva"
-      aria-label="Toggle Leva"
-      class="flex items-center justify-center  border hover:bg-secondary/80 border-secondary bg-background size-8"
+    <Tooltip
+      name="Leva"
+      side="right"
+      shortcut="Ctrl Shift Alt D"
     >
       <Bug class="size-4" />
-    </Toggle>
-  </Tooltip>
+    </Tooltip>
+  </Toggle>
 </template>
 
 <style scoped>

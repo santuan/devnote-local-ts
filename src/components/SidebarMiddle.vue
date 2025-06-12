@@ -43,15 +43,15 @@ function toggleShowCompleted() {
           <span v-if="setting.show_completed">{{ t("message.completed") }}</span>
           <span v-if="!setting.show_completed">{{ t("message.unmarked") }}</span>
         </span>
-        <Tooltip :name="t('message.completed')" side="top" shortcut="ctrl + alt + shift + Y">
+        <Tooltip :name="`${t('verb.toggle')} ${t('message.completed')} / ${t('message.unmarked')}`" side="top" shortcut="ctrl + alt + shift + Y">
           <button
             ref="focus_documents"
             class="h-8 items-center gap-3 p-2 outline-1 outline-secondary! hover:outline-primary! focus-visible:outline-primary! capitalize text-xs justify-center flex"
             @click="toggleShowCompleted()"
           >
             <div class="gap-2 flex justify-center items-center">
-              <Circle class="size-4 " :class="!setting.show_completed ? 'text-primary' : ' '" />
-              <CircleOff class="size-4 " :class="setting.show_completed ? 'text-primary ' : ' '" />
+              <Circle class="size-4 " :class="!setting.show_completed ? 'text-primary' : ' opacity-50 '" />
+              <CircleOff class="size-4 " :class="setting.show_completed ? 'text-primary ' : ' opacity-50 '" />
             </div>
           </button>
         </Tooltip>

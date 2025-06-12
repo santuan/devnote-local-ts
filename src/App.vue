@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 import Toasts from '@/components/ui/Toasts.vue'
 import { useIsMobile } from '@/composables/useIsMobile'
@@ -14,6 +15,7 @@ import ToggleEditable from './components/ui/ToggleEditable.vue'
 const { isMobile } = useIsMobile()
 
 const database = useDatabaseStore()
+const { containerInbound } = storeToRefs(database)
 
 const colorTheme = useStorage('theme', 'theme-foreground')
 const cursor_pointer = useStorage('cursor', true)
@@ -26,6 +28,7 @@ onMounted(() => {
 
 <template>
   <main
+    ref="containerInbound"
     class="w-full min-h-screen font-mono bg-background text-foreground"
     :class="cursor_pointer ? 'cursor_pointer' : 'cursor_initial'"
   >

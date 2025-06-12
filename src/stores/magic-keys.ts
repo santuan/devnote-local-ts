@@ -35,6 +35,11 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
   const magic_import_db = keys['ctrl+alt+shift+i']
   const magic_show_fixed = keys['ctrl+alt+shift+f']
   const magic_show_completed = keys['ctrl+alt+shift+y']
+  const magic_show_leva = keys['ctrl+alt+shift+d']
+
+  whenever(magic_show_leva, () => {
+    settings.leva = !settings.leva
+  })
 
   whenever(magic_task_list, () => {
     editor.value.chain().focus().toggleTaskList().run()

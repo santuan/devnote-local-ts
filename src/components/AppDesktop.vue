@@ -26,12 +26,7 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
 const panelRef = ref()
 
 function expandAllScreen() {
-  if (panelRef.value?.isCollapsed) {
-    panelRef.value?.expand()
-  }
-  else {
-    panelRef.value?.collapse()
-  }
+  panelRef.value.resize(50)
 }
 const document = useDocumentStore()
 const breakpoints = useBreakpoints(breakpointsTailwind)
