@@ -101,7 +101,7 @@ export default {
     class="code-block group  ring-1 ring-muted"
     spellcheck="false"
     :class="[
-      showFullCode ? 'fixed! bg-background z-[90] !my-0 inset-0 !' : '',
+      showFullCode ? 'absolute! bg-background z-[90] !my-0 left-0! min-h-screen inset-0!' : '',
     ]"
   >
     <ScrollAreaRoot class="w-full ScrollAreaRootCodeBlock h-full" style="--scrollbar-size: 10px">

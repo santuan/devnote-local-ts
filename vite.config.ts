@@ -23,7 +23,7 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 10000000,
       },
     }),
-    vueDevTools(),
+    // vueDevTools(),
   ],
   server: {
     allowedHosts: true,

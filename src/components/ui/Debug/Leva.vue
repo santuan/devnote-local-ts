@@ -58,10 +58,10 @@ const open = ref(false)
       ref="el"
       :style="style"
       style="position: absolute"
-      class="text-xs group z-[110] cursor-grab active:cursor-grabbing bg-secondary outline outline-secondary text-left"
+      class="text-xs  z-[110] cursor-grab active:cursor-grabbing bg-secondary outline outline-secondary text-left"
     >
-      <CollapsibleRoot v-model:open="open" class="w-64">
-        <div class="px-2 py-1 flex items-center justify-between">
+      <CollapsibleRoot v-model:open="open" class="w-64 ">
+        <div class="px-2 py-1 flex items-center justify-between group">
           <CollapsibleTrigger
             class="cursor-default size-5 inline-flex items-center text-foreground outline-none hover:bg-background hover:opacity-100 opacity-80 gap-1 w-20 justify-start"
           >

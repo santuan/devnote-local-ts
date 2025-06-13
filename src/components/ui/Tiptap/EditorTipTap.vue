@@ -181,7 +181,7 @@ onBeforeUnmount(() => {
         class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
       >
         <EditorContextMenu>
-          <div class="max-w-full mx-auto prose dark:prose-invert" spellcheck="false">
+          <div class="max-w-full mx-auto relative prose dark:prose-invert" spellcheck="false">
             <slot />
             <EditorContent :editor="editor" />
           </div>
@@ -374,11 +374,11 @@ html.dark .shiki span {
 }
 
 .is-preview .iframeContainer iframe {
-  @apply h-[70vh] md:h-[90vh];
+  @apply h-[70vh] md:h-[77vh];
 }
 
 .iframeContainer iframe {
-  @apply mx-auto h-[70vh] md:h-[90vh] relative w-full;
+  @apply mx-auto h-[70vh] md:h-[77vh] relative w-full;
 }
 
 .iframeContainer .iframeControls {
