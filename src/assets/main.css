@@ -20,16 +20,18 @@
   }
 }
 
+html,
+body {
+  overscroll-behavior-y: none;
+  @apply bg-background!
+}
+
 @layer utilities {
   /* * {
   border-radius: 1px
 }  */
 
-  html,
-  body {
-    overscroll-behavior-y: none;
-    @apply bg-background
-  }
+
 
   nav a.router-link-exact-active {
     @apply text-primary;

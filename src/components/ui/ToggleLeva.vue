@@ -13,15 +13,15 @@ const { leva } = storeToRefs(settings)
 <template>
   <Toggle
     v-model="leva"
-    aria-label="Toggle Leva"
+    aria-label="Toggle debug"
     class="flex items-center data-[state=on]:text-primary-foreground data-[state=on]:bg-primary justify-center border hover:bg-secondary/80 border-secondary bg-background size-8"
   >
     <Tooltip
-      name="Leva"
+      name="Toggle debug"
       side="right"
       shortcut="Ctrl Shift Alt D"
     >
-      <Bug class="size-4" />
+      <Bug class="size-4 outline-0" />
     </Tooltip>
   </Toggle>
 </template>

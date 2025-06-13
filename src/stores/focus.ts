@@ -8,6 +8,7 @@ export const useFocusStore = defineStore('focus', () => {
   const focus_documents = shallowRef<HTMLElement | null>(null)
   const focus_toolbar = shallowRef<HTMLElement | null>(null)
   const focus_menu = shallowRef<HTMLElement | null>(null)
+  const focus_debug = shallowRef<HTMLElement | null>(null)
   const document = useDocumentStore()
 
   function SetFocusTitle() {
@@ -20,6 +21,11 @@ export const useFocusStore = defineStore('focus', () => {
   function setFocusMenu() {
     if (focus_menu.value instanceof HTMLElement) {
       focus_menu.value.focus()
+    }
+  }
+  function setFocusDebug() {
+    if (focus_debug.value instanceof HTMLElement) {
+      focus_debug.value.focus()
     }
   }
 
@@ -48,10 +54,12 @@ export const useFocusStore = defineStore('focus', () => {
     setFocusDocumentsLists,
     setFocusToolbar,
     setFocusMenu,
+    setFocusDebug,
     focus_title_textarea,
     focus_sidebar,
     focus_documents,
     focus_toolbar,
     focus_menu,
+    focus_debug,
   }
 })

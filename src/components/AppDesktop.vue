@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { breakpointsTailwind, useBreakpoints, useStorage } from '@vueuse/core'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { motion } from 'motion-v'
 import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'reka-ui'
 import { computed, ref, shallowRef, watch } from 'vue'
 import Document from '@/components/Document.vue'
 import Sidebar from '@/components/Sidebar.vue'
-import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import ToggleSidebarLogo from './ToggleSidebarLogo.vue'
+import Debug from './ui/Debug/Debug.vue'
 import Leva from './ui/Debug/Leva.vue'
 import DialogCommandMenu from './ui/Dialogs/DialogCommandMenu.vue'
 import DialogInfo from './ui/Dialogs/DialogInfo.vue'
@@ -17,12 +17,7 @@ import ToggleFontSize from './ui/ToggleFontSize.vue'
 import ToggleLeva from './ui/ToggleLeva.vue'
 import ToggleTheme from './ui/ToggleTheme.vue'
 
-const database = useDatabaseStore()
-
 useMagicKeysStore()
-const colorTheme = useStorage('theme', 'theme-foreground')
-const appFontSize = useStorage('appFontSize', 'app-font-size-md')
-
 const panelRef = ref()
 
 function expandAllScreen() {
@@ -47,6 +42,20 @@ watch(() => document.show_sidebar_documents, (isOpen) => {
     panelRef.value?.collapse()
   }
 })
+
+// watch(() => resize.value, (resize) => {
+//   if (!resize)
+//     return
+//   if (resize <= 10) {
+//     hideMenu()
+//     return true
+//   }
+//   if (resize > 10) {
+//     showMenu()
+//     return true
+//   }
+//   return false
+// }, { immediate: true })
 
 const appSizeResult = computed(() => {
   if (!resize.value)
@@ -140,46 +149,7 @@ function showMenu() {
       </SplitterPanel>
     </SplitterGroup>
     <Leva>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <p>Sidebar</p>
-        <span>{{ document.show_sidebar_documents }}</span>
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <p>Sidebar.isCollapsed</p>
-        <span>{{ panelRef.isCollapsed }}</span>
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <p>Sidebar.isExpanded</p>
-        <span>{{ panelRef.isExpanded }}</span>
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <p>Loaded id</p>
-        <span>{{ database.loaded_id }}</span>
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <p>Preview</p>
-        <span>{{ !document.content_editable }}</span>
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <p>Status</p>
-        <span>{{ database.status }}</span>
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <div class="flex flex-col  gap-1">
-          <p class="text-primary">
-            Theme
-          </p>
-          <span class="text-secondary-foreground">{{ colorTheme }}</span>
-        </div>
-        <ToggleTheme />
-      </div>
-      <div class="text-foreground flex justify-between items-center border-b border-background py-2">
-        <div class="grid gap-1">
-          <p>App Size</p>
-          <span class="text-secondary-foreground">{{ appFontSize }}</span>
-        </div>
-        <ToggleFontSize />
-      </div>
+      <Debug :panel-ref />
     </Leva>
   </div>
 </template>

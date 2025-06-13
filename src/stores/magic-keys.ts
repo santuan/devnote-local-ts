@@ -39,6 +39,9 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
 
   whenever(magic_show_leva, () => {
     settings.leva = !settings.leva
+    if (settings.leva === true) {
+      focus.setFocusDebug()
+    }
   })
 
   whenever(magic_task_list, () => {
