@@ -8,6 +8,7 @@ export const useSettingsStore = defineStore('settings', {
       media_base64: false,
       show_favorites: false,
       show_completed: false,
+      desktop_show_icons_sidebar_collapse: true,
       product_tour_seen: false,
       leva: false,
     }
@@ -40,6 +41,9 @@ export const useSettingsStore = defineStore('settings', {
     },
     toggle_product_tour_seen(value: boolean) {
       this.product_tour_seen = value
+    },
+    toggle_desktop_show_icons_sidebar_collapse() {
+      this.desktop_show_icons_sidebar_collapse = !this.desktop_show_icons_sidebar_collapse
     },
   },
 })

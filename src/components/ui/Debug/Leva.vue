@@ -2,10 +2,15 @@
 import { useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
 import { ChevronDown, GripHorizontal, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
+
 import {
   CollapsibleContent,
   CollapsibleRoot,
   CollapsibleTrigger,
+  ScrollAreaRoot,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
   Toggle,
 } from 'reka-ui'
 import {
@@ -16,6 +21,7 @@ import {
   ref,
   unref,
 } from 'vue'
+
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
 import { useSettingsStore } from '@/stores/settings'
@@ -61,7 +67,7 @@ const style = computed(() => ({
 
 const settings = useSettingsStore()
 const { leva } = storeToRefs(settings)
-const open = ref(false)
+const open = ref(true)
 
 const moveStep = 5
 const isFocused = ref(false)
@@ -111,48 +117,59 @@ onUnmounted(() => {
 <template>
   <transition>
     <div
-      v-show="leva"
-      ref="el"
-      :style="style"
-      tabindex="0"
-      style="position: absolute"
-      class="text-xs z-[110] cursor-grab active:cursor-grabbing bg-secondary outline outline-secondary text-left outline-none"
-      @focusin="isFocused = true"
-      @focus="isFocused = true"
-      @blur="isFocused = false"
+      v-show="leva" :style="style" tabindex="0" style="position: absolute"
+      class="text-xs z-[110]  bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
+      @focus="isFocused = true" @blur="isFocused = false"
     >
       <CollapsibleRoot v-model:open="open" class="w-64">
-        <div class="px-2 py-1 flex items-center justify-between group">
+        <div ref="el" class="px-2 py-1 flex items-center justify-between group cursor-grab active:cursor-grabbing">
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
               class="cursor-default h-5 inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1  justify-start"
             >
               <button ref="focus_debug">
-                <ChevronDown
-                  class="h-3.5 w-3.5 duration-300"
-                  :class="open ? '' : '-rotate-90'"
-                />
+                <ChevronDown class="h-3.5 w-3.5 duration-300" :class="open ? '' : '-rotate-90'" />
               </button>
-              <span class="text-foreground uppercase">Debug</span>
             </CollapsibleTrigger>
+            <span class="text-foreground uppercase">Debug</span>
           </div>
-          <GripHorizontal
-            class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
-          />
+          <GripHorizontal class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
           <div class="w-20 flex justify-end items-center">
             <Toggle
-              v-model="leva"
-              aria-label="Toggle leva"
+              v-model="leva" aria-label="Toggle leva"
               class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
             >
               <X class="size-3.5" />
             </Toggle>
           </div>
         </div>
-        <CollapsibleContent class="CollapsibleContent bg-background overflow-hidden">
-          <div class="px-3 text-xs">
-            <slot />
-          </div>
+        <CollapsibleContent class="CollapsibleContent border-1 border-secondary bg-background overflow-hidden">
+          <ScrollAreaRoot
+            class="w-64 px-3 text-xs py-1 h-32 md:h-44 xl:h-[21rem] relative overflow-hidden"
+            style="--scrollbar-size: 10px"
+          >
+            <div class="absolute top-0 z-10 w-full h-6 bg-gradient-to-t from-transparent to-background" />
+            <ScrollAreaViewport class="w-full h-full pr-3 rounded">
+              <slot />
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar
+              class="flex select-none touch-none p-0.5 z-20 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+              orientation="vertical"
+            >
+              <ScrollAreaThumb
+                class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
+              />
+            </ScrollAreaScrollbar>
+            <ScrollAreaScrollbar
+              class="flex select-none touch-none p-0.5 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+              orientation="horizontal"
+            >
+              <ScrollAreaThumb
+                class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
+              />
+            </ScrollAreaScrollbar>
+            <div class="absolute bottom-0 z-10 w-full h-6 bg-gradient-to-b from-transparent to-background" />
+          </ScrollAreaRoot>
         </CollapsibleContent>
       </CollapsibleRoot>
     </div>
@@ -163,9 +180,11 @@ onUnmounted(() => {
 .CollapsibleContent {
   overflow: hidden;
 }
+
 .CollapsibleContent[data-state="open"] {
   animation: slideDown 300ms ease-out;
 }
+
 .CollapsibleContent[data-state="closed"] {
   animation: slideUp 300ms ease-out;
 }
@@ -174,6 +193,7 @@ onUnmounted(() => {
   from {
     height: 0;
   }
+
   to {
     height: var(--reka-collapsible-content-height);
   }
@@ -183,6 +203,7 @@ onUnmounted(() => {
   from {
     height: var(--reka-collapsible-content-height);
   }
+
   to {
     height: 0;
   }

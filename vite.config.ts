@@ -5,7 +5,6 @@ import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-import vueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
   plugins: [

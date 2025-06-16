@@ -88,7 +88,7 @@ function toggleFixed(item: any, isfixed: any) {
       </button>
     </div>
     <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="0">
-      <HoverCardTrigger as="div" class="flex hover:text-primary!  px-0.5  w-full items-center  justify-start text-sm text-left ">
+      <div as="div" class="flex hover:text-primary!  px-0.5  w-full items-center  justify-start text-sm text-left ">
         <button
           class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary  outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
           :class="loaded_id === props.data.id ? 'text-primary' : ''"
@@ -97,19 +97,19 @@ function toggleFixed(item: any, isfixed: any) {
         >
           <template v-if="props.data.document_data?.name">
             <span class="sr-only">{{ t("verb.open") }}</span>
-            <span class="line-clamp-1">
+            <HoverCardTrigger as="span" class="line-clamp-1">
               {{
                 props.data.document_data?.name
               }}
-            </span>
-           
+            </HoverCardTrigger>
+
             <span class="sr-only">document in editor</span>
           </template>
           <template v-else>
             <span class="opacity-50">{{ t("editor.untitled") }}</span>
           </template>
         </button>
-      </HoverCardTrigger>
+      </div>
       <HoverCardPortal>
         <HoverCardContent
           class="z-10 p-2 font-mono border shadow-xs w-96 bg-background text-foreground border-primary"

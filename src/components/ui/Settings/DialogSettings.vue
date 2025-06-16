@@ -20,6 +20,7 @@ import { useIsMobile } from '@/composables/useIsMobile'
 import { useModalStore } from '@/stores/modal'
 import SettingCursor from './SettingCursor.vue'
 import SettingDeleteDB from './SettingDeleteDB.vue'
+import SettingDesktopShowIcons from './SettingDesktopShowIcons.vue'
 import SettingLanguage from './SettingLanguage.vue'
 import SettingMainTitle from './SettingMainTitle.vue'
 import SettingTour from './SettingTour.vue'
@@ -78,6 +79,7 @@ const { show_settings } = storeToRefs(modal)
               <SettingTour v-if="!isMobile" />
               <SettingCursor v-if="!isMobile" />
               <SettingMainTitle />
+              <SettingDesktopShowIcons v-if="!isMobile" />
               <h4 class="mt-2 mb-0 text-xs text-primary">
                 {{ t("settings.database") }}
               </h4>

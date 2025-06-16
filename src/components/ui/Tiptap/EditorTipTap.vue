@@ -263,7 +263,7 @@ onBeforeUnmount(() => {
   @apply w-full scrollbar-none border-0 print:h-full! print:max-h-none! overflow-x-hidden print:!overflow-y-auto;
 
   &.is-editable {
-    @apply bg-background  border border-secondary md:border-0 md:border-t md:outline-1 outline-secondary;
+    @apply bg-background border border-secondary;
     height: calc(100dvh - var(--editorToolbar));
 
     .tiptap td,

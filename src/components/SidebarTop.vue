@@ -18,7 +18,7 @@ const { t } = useI18n()
 
 <template>
   <div
-    class="flex items-center justify-between ml-1 mr-0.5 pr-0.5 mt-1  focus:ring-none focus:ring-secondary/20 outline-primary focus:ring-offset-1"
+    class="flex items-center justify-between ml-1 mr-0.5 pr-0.5 mt-1 focus:ring-none focus:ring-secondary/20 outline-primary focus:ring-offset-1"
   >
     <DropdownLogo />
     <div
@@ -27,8 +27,8 @@ const { t } = useI18n()
       <DialogInfo />
       <DialogSettings />
       <DialogCommandMenu />
-      <ToggleTheme />
       <ToggleFontSize />
+      <ToggleTheme />
       <Tooltip
         shortcut="Ctrl M"
         :name="`${t('verb.close')} panel`"
@@ -36,7 +36,7 @@ const { t } = useI18n()
         :side="'bottom'"
       >
         <button
-          class="flex items-center justify-center border interactive border-secondary bg-background hover:bg-secondary/80 size-8"
+          class="flex sticky right-0 items-center justify-center border  border-secondary bg-secondary text-primary  size-8"
           @click="document.show_sidebar_documents = !document.show_sidebar_documents"
         >
           <ArrowLeftToLine class="size-4" />
