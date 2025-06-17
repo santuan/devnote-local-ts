@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import {
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuRoot,
   DropdownMenuTrigger,
   ToolbarButton,
@@ -44,20 +45,21 @@ function insertIframe(src: string) {
           <span class="sr-only">Add iframe</span>
         </ToolbarButton>
       </DropdownMenuTrigger>
-
-      <DropdownMenuContent
-        side="bottom" align="start"
-        class="z-50 grid w-64 text-xs bg-secondary border border-primary"
-      >
-        <DropdownMenuItem
-          v-for="option in iframeOptions"
-          :key="option.src"
-          class="flex items-center justify-between gap-2 p-2 pr-3 bg-background outline-hidden focus-visible:bg-primary/30 hover:bg-primary/20"
-          @click="insertIframe(option.src)"
+      <DropdownMenuPortal>
+        <DropdownMenuContent
+          side="bottom" align="start"
+          class="z-50 grid w-64 font-mono  bg-secondary border border-primary"
         >
-          {{ option.label }}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+          <DropdownMenuItem
+            v-for="option in iframeOptions"
+            :key="option.src"
+            class="flex items-center justify-between gap-2 p-2 pr-3 bg-background text-xs text-foreground outline-hidden focus-visible:bg-primary/30 hover:bg-primary/20"
+            @click="insertIframe(option.src)"
+          >
+            {{ option.label }}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
     </DropdownMenuRoot>
   </Tooltip>
 

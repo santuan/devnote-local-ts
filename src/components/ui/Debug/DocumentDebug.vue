@@ -7,9 +7,9 @@ import { useEditorStore } from '@/stores/editor'
 import { useModalStore } from '@/stores/modal'
 
 const document = useEditorStore()
+const database = useDatabaseStore()
 const modal = useModalStore()
 const { editor } = storeToRefs(document)
-const database = useDatabaseStore()
 const { t } = useI18n()
 </script>
 
