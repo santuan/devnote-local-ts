@@ -4,6 +4,7 @@ import Bold from '@tiptap/extension-bold'
 
 import BulletList from '@tiptap/extension-bullet-list'
 
+import CharacterCount from '@tiptap/extension-character-count'
 import Code from '@tiptap/extension-code'
 import { Color } from '@tiptap/extension-color'
 import Document from '@tiptap/extension-document'
@@ -124,6 +125,9 @@ onMounted(() => {
       Table.configure({
         resizable: false,
         allowTableNodeSelection: true,
+      }),
+      CharacterCount.configure({
+        limit: 10000,
       }),
       TableRow,
       TableHeader,

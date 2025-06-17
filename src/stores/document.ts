@@ -11,6 +11,7 @@ export const useDocumentStore = defineStore('document', () => {
   const show_sidebar_documents = shallowRef(true)
   const show_editor_toolbar = shallowRef(true)
   const content_editable = shallowRef(true)
+  const sidebar_splitter_ref = shallowRef()
 
   function toggle_editable() {
     editor.value?.setEditable(!editor.value?.options?.editable)
@@ -29,5 +30,6 @@ export const useDocumentStore = defineStore('document', () => {
     show_sidebar_documents,
     toggle_editable,
     clear_editor,
+    sidebar_splitter_ref,
   }
 })

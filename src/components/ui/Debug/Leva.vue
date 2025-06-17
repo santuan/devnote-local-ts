@@ -13,14 +13,7 @@ import {
   ScrollAreaViewport,
   Toggle,
 } from 'reka-ui'
-import {
-  computed,
-  nextTick,
-  onMounted,
-  onUnmounted,
-  ref,
-  unref,
-} from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, unref } from 'vue'
 
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
@@ -30,6 +23,7 @@ const focus_store = useFocusStore()
 const database = useDatabaseStore()
 const { containerInbound } = storeToRefs(database)
 const el = ref<HTMLElement | null>(null)
+const draggableRef = ref<HTMLElement | null>(null)
 const { focus_debug } = storeToRefs(focus_store)
 
 const {
@@ -39,7 +33,8 @@ const {
   height: containerHeight,
 } = useElementBounding(containerInbound)
 
-const { width: draggableWidth, height: draggableHeight } = useElementSize(el)
+const { width: draggableWidth, height: draggableHeight }
+  = useElementSize(draggableRef)
 
 const adjustedLeft = ref(50)
 const adjustedTop = ref(225)
@@ -101,55 +96,102 @@ function handleKeyDown(e: KeyboardEvent) {
 
 onMounted(() => {
   nextTick(() => {
-    if (el.value) {
-      el.value.addEventListener('keydown', handleKeyDown)
+    if (draggableRef.value) {
+      draggableRef.value.addEventListener('keydown', handleKeyDown)
     }
   })
 })
 
 onUnmounted(() => {
-  if (el.value) {
-    el.value.removeEventListener('keydown', handleKeyDown)
+  if (draggableRef.value) {
+    draggableRef.value.removeEventListener('keydown', handleKeyDown)
   }
+})
+
+const headerHeight = ref(0)
+const scrollAreaPadding = 2
+const gradientHeight = 24
+
+function calculateHeaderHeight() {
+  if (el.value) {
+    headerHeight.value = el.value.offsetHeight
+  }
+}
+
+onMounted(() => {
+  calculateHeaderHeight()
+  window.addEventListener('resize', calculateHeaderHeight)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', calculateHeaderHeight)
+})
+
+const scrollAreaMaxHeight = computed(() => {
+  if (!draggableRef.value || !open.value)
+    return 0 // If not open, height is 0
+  const spaceBelowHeader
+    = containerHeight.value - (adjustedTop.value + headerHeight.value)
+  const nonScrollableContentHeight = scrollAreaPadding * 2 + gradientHeight * 2
+  return Math.max(0, spaceBelowHeader - nonScrollableContentHeight)
 })
 </script>
 
 <template>
   <transition>
     <div
-      v-show="leva" :style="style" tabindex="0" style="position: absolute"
-      class="text-xs z-[110]  bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
-      @focus="isFocused = true" @blur="isFocused = false"
+      v-show="leva"
+      ref="draggableRef"
+      :style="style"
+      tabindex="0"
+      style="position: absolute"
+      class="text-xs z-[110] bg-secondary outline outline-secondary text-left outline-none"
+      @focusin="isFocused = true"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
     >
       <CollapsibleRoot v-model:open="open" class="w-64">
-        <div ref="el" class="px-2 py-1 flex items-center justify-between group cursor-grab active:cursor-grabbing">
+        <div
+          ref="el"
+          class="px-2 py-1 flex items-center justify-between group cursor-grab active:cursor-grabbing"
+        >
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
-              class="cursor-default h-5 inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1  justify-start"
+              class="cursor-default h-5 inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
             >
               <button ref="focus_debug">
-                <ChevronDown class="h-3.5 w-3.5 duration-300" :class="open ? '' : '-rotate-90'" />
+                <ChevronDown
+                  class="h-3.5 w-3.5 duration-300"
+                  :class="open ? '' : '-rotate-90'"
+                />
               </button>
             </CollapsibleTrigger>
             <span class="text-foreground uppercase">Debug</span>
           </div>
-          <GripHorizontal class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
+          <GripHorizontal
+            class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
+          />
           <div class="w-20 flex justify-end items-center">
             <Toggle
-              v-model="leva" aria-label="Toggle leva"
+              v-model="leva"
+              aria-label="Toggle leva"
               class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
             >
               <X class="size-3.5" />
             </Toggle>
           </div>
         </div>
-        <CollapsibleContent class="CollapsibleContent border-1 border-secondary bg-background overflow-hidden">
+        <CollapsibleContent
+          class="CollapsibleContent border-1 border-secondary bg-background overflow-hidden"
+        >
           <ScrollAreaRoot
-            class="w-64 px-3 text-xs py-1 h-32 md:h-44 xl:h-[21rem] relative overflow-hidden"
+            class="w-64 px-1 text-xs py-1 md:min-h-72 relative overflow-hidden"
             style="--scrollbar-size: 10px"
           >
-            <div class="absolute top-0 z-10 w-full h-6 bg-gradient-to-t from-transparent to-background" />
-            <ScrollAreaViewport class="w-full h-full pr-3 rounded">
+            <div
+              class="absolute top-0 z-10 w-full h-6 bg-gradient-to-t from-transparent to-background"
+            />
+            <ScrollAreaViewport class="w-full h-full pb-1" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">
               <slot />
             </ScrollAreaViewport>
             <ScrollAreaScrollbar
@@ -168,7 +210,9 @@ onUnmounted(() => {
                 class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
               />
             </ScrollAreaScrollbar>
-            <div class="absolute bottom-0 z-10 w-full h-6 bg-gradient-to-b from-transparent to-background" />
+            <div
+              class="absolute bottom-0 z-10 w-full h-6 bg-gradient-to-b from-transparent to-background"
+            />
           </ScrollAreaRoot>
         </CollapsibleContent>
       </CollapsibleRoot>
