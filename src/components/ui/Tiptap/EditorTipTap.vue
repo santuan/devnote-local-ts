@@ -127,7 +127,7 @@ onMounted(() => {
         allowTableNodeSelection: true,
       }),
       CharacterCount.configure({
-        limit: 10000,
+        limit: 50000,
       }),
       TableRow,
       TableHeader,
