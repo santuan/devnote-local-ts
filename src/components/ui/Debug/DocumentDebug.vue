@@ -16,16 +16,16 @@ const { t } = useI18n()
 <template>
   <div v-if="database.loaded_id" class="grid gap-2">
     <div><span class="opacity-50">{{ t('tour.documentTitle') }}:</span><br> {{ database.document_name?.length === 0 ? '---' : database.document_name }}</div>
-    <div><span class="opacity-50">id:</span> {{ database.loaded_id }}</div>
+    <div><span class="opacity-50">loaded_ id:</span> {{ database.loaded_id }}</div>
     <div class="capitalize">
-      {{ database.document_checked ? t('message.completed') : t('message.unmarked') }}
+      - {{ database.document_checked ? t('message.completed') : t('message.unmarked') }}
     </div>
     <div v-if="!database.document_checked">
-      {{ database.document_fixed ? t('verb.fixed') : t('verb.unfixed') }}
+      - {{ database.document_fixed ? t('verb.fixed') : t('verb.unfixed') }}
     </div>
-    <div v-if="editor" class="flex items-center justify-between w-full">
-      <span>{{ editor.storage.characterCount.characters() }} / 10000</span>
-      <span>{{ editor.storage.characterCount.words() }} words</span>
+    <div v-if="editor" class="flex justify-between items-center border-t border-secondary pt-3 gap-3 mt-3 w-full">
+      <span>Characters<br> {{ editor.storage.characterCount.characters() }} / 10000</span>
+      <span class="block text-right">Words <br>{{ editor.storage.characterCount.words() }} </span>
     </div>
   </div>
   <div v-else class="bg-background min-h-64 flex justify-center items-center">
