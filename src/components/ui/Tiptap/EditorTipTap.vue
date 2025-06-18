@@ -185,7 +185,7 @@ onBeforeUnmount(() => {
         class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
       >
         <EditorContextMenu>
-          <div class="max-w-full mx-auto relative prose dark:prose-invert" spellcheck="false">
+          <div class="EditorContent max-w-full mx-auto relative prose dark:prose-invert" spellcheck="false">
             <slot />
             <EditorContent :editor="editor" />
           </div>
@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
 @reference "@/assets/main.css";
 
 .EditorTiptap {
-  @apply grid w-full min-h-screen;
+  @apply grid w-full min-h-[50vh];
 }
 
 /* .EditorTiptap .prose .tiptap {
@@ -282,7 +282,7 @@ onBeforeUnmount(() => {
 
   &.is-preview {
     /* height: calc(100dvh); */
-    @apply max-h-screen bg-background min-h-[90dvh] relative;
+    @apply max-h-screen bg-background min-h-[90dvh] ;
 
     .tiptap td,
     .tiptap th {

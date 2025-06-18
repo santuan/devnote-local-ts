@@ -137,7 +137,7 @@ const scrollAreaMaxHeight = computed(() => {
   <transition>
     <div
       v-show="leva" ref="draggableRef" :style="style" tabindex="0" style="position: absolute"
-      class="text-xs z-[110] bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
+      class="text-xs w-64 z-[110] bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
       @focus="isFocused = true" @blur="isFocused = false"
     >
       <CollapsibleRoot v-model:open="open" class="w-64">
@@ -163,10 +163,10 @@ const scrollAreaMaxHeight = computed(() => {
           </div>
         </div>
         <CollapsibleContent
-          class="CollapsibleContent border-1 select-none border-secondary bg-background overflow-hidden"
+          class="CollapsibleContent border-1 select-none border-secondary bg-background"
         >
           <ScrollAreaRoot
-            class="w-64 px-1 text-xs py-1 md:min-h-72 relative overflow-hidden"
+            class="w-full text-xs py-1 md:min-h-72  relative overflow-hidden"
             style="--scrollbar-size: 10px"
           >
             <div class="absolute top-0 z-10 w-full h-6 bg-gradient-to-t from-transparent to-background" />
@@ -181,14 +181,14 @@ const scrollAreaMaxHeight = computed(() => {
                 class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
               />
             </ScrollAreaScrollbar>
-            <ScrollAreaScrollbar
+            <!-- <ScrollAreaScrollbar
               class="flex select-none touch-none p-0.5 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
               orientation="horizontal"
             >
               <ScrollAreaThumb
                 class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
               />
-            </ScrollAreaScrollbar>
+            </ScrollAreaScrollbar> -->
             <div class="absolute bottom-0 z-10 w-full h-6 bg-gradient-to-b from-transparent to-background" />
           </ScrollAreaRoot>
         </CollapsibleContent>

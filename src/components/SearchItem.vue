@@ -78,10 +78,7 @@ function toggleFixed(item: any, isfixed: any) {
         class="flex items-center justify-center w-6 h-6 py-1 mx-0  outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:!outline-offset-2"
         @click="toggleFixed(props.data, props.data.document_data?.fixed)"
       >
-        <Pin
-          class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : ''
-          "
-        />
+        <Pin class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : ''" />
         <span class="sr-only">{{
           props.data.document_data?.fixed ? t("verb.unfixed") : t("verb.fixed")
         }}</span>
