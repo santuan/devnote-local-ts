@@ -20,7 +20,7 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
 </script>
 
 <template>
-  <div class="text-foreground flex justify-between items-center border-b border-background">
+  <div class="text-foreground flex justify-between items-center border-b border-background pt-1 pb-2">
     <p>Sidebar</p>
     <span>
       <CircleCheckBig v-if="document.show_sidebar_documents" class="size-3.5" />

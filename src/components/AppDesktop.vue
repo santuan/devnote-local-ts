@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
   SplitterGroup,
@@ -17,6 +18,7 @@ import LevaTabs from '@/components/ui/Debug/LevaTabs.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import { useSettingsStore } from '@/stores/settings'
+import Tooltip from './ui/Tooltip.vue'
 
 useMagicKeysStore()
 const settings = useSettingsStore()
@@ -68,6 +70,17 @@ watch(
   },
   { immediate: true },
 )
+
+function expand() {
+  if (!sidebar_splitter_ref)
+    return
+  if (resize.value > 30) {
+    sidebar_splitter_ref.value?.resize(30)
+  }
+  else {
+    sidebar_splitter_ref.value?.resize(50)
+  }
+}
 </script>
 
 <template>
@@ -98,21 +111,40 @@ watch(
             ? 'fixed md:relative min-w-80 md:min-w-auto flex z-[71]'
             : 'hidden lg:flex',
           sidebar_splitter_ref?.isCollapsed ? 'max-w-10!' : '',
+          resize === 10 ? ' border-r-2! border-primary!' : '',
         ]"
         @resize="resize = $event"
       >
         <div
           v-show="!sidebar_splitter_ref?.isCollapsed"
-          class="w-full"
-          :class="[document.show_sidebar_documents ? 'relative z-[71]' : '']"
+          class="w-full "
+          :class="[
+            document.show_sidebar_documents ? 'relative z-[71]' : '',
+
+          ]"
         >
           <Sidebar class="min-w-80" />
+          <transition>
+            <div
+              v-show="resize < 25"
+              v-if="!sidebar_splitter_ref?.isCollapsed"
+              class="absolute top-10 right-0 z-[200] transition-opacity h-screen w-5 duration-1000 bg-gradient-to-r from-transparent bottom-0 to-background"
+              :class="resize === 10 ? 'to-primary opacity-20' : 'opacity-100'"
+            />
+          </transition>
         </div>
       </SplitterPanel>
       <SplitterResizeHandle
         id="splitter-group-1-resize-handle-1"
-        class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 outline-hidden"
-      />
+        class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 z-[79] outline-hidden"
+      >
+        <Tooltip name="Expand" side="right">
+          <button class="absolute bottom-0 cursor-default! flex justify-center items-center size-6 z-[80] bg-primary text-primary-foreground duration-300 hover:text-foreground  left-0 -translate-x-3 hover:bg-secondary" @click="expand()">
+            <ArrowRightFromLine v-if="resize < 31" class="size-3 pointer-events-none" />
+            <ArrowLeftFromLine v-else class="size-3 pointer-events-none" />
+          </button>
+        </Tooltip>
+      </SplitterResizeHandle>
       <SplitterPanel id="splitter-group-1-panel-2" :min-size="50">
         <button
           v-if="document.show_sidebar_documents"

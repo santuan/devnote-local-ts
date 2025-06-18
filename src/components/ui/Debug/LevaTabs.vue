@@ -19,27 +19,27 @@ const { sidebar_splitter_ref } = storeToRefs(document)
 <template>
   <TabsRoot default-value="tab1">
     <TabsList
-      class="sticky top-0 z-10 bg-background shrink-0 mb-2 flex border-b border-secondary"
+      class="sticky top-0 z-10 bg-background shrink-0 mb-2 flex border-b outline-none! border-0!  border-secondary"
       aria-label="Manage your account"
     >
       <TabsTrigger
-        class="py-3 flex-1 flex items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary duration-300 outline-none"
+        class="py-3 flex-1 flex focus-visible:border focus-visible:border-foreground focus-visible:border-dashed items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary duration-300 outline-none"
         value="tab1"
-      >
-        Document
-      </TabsTrigger>
-      <TabsTrigger
-        class="py-3 flex-1 flex items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary duration-300 outline-none"
-        value="tab2"
       >
         Settings
       </TabsTrigger>
+      <TabsTrigger
+        class="py-3 flex-1 flex focus-visible:border focus-visible:border-foreground focus-visible:border-dashed items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary duration-300 outline-none"
+        value="tab2"
+      >
+        Document
+      </TabsTrigger>
     </TabsList>
     <TabsContent class="px-2 pt-0.5" value="tab1">
-      <DocumentDebug />
+      <Debug :panel-ref="sidebar_splitter_ref" />
     </TabsContent>
     <TabsContent class="px-2 pt-0.5" value="tab2">
-      <Debug :panel-ref="sidebar_splitter_ref" />
+      <DocumentDebug />
     </TabsContent>
   </TabsRoot>
 </template>

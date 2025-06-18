@@ -41,7 +41,8 @@ const { t } = useI18n()
       <DropdownMenuContent
         class="z-10 grid w-64 text-xs font-mono text-foreground bg-background border border-primary"
         :side-offset="5"
-        align="center"
+        :align="'start'"
+        :side="'left'"
       >
         <DropdownMenuGroup class="grid grid-cols-3">
           <DropdownMenuItem
