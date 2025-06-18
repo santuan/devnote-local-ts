@@ -39,6 +39,7 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
       <p>Sidebar.isCollapsed</p>
       <button
         class="size-6 border border-secondary flex justify-center items-center outline-none hover:border-2 hover:border-primary"
+        :class="props.panelRef.isCollapsed ? 'bg-primary text-primary-foreground' : ''"
         @click="props.panelRef.collapse()"
       >
         <CircleCheckBig v-if="props.panelRef.isCollapsed" class="size-3.5 pointer-events-none" />
@@ -49,6 +50,7 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
       <p>Sidebar.isExpanded</p>
       <button
         class="size-6 border border-secondary flex justify-center items-center outline-none hover:border-2 hover:border-primary"
+        :class="props.panelRef.isExpanded ? 'bg-primary text-primary-foreground' : ''"
         @click="props.panelRef.resize(50)"
       >
         <CircleCheckBig v-if="props.panelRef.isExpanded" class="size-3.5 pointer-events-none" />
