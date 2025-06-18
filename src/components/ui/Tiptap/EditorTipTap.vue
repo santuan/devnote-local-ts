@@ -207,7 +207,7 @@ onBeforeUnmount(() => {
 @reference "@/assets/main.css";
 
 .EditorTiptap {
-  @apply grid w-full min-h-full;
+  @apply grid w-full min-h-screen;
 }
 
 /* .EditorTiptap .prose .tiptap {
@@ -282,7 +282,7 @@ onBeforeUnmount(() => {
 
   &.is-preview {
     /* height: calc(100dvh); */
-    @apply max-h-screen bg-background;
+    @apply max-h-screen bg-background min-h-[90dvh] relative;
 
     .tiptap td,
     .tiptap th {
