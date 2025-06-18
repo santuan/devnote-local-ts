@@ -123,13 +123,13 @@ function getHeadingClass(level: number) {
         <div v-if="editor" class="border-y   border-secondary pt-3">
           <div class="flex justify-between items-center mb-1">
             <span class="text-xs opacity-50">Character Limit</span>
-            <span class="text-xs font-mono">{{ contentAnalysis.characterCount }} / 10000</span>
+            <span class="text-xs font-mono">{{ contentAnalysis.characterCount }} / 50000</span>
           </div>
           <div class="w-full bg-secondary rounded-full h-1">
             <div
               class="h-1.5 rounded-full transition-all duration-300"
-              :class="contentAnalysis.characterCount > 9000 ? 'bg-primary' : contentAnalysis.characterCount > 7000 ? 'opacity-60 bg-primary' : 'opacity-30 bg-primary'"
-              :style="{ width: `${Math.min((contentAnalysis.characterCount / 10000) * 100, 100)}%` }"
+              :class="contentAnalysis.characterCount > 40000 ? 'bg-primary' : contentAnalysis.characterCount > 30000 ? 'opacity-60 bg-primary' : 'opacity-30 bg-primary'"
+              :style="{ width: `${Math.min((contentAnalysis.characterCount / 50000) * 100, 100)}%` }"
             />
           </div>
         </div>
