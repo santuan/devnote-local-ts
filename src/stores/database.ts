@@ -256,6 +256,8 @@ export const useDatabaseStore = defineStore('database', () => {
         document_store.clear_editor()
         toast.success(t('message.databaseImported'))
         modal.show_import_db = false
+        settings.show_completed = false
+        settings.show_favorites = false
       }
       catch (importError) {
       // Import failed, restore from backup
