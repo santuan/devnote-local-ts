@@ -1,17 +1,11 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
-import { CircleCheckBig, CircleDashed } from 'lucide-vue-next'
+import { BookOpenText, CircleCheckBig, CircleDashed, PencilLine } from 'lucide-vue-next'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
 import ToggleFontSize from '../ToggleFontSize.vue'
 import ToggleTheme from '../ToggleTheme.vue'
 
-const props = defineProps({
-  panelRef: {
-    type: Object,
-    default: () => ({}),
-  },
-})
 const database = useDatabaseStore()
 const document = useDocumentStore()
 
@@ -36,31 +30,16 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
       </button>
     </div>
     <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">
-      <p>Sidebar.isCollapsed</p>
-      <button
-        class="flex items-center justify-center border hover:bg-primary hover:text-primary-foreground border-secondary bg-background size-8"
-        :class="props.panelRef.isCollapsed ? 'bg-primary text-primary-foreground ' : ''"
-        @click="props.panelRef.collapse()"
-      >
-        <CircleCheckBig v-if="props.panelRef.isCollapsed" class="size-3.5 pointer-events-none" />
-        <CircleDashed v-else class="size-3.5 pointer-events-none" />
-      </button>
-    </div>
-    <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">
-      <p>Sidebar.isExpanded</p>
-      <button
-        class="flex items-center justify-center border hover:bg-primary hover:text-primary-foreground border-secondary bg-background size-8"
-        :class="props.panelRef.isExpanded ? 'bg-primary text-primary-foreground ' : ''"
-        @click="props.panelRef.resize(50)"
-      >
-        <CircleCheckBig v-if="props.panelRef.isExpanded" class="size-3.5 pointer-events-none" />
-        <CircleDashed v-else class="size-3.5 pointer-events-none" />
-      </button>
-    </div>
-    <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">
-      <p>Document view</p>
-      <button class="p-1" @click="document.toggle_editable()">
-        {{ !document.content_editable ? 'Preview' : 'Editable' }}
+      <p>Document {{ !document.content_editable ? 'Preview' : 'Editable' }}</p>
+      <button class="flex items-center justify-center border hover:bg-secondary/80 border-secondary bg-background size-8" @click="document.toggle_editable()">
+        <BookOpenText
+          v-if="!document.content_editable"
+          class="pointer-events-none size-4"
+        />
+        <PencilLine
+          v-if="document.content_editable"
+          class="pointer-events-none size-4"
+        />
       </button>
     </div>
     <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">

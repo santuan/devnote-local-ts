@@ -297,7 +297,7 @@ onBeforeUnmount(() => {
 }
 
 .tiptap {
-  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary;
+  @apply px-2 md:px-4 pb-12 md:pt-2 outline-hidden placeholder:text-primary min-h-[80vh];
   /* @apply font-mono font-normal; */
   @apply font-serif;
 }
