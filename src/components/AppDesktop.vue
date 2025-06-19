@@ -6,7 +6,6 @@ import {
   SplitterGroup,
   SplitterPanel,
   SplitterResizeHandle,
-
 } from 'reka-ui'
 import { computed, shallowRef, watch } from 'vue'
 import Document from '@/components/Document.vue'
@@ -120,7 +119,6 @@ function expand() {
           class="w-full "
           :class="[
             document.show_sidebar_documents ? 'relative z-[71]' : '',
-
           ]"
         >
           <Sidebar class="min-w-80" />

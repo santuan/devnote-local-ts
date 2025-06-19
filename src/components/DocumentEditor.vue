@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useElementSize } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { shallowRef } from 'vue'
@@ -22,12 +22,20 @@ const { height } = useElementSize(toolbarSize)
 
 <template>
   <div :key="database.loaded_id" class="@container">
-    <article class="editor" :class="document.show_sidebar_documents ? '!pl-2' : ''" :style="`--editorToolbar:${height + 50}px`">
+    <article
+      class="editor"
+      :class="document.show_sidebar_documents ? '!pl-2' : ''"
+      :style="`--editorToolbar:${height + 50}px`"
+    >
       <div v-if="content_editable" class="editor-top">
         <EditorTitle />
         <EditorToolbar v-if="show_editor_toolbar" ref="toolbarSize" />
       </div>
-      <Editor v-model="database.document_body" :editable="!document.content_editable" :toolbar="show_editor_toolbar">
+      <Editor
+        v-model="database.document_body"
+        :editable="!document.content_editable"
+        :toolbar="show_editor_toolbar"
+      >
         <h2
           v-show="!content_editable"
           class="px-2 md:pl-5 md:p-4 mb-0 font-serif text-4xl md:text-5xl text-foreground md:pb-[1.155rem] font-black text-balance"
@@ -37,13 +45,19 @@ const { height } = useElementSize(toolbarSize)
         </h2>
       </Editor>
       <button
-        v-show="!database.loaded_id" v-if="content_editable" :disabled="database.document_name === ''"
-        class=" fixed md:absolute right-0.5 select-none! bottom-0 z-[999999] h-10 px-3 text-xs text-center left-12 lg:left-2.5 GuardarDocumento disabled:text-foreground/50 focus:bg-primary/50"
-
+        v-show="!database.loaded_id"
+        v-if="content_editable"
+        :disabled="database.document_name === ''"
+        class="fixed md:absolute right-0.5 select-none! bottom-0 z-[999999] h-10 px-3 text-xs text-center left-12 lg:left-2.5 GuardarDocumento disabled:text-foreground/50 focus:bg-primary/50"
         :class="[
-          `${database.document_name ? 'bg-primary text-primary-foreground hover:bg-primary/80' : 'disabled bg-secondary pointer-events-none'}`,
+          `${
+            database.document_name
+              ? 'bg-primary text-primary-foreground hover:bg-primary/80'
+              : 'disabled bg-secondary pointer-events-none'
+          }`,
           document.show_sidebar_documents ? 'left-2.5!' : '',
-        ]" @click="database.create_document()"
+        ]"
+        @click="database.create_document()"
       >
         {{ t("editor.save") }}
       </button>

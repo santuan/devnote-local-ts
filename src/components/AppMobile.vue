@@ -3,12 +3,11 @@ import { useSwipe } from '@vueuse/core'
 import { shallowRef, useTemplateRef, watch } from 'vue'
 import Document from '@/components/Document.vue'
 import Sidebar from '@/components/Sidebar.vue'
+import ToggleSidebarLogo from '@/components/ToggleSidebarLogo.vue'
 import PullToRefresh from '@/components/ui/PullToRefresh.vue'
 import { useDocumentStore } from '@/stores/document'
-import ToggleSidebarLogo from './ToggleSidebarLogo.vue'
 
 const document = useDocumentStore()
-
 const swipeTarget = useTemplateRef('swipeTarget')
 const opacity = shallowRef(1)
 const left = shallowRef('0')
