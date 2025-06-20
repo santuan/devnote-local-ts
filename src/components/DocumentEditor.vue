@@ -48,7 +48,7 @@ const { height } = useElementSize(toolbarSize)
         v-show="!database.loaded_id"
         v-if="content_editable"
         :disabled="database.document_name === ''"
-        class="fixed md:absolute right-0.5 select-none! bottom-0 z-[999999] h-10 px-3 text-xs text-center left-12 lg:left-2.5 GuardarDocumento disabled:text-foreground/50 focus:bg-primary/50"
+        class="fixed md:absolute right-0.5 select-none! bottom-0 z-50 h-10 px-3 text-xs text-center left-12 lg:left-2.5 GuardarDocumento disabled:text-foreground/50 focus:bg-primary/50"
         :class="[
           `${
             database.document_name

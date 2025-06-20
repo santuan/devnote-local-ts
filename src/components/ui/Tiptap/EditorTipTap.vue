@@ -16,6 +16,7 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Italic from '@tiptap/extension-italic'
 import Link from '@tiptap/extension-link'
 import ListItem from '@tiptap/extension-list-item'
+import Mathematics from '@tiptap/extension-mathematics'
 import OrderedList from '@tiptap/extension-ordered-list'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
@@ -83,6 +84,7 @@ onMounted(() => {
       BulletList,
       OrderedList,
       ListItem,
+
       // Heading,
       HeadingWithAnchor,
       HardBreak,
@@ -101,6 +103,7 @@ onMounted(() => {
       TaskItem.configure({
         nested: false,
       }),
+      Mathematics,
       ResizableMedia,
       // Image.configure({
       //   allowBase64: true,
@@ -315,6 +318,32 @@ onBeforeUnmount(() => {
 .tiptap h5,
 .tiptap h6 {
   @apply scroll-mt-8;
+}
+
+.Tiptap-mathematics-editor {
+  background: #202020;
+  color: #fff;
+  font-family: monospace;
+  padding: 0.2rem 0.5rem;
+}
+
+.Tiptap-mathematics-render {
+  padding: 0 0.25rem;
+
+  &--editable {
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #eee;
+    }
+  }
+}
+
+.Tiptap-mathematics-editor,
+.Tiptap-mathematics-render {
+  border-radius: 0.25rem;
+  display: inline-block;
 }
 
 .tiptap table:first-of-type,

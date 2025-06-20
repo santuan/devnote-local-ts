@@ -31,7 +31,7 @@ const { t } = useI18n()
         class="fixed bottom-1 print:hidden md:bottom-0 right-1 md:right-1 lg:right-0 flex items-center justify-center ml-auto text-xs ButtonDeleteDocument size-10 z-50 text-primary hover:bg-primary/20"
         :class="database.loaded_id ? '' : 'hidden'"
       >
-        <Trash2 class="size-4" />
+        <Trash2 class="size-4 pointer-events-none" />
         <span class="select-none! sr-only">{{ t("editor.delete") }}</span>
       </AlertDialogTrigger>
     </Tooltip>
