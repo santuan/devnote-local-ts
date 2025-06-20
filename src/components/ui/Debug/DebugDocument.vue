@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NumberFlow from '@number-flow/vue'
 import { ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { computed, shallowRef } from 'vue'
@@ -108,26 +109,34 @@ function getHeadingClass(level: number) {
       <div class="grid grid-cols-2 gap-2 text-xs">
         <div>
           <span class="opacity-50">Code Blocks:</span>
-          <span class="ml-1 font-mono font-bold">{{
-            contentAnalysis.codeBlocks
-          }}</span>
+          <span class="ml-1 font-mono font-bold">
+            <NumberFlow
+              :value="contentAnalysis.codeBlocks"
+            />
+          </span>
         </div>
         <div>
           <span class="opacity-50">Headings:</span>
-          <span class="ml-1 font-mono font-bold">{{
-            contentAnalysis.totalHeadings
-          }}</span>
+          <span class="ml-1 font-mono font-bold">
+            <NumberFlow
+              :value="contentAnalysis.totalHeadings"
+            />
+          </span>
         </div>
         <div>
           <span class="opacity-50">Words:</span>
-          <span class="ml-1 font-mono font-bold">{{
-            contentAnalysis.wordCount
-          }}</span>
+          <span class="ml-1 font-mono font-bold"><NumberFlow
+            :value="contentAnalysis.wordCount"
+          /></span>
         </div>
         <div v-if="editor" class="pt-3 col-span-2 border-y border-secondary">
           <div class="flex items-center justify-between mb-1">
             <span class="text-xs opacity-50">Character</span>
-            <span class="font-mono text-xs">{{ contentAnalysis.characterCount }} / 50000</span>
+            <span class="font-mono text-xs">
+              <NumberFlow
+                :value="contentAnalysis.characterCount"
+              />
+              / 50000</span>
           </div>
           <div class="w-full h-1 rounded-full bg-secondary">
             <div

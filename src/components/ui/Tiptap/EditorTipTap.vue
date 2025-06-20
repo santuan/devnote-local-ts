@@ -308,6 +308,15 @@ onBeforeUnmount(() => {
   @apply !text-foreground/25
 }
 
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+  @apply scroll-mt-8;
+}
+
 .tiptap table:first-of-type,
 .tiptap h1:first-of-type,
 .tiptap h2:first-of-type,
