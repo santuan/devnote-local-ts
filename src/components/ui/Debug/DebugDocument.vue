@@ -7,6 +7,7 @@ import slugify from '@/composables/slugify'
 import { useDatabaseStore } from '@/stores/database'
 import { useEditorStore } from '@/stores/editor'
 import { useModalStore } from '@/stores/modal'
+import Tooltip from '../Tooltip.vue'
 
 const { t } = useI18n()
 
@@ -55,12 +56,12 @@ const contentAnalysis = computed(() => {
 // Get heading level styling
 function getHeadingClass(level: number) {
   const classes = {
-    1: 'text-xs w-32 font-bold text-foreground',
-    2: 'pl-1 text-xs w-28 font-semibold text-foreground',
-    3: 'pl-2 text-xs w-28 font-semibold text-foreground',
-    4: 'pl-3 text-xs w-28 font-medium text-foreground',
-    5: 'pl-4 text-xs w-28 font-medium text-muted-foreground',
-    6: 'pl-5 text-xs w-28 font-normal text-muted-foreground',
+    1: 'text-xs font-bold text-foreground',
+    2: 'pl-1 text-xs   text-foreground',
+    3: 'pl-2 text-xs   text-foreground',
+    4: 'pl-3 text-xs  text-foreground',
+    5: 'pl-4 text-xs  text-muted-foreground',
+    6: 'pl-5 text-xs text-muted-foreground',
   }
   return (
     classes[level as keyof typeof classes] || 'text-xs text-muted-foreground'
@@ -69,45 +70,34 @@ function getHeadingClass(level: number) {
 </script>
 
 <template>
-  <div
-    v-if="database.loaded_id"
-    class="grid max-w-[15rem] w-[15rem] overflow-hidden gap-3"
-  >
+  <div v-if="database.loaded_id" class="grid max-w-[15rem] w-[15rem] overflow-hidden gap-3">
     <!-- Document Info -->
     <div v-show="showOnlyHeadings" class="pb-3 border-b border-secondary">
-      <div class="mb-2">
-        <span class="opacity-50">loaded_id:</span> {{ database.loaded_id }}
+      <div class="mb-2 grid grid-cols-2">
+        <span class="opacity-50">loaded_id: {{ database.loaded_id }}</span>
+        <div class="flex justify-end items-center gap-2" :class="!database.document_checked ? 'grid-cols-2' : ''">
+          <Tooltip
+            v-if="!database.document_checked" :name="database.document_checked
+              ? t('message.completed')
+              : t('message.unmarked')" side="top" shortcut="ctrl + alt + shift + F"
+          >
+            <Circle v-show="!database.document_checked" class="size-3" />
+            <CircleOff v-show="database.document_checked" class="size-3" />
+          </Tooltip>
+          <Tooltip
+            v-if="!database.document_checked"
+            :name="database.document_fixed ? t('verb.fixed') : t('verb.unfixed')" side="top"
+            shortcut="ctrl + alt + shift + F"
+          >
+            <Pin class="origin-center size-3" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
+          </Tooltip>
+        </div>
       </div>
       <h3 class="mb-2">
         {{
           database.document_name?.length === 0 ? "---" : database.document_name
         }}
       </h3>
-      <div
-        class="grid  p-0.5 gap-0.5 bg-secondary"
-        :class="!database.document_checked ? 'grid-cols-2' : ''"
-      >
-        <div class="flex items-center justify-center gap-2 py-2 text-xs uppercase bg-background">
-          {{
-            database.document_checked
-              ? t("message.completed")
-              : t("message.unmarked")
-          }}
-          <Circle v-show="!database.document_checked" class="size-5 md:size-3" />
-          <CircleOff v-show="database.document_checked" class="size-5 md:size-3" />
-        </div>
-        <div
-          v-if="!database.document_checked"
-          :key="database.document_name"
-          class="flex items-center justify-center gap-2 py-2 text-xs uppercase bg-background"
-        >
-          {{ database.document_fixed ? t("verb.fixed") : t("verb.unfixed") }}
-          <Pin
-            class="size-3"
-            :class="database.document_fixed ? 'fill-current  text-primary' : ''"
-          />
-        </div>
-      </div>
     </div>
 
     <!-- Content Statistics -->
@@ -115,7 +105,7 @@ function getHeadingClass(level: number) {
       <h3 class="mb-2 text-xs font-semibold text-primary">
         Content Statistics
       </h3>
-      <div class="grid gap-2 text-xs">
+      <div class="grid grid-cols-2 gap-2 text-xs">
         <div>
           <span class="opacity-50">Code Blocks:</span>
           <span class="ml-1 font-mono font-bold">{{
@@ -134,22 +124,19 @@ function getHeadingClass(level: number) {
             contentAnalysis.wordCount
           }}</span>
         </div>
-        <div v-if="editor" class="pt-3 border-y border-secondary">
+        <div v-if="editor" class="pt-3 col-span-2 border-y border-secondary">
           <div class="flex items-center justify-between mb-1">
             <span class="text-xs opacity-50">Character</span>
             <span class="font-mono text-xs">{{ contentAnalysis.characterCount }} / 50000</span>
           </div>
           <div class="w-full h-1 rounded-full bg-secondary">
             <div
-              class="h-1.5 rounded-full transition-all duration-300"
-              :class="
-                contentAnalysis.characterCount > 40000
-                  ? 'bg-primary'
-                  : contentAnalysis.characterCount > 30000
-                    ? 'opacity-60 bg-primary'
-                    : 'opacity-30 bg-primary'
-              "
-              :style="{
+              class="h-1.5 rounded-full transition-all duration-300" :class="contentAnalysis.characterCount > 40000
+                ? 'bg-primary'
+                : contentAnalysis.characterCount > 30000
+                  ? 'opacity-60 bg-primary'
+                  : 'opacity-30 bg-primary'
+              " :style="{
                 width: `${Math.min(
                   (contentAnalysis.characterCount / 50000) * 100,
                   100,
@@ -173,12 +160,11 @@ function getHeadingClass(level: number) {
       </div>
       <div class="pb-3 space-y-1 overflow-x-hidden overflow-y-auto max-w-64 max-h-64">
         <div
-          v-for="(heading, index) in contentAnalysis.headings"
-          :key="index"
+          v-for="(heading, index) in contentAnalysis.headings" :key="index"
           class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
           :class="[getHeadingClass(heading.level)]"
         >
-          <a class="truncate" :href="`#${slugify(heading.text)}`">
+          <a class="truncate w-48" :href="`#${slugify(heading.text)}`">
             {{ heading.text }}
           </a>
           <span class="opacity-30">H{{ heading.level }}</span>
