@@ -81,7 +81,7 @@ function getHeadingClass(level: number) {
           <Tooltip
             v-if="!database.document_checked" :name="database.document_checked
               ? t('message.completed')
-              : t('message.unmarked')" side="top" shortcut="ctrl + alt + shift + F"
+              : t('message.unmarked')" side="top"
           >
             <Circle v-show="!database.document_checked" class="size-3" />
             <CircleOff v-show="database.document_checked" class="size-3" />
@@ -89,7 +89,6 @@ function getHeadingClass(level: number) {
           <Tooltip
             v-if="!database.document_checked"
             :name="database.document_fixed ? t('verb.fixed') : t('verb.unfixed')" side="top"
-            shortcut="ctrl + alt + shift + F"
           >
             <Pin class="origin-center size-3" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
           </Tooltip>
