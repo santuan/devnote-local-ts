@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import NumberFlow from '@number-flow/vue'
 import { ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { computed, shallowRef } from 'vue'
