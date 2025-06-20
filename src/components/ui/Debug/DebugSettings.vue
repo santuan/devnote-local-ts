@@ -14,7 +14,7 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
 </script>
 
 <template>
-  <div class="pb-2">
+  <div class="pb-2 px-2">
     <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">
       <p>Status</p>
       <span>{{ database.status }}</span>

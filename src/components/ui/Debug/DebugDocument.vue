@@ -15,7 +15,7 @@ const document = useEditorStore()
 const database = useDatabaseStore()
 const modal = useModalStore()
 const { editor } = storeToRefs(document)
-const showOnlyHeadings = shallowRef(false)
+const showOnlyHeadings = shallowRef(true)
 // Compute content statistics and index
 const contentAnalysis = computed(() => {
   if (!editor.value) {
@@ -57,11 +57,11 @@ const contentAnalysis = computed(() => {
 function getHeadingClass(level: number) {
   const classes = {
     1: 'text-xs font-bold text-foreground',
-    2: 'pl-1 text-xs   text-foreground',
-    3: 'pl-2 text-xs   text-foreground',
-    4: 'pl-3 text-xs  text-foreground',
-    5: 'pl-4 text-xs  text-muted-foreground',
-    6: 'pl-5 text-xs text-muted-foreground',
+    2: 'pl-1 pr-3 text-xs text-foreground',
+    3: 'pl-2 pr-3 text-xs text-foreground',
+    4: 'pl-3 pr-3 text-xs text-foreground',
+    5: 'pl-4 pr-3 text-xs text-muted-foreground',
+    6: 'pl-5 pr-3 text-xs text-muted-foreground',
   }
   return (
     classes[level as keyof typeof classes] || 'text-xs text-muted-foreground'
@@ -70,9 +70,9 @@ function getHeadingClass(level: number) {
 </script>
 
 <template>
-  <div v-if="database.loaded_id" class="grid max-w-[15rem] w-[15rem] overflow-hidden gap-3">
+  <div v-if="database.loaded_id" class="grid overflow-hidden gap-3">
     <!-- Document Info -->
-    <div v-show="showOnlyHeadings" class="pb-3 border-b border-secondary">
+    <div class="pb-3 px-2 border-b border-secondary">
       <div class="mb-2 grid grid-cols-2">
         <span class="opacity-50">loaded_id: {{ database.loaded_id }}</span>
         <div class="flex justify-end items-center gap-2" :class="!database.document_checked ? 'grid-cols-2' : ''">
@@ -93,7 +93,7 @@ function getHeadingClass(level: number) {
           </Tooltip>
         </div>
       </div>
-      <h3 class="mb-2">
+      <h3 class="text-balance">
         {{
           database.document_name?.length === 0 ? "---" : database.document_name
         }}
@@ -101,7 +101,7 @@ function getHeadingClass(level: number) {
     </div>
 
     <!-- Content Statistics -->
-    <div v-show="showOnlyHeadings" class="pb-3 border-b border-secondary">
+    <div v-show="showOnlyHeadings" class="pb-3 px-2 border-b border-secondary">
       <h3 class="mb-2 text-xs font-semibold text-primary">
         Content Statistics
       </h3>
@@ -149,8 +149,8 @@ function getHeadingClass(level: number) {
     </div>
 
     <!-- Document Outline -->
-    <div v-if="contentAnalysis.headings.length > 0">
-      <div class="flex items-center justify-between gap-2 mb-2">
+    <template v-if="contentAnalysis.headings.length > 0">
+      <div class="flex items-center justify-between px-2 gap-2">
         <h3 class="text-xs font-semibold text-primary">
           Headings
         </h3>
@@ -158,19 +158,19 @@ function getHeadingClass(level: number) {
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
-      <div class="pb-3 space-y-1 overflow-x-hidden overflow-y-auto max-w-64 max-h-64">
+      <div class="pb-3 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-64 max-h-64">
         <div
           v-for="(heading, index) in contentAnalysis.headings" :key="index"
           class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
           :class="[getHeadingClass(heading.level)]"
         >
-          <a class="truncate w-48" :href="`#${slugify(heading.text)}`">
+          <a class="truncate w-40" :href="`#${slugify(heading.text)}`">
             {{ heading.text }}
           </a>
           <span class="opacity-30">H{{ heading.level }}</span>
         </div>
       </div>
-    </div>
+    </template>
   </div>
 
   <!-- No Document Loaded State -->

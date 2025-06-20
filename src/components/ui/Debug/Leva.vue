@@ -166,11 +166,10 @@ const scrollAreaMaxHeight = computed(() => {
           class="CollapsibleContent border-1 select-none border-secondary bg-background"
         >
           <ScrollAreaRoot
-            class="w-full text-xs py-1 md:min-h-72  relative overflow-hidden"
+            class="w-full text-xs md:min-h-44  relative overflow-hidden"
             style="--scrollbar-size: 10px"
           >
-            <div class="absolute top-0 z-10 w-full h-6 bg-gradient-to-t from-transparent to-background" />
-            <ScrollAreaViewport class="w-full h-full pb-1" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">
+            <ScrollAreaViewport class="w-full h-full" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">
               <slot />
             </ScrollAreaViewport>
             <ScrollAreaScrollbar
@@ -189,7 +188,6 @@ const scrollAreaMaxHeight = computed(() => {
                 class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
               />
             </ScrollAreaScrollbar> -->
-            <div class="absolute bottom-0 z-10 w-full h-6 bg-gradient-to-b from-transparent to-background" />
           </ScrollAreaRoot>
         </CollapsibleContent>
       </CollapsibleRoot>

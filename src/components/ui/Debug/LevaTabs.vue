@@ -36,10 +36,10 @@ const { sidebar_splitter_ref } = storeToRefs(document)
         Document
       </TabsTrigger>
     </TabsList>
-    <TabsContent class="px-2 pt-0.5" value="tab1">
+    <TabsContent value="tab1">
       <DebugSettings :panel-ref="sidebar_splitter_ref" />
     </TabsContent>
-    <TabsContent class="px-2 pt-0.5" value="tab2">
+    <TabsContent value="tab2">
       <DebugDocument />
     </TabsContent>
   </TabsRoot>
