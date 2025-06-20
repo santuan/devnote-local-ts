@@ -10,6 +10,7 @@ import ToggleFontSize from '@/components/ui/ToggleFontSize.vue'
 import ToggleTheme from '@/components/ui/ToggleTheme.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useDocumentStore } from '@/stores/document'
+import ToggleLeva from '../ui/ToggleLeva.vue'
 
 const document = useDocumentStore()
 
@@ -22,13 +23,14 @@ const { t } = useI18n()
   >
     <DropdownLogo />
     <div
-      class="grid-cols-6 gap-0.5 grid"
+      class="grid-cols-7 gap-0.5 grid"
     >
       <DialogInfo />
       <DialogSettings />
       <DialogCommandMenu />
       <ToggleFontSize />
       <ToggleTheme />
+      <ToggleLeva />
       <Tooltip
         shortcut="Ctrl M"
         :name="`${t('verb.close')} panel`"
