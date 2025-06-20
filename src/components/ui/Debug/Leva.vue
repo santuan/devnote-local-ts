@@ -137,10 +137,10 @@ const scrollAreaMaxHeight = computed(() => {
   <transition>
     <div
       v-show="leva" ref="draggableRef" :style="style" tabindex="0" style="position: absolute"
-      class="text-xs w-64 z-[110] bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
+      class="text-xs w-72 z-[110] bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
       @focus="isFocused = true" @blur="isFocused = false"
     >
-      <CollapsibleRoot v-model:open="open" class="w-64">
+      <CollapsibleRoot v-model:open="open" class="w-72">
         <div ref="el" class="px-2 py-1 flex items-center justify-between group cursor-grab active:cursor-grabbing">
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
@@ -166,7 +166,7 @@ const scrollAreaMaxHeight = computed(() => {
           class="CollapsibleContent border-1 select-none border-secondary bg-background"
         >
           <ScrollAreaRoot
-            class="w-full text-xs md:min-h-44  relative overflow-hidden"
+            class="w-full text-xs md:min-h-44 relative overflow-hidden"
             style="--scrollbar-size: 10px"
           >
             <ScrollAreaViewport class="w-full h-full" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">

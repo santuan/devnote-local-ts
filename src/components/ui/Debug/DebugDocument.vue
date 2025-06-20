@@ -16,6 +16,7 @@ const document = useEditorStore()
 const database = useDatabaseStore()
 const modal = useModalStore()
 const { editor } = storeToRefs(document)
+const showContentAnalysis = shallowRef(true)
 const showOnlyHeadings = shallowRef(true)
 // Compute content statistics and index
 const contentAnalysis = computed(() => {
@@ -94,7 +95,7 @@ function getHeadingClass(level: number) {
           </Tooltip>
         </div>
       </div>
-      <h3 class="text-balance">
+      <h3 class="text-balance text-sm">
         {{
           database.document_name?.length === 0 ? "---" : database.document_name
         }}
@@ -102,40 +103,39 @@ function getHeadingClass(level: number) {
     </div>
 
     <!-- Content Statistics -->
-    <div v-show="showOnlyHeadings" class="pb-3 px-2 border-b border-secondary">
-      <h3 class="mb-2 text-xs font-semibold text-primary">
-        Content Statistics
-      </h3>
-      <div class="grid grid-cols-2 gap-2 text-xs">
+    <div class="pb-3 px-2 border-b border-secondary">
+      <div class="flex items-center justify-between  gap-2">
+        <h3 class="text-xs font-semibold text-primary">
+          Content Statistics
+        </h3>
+        <button class="flex items-center justify-center size-5" @click="showContentAnalysis = !showContentAnalysis">
+          <ChevronsUpDown class="text-foreground size-3" />
+        </button>
+      </div>
+      <div v-if="showContentAnalysis" class="grid grid-cols-2 mt-1 gap-2 text-xs">
         <div>
           <span class="opacity-50">Code Blocks:</span>
           <span class="ml-1 font-mono font-bold">
-            <NumberFlow
-              :value="contentAnalysis.codeBlocks"
-            />
+            {{ contentAnalysis.codeBlocks }}
           </span>
         </div>
         <div>
           <span class="opacity-50">Headings:</span>
           <span class="ml-1 font-mono font-bold">
-            <NumberFlow
-              :value="contentAnalysis.totalHeadings"
-            />
+            {{ contentAnalysis.totalHeadings }}
           </span>
         </div>
         <div>
           <span class="opacity-50">Words:</span>
-          <span class="ml-1 font-mono font-bold"><NumberFlow
-            :value="contentAnalysis.wordCount"
-          /></span>
+          <span class="ml-1 font-mono font-bold">
+            {{ contentAnalysis.wordCount }}
+          </span>
         </div>
         <div v-if="editor" class="pt-3 col-span-2 border-y border-secondary">
           <div class="flex items-center justify-between mb-1">
             <span class="text-xs opacity-50">Character</span>
             <span class="font-mono text-xs">
-              <NumberFlow
-                :value="contentAnalysis.characterCount"
-              />
+              {{ contentAnalysis.characterCount }}
               / 50000</span>
           </div>
           <div class="w-full h-1 rounded-full bg-secondary">
@@ -159,7 +159,10 @@ function getHeadingClass(level: number) {
 
     <!-- Document Outline -->
     <template v-if="contentAnalysis.headings.length > 0">
-      <div class="flex items-center justify-between px-2 gap-2">
+      <div
+        class="flex items-center justify-between px-2  gap-2"
+        :class="showOnlyHeadings ? 'pb-0' : 'pb-3'"
+      >
         <h3 class="text-xs font-semibold text-primary">
           Headings
         </h3>
@@ -167,7 +170,7 @@ function getHeadingClass(level: number) {
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
-      <div class="pb-3 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-64 max-h-64">
+      <div v-if="showOnlyHeadings" class="pb-3 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-72 max-h-64">
         <div
           v-for="(heading, index) in contentAnalysis.headings" :key="index"
           class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
