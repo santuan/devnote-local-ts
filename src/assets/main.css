@@ -23,7 +23,7 @@
 html,
 body {
   overscroll-behavior-y: none;
-  @apply bg-background!
+  @apply bg-background! 
 }
 
 @layer utilities {

@@ -5,14 +5,14 @@ import { Clipboard, ClipboardCheck, Maximize, Minimize2 } from 'lucide-vue-next'
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
 import { bundledLanguages } from 'shiki/bundle/web'
 import { shallowRef } from 'vue'
-import RadixVirtual from '@/components/ui/Tiptap/RadixVirtual.vue'
+import ListboxVirtual from '@/components/ui/Tiptap/ListboxVirtual.vue'
 import { useDocumentStore } from '@/stores/document'
 
 export default {
   components: {
     NodeViewWrapper,
     NodeViewContent,
-    RadixVirtual,
+    ListboxVirtual,
     Clipboard,
     ClipboardCheck,
     Maximize,
@@ -132,7 +132,7 @@ export default {
             No text detected
           </span>
         </Transition>
-        <RadixVirtual v-model="selectedLanguage" :items="languages" />
+        <ListboxVirtual v-model="selectedLanguage" :items="languages" />
         <button
           class="print:hidden flex items-center justify-center size-8 bg-secondary shrink-0"
           :class="copyText === 'Copied' ? 'bg-primary!' : ''" @click="copyToClipboard()"

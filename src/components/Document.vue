@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import DocumentEditor from '@/components/DocumentEditor.vue'
-import AlertUnsavedChanges from '@/components/ui/AlertUnsavedChanges.vue'
+import SplashScreen from '@/components/SplashScreen.vue'
 import DeleteDocument from '@/components/ui/ButtonDeleteDocument.vue'
-import SplashScreen from '@/components/ui/SplashScreen.vue'
+import AlertUnsavedChanges from '@/components/ui/Dialogs/AlertUnsavedChanges.vue'
 import SplitterGroup from '@/components/ui/SplitterGroup.vue'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SidebarDocuments from '@/components/SidebarDocuments.vue'
-import SidebarTop from '@/components/SidebarTop.vue'
+import SidebarDocuments from '@/components/Sidebar/SidebarDocuments.vue'
+import SidebarTop from '@/components/Sidebar/SidebarTop.vue'
 import SidebarMiddle from './SidebarMiddle.vue'
 </script>
 

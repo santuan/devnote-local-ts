@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import DialogCommandMenu from '@/components/ui/Dialogs/DialogCommandMenu.vue'
 import DialogInfo from '@/components/ui/Dialogs/DialogInfo.vue'
 import DropdownLogo from '@/components/ui/DropdownLogo.vue'
-import DialogSettings from '@/components/ui/Settings/DialogSettings.vue'
+import DialogSettings from '@/components/ui/Dialogs/DialogSettings.vue'
 import ToggleFontSize from '@/components/ui/ToggleFontSize.vue'
 
 import ToggleTheme from '@/components/ui/ToggleTheme.vue'

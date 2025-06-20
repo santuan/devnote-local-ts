@@ -9,11 +9,11 @@ import {
 } from 'reka-ui'
 import { computed, shallowRef, watch } from 'vue'
 import Document from '@/components/Document.vue'
-import Sidebar from '@/components/Sidebar.vue'
-import SidebarDesktopIcons from '@/components/SidebarDesktopIcons.vue'
-import ToggleSidebarLogo from '@/components/ToggleSidebarLogo.vue'
+import Sidebar from '@/components/Sidebar/Sidebar.vue'
+import SidebarDesktopIcons from '@/components/Sidebar/SidebarDesktopIcons.vue'
 import Leva from '@/components/ui/Debug/Leva.vue'
 import LevaTabs from '@/components/ui/Debug/LevaTabs.vue'
+import ToggleSidebarLogo from '@/components/ui/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import { useSettingsStore } from '@/stores/settings'
@@ -137,7 +137,7 @@ function expand() {
         class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 z-[79] outline-hidden"
       >
         <Tooltip name="Expand" side="right">
-          <button class="absolute bottom-0 cursor-default! flex justify-center items-center size-6 z-[80] bg-primary text-primary-foreground duration-300 hover:text-foreground  left-0 -translate-x-3 hover:bg-secondary" @click="expand()">
+          <button class="absolute bottom-0 cursor-default! flex justify-center items-center size-6 z-[80] bg-background text-primary duration-1000 transition-colors hover:text-foreground border-2 border-primary left-0 -translate-x-3 hover:bg-secondary" @click="expand()">
             <ArrowRightFromLine v-if="resize < 31" class="size-3 pointer-events-none" />
             <ArrowLeftFromLine v-else class="size-3 pointer-events-none" />
           </button>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import Ripple from '@/components/ui/Inspira/Ripple/Ripple.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useFocusStore } from '@/stores/focus'
-import Ripple from './Inspira/Ripple/Ripple.vue'
 
 const document = useDocumentStore()
 const focus = useFocusStore()

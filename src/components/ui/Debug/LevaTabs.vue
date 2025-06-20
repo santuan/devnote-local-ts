@@ -6,18 +6,19 @@ import {
   TabsRoot,
   TabsTrigger,
 } from 'reka-ui'
-import Debug from '@/components/ui/Debug/Debug.vue'
-import DocumentDebug from '@/components/ui/Debug/DocumentDebug.vue'
+import DebugDocument from '@/components/ui/Debug/DebugDocument.vue'
+import DebugSettings from '@/components/ui/Debug/DebugSettings.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 
 useMagicKeysStore()
+
 const document = useDocumentStore()
 const { sidebar_splitter_ref } = storeToRefs(document)
 </script>
 
 <template>
-  <TabsRoot default-value="tab1">
+  <TabsRoot default-value="tab2">
     <TabsList
       class="sticky top-0 z-10 bg-background shrink-0 mb-2 flex border-b outline-none! border-0!  border-secondary"
       aria-label="Manage your account"
@@ -36,10 +37,10 @@ const { sidebar_splitter_ref } = storeToRefs(document)
       </TabsTrigger>
     </TabsList>
     <TabsContent class="px-2 pt-0.5" value="tab1">
-      <Debug :panel-ref="sidebar_splitter_ref" />
+      <DebugSettings :panel-ref="sidebar_splitter_ref" />
     </TabsContent>
     <TabsContent class="px-2 pt-0.5" value="tab2">
-      <DocumentDebug />
+      <DebugDocument />
     </TabsContent>
   </TabsRoot>
 </template>

@@ -13,17 +13,17 @@ import {
   DialogTrigger,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import SettingCursor from '@/components/ui/Settings/SettingCursor.vue'
+
+import SettingDeleteDB from '@/components/ui/Settings/SettingDeleteDB.vue'
+
+import SettingDesktopShowIcons from '@/components/ui/Settings/SettingDesktopShowIcons.vue'
+import SettingLanguage from '@/components/ui/Settings/SettingLanguage.vue'
+import SettingMainTitle from '@/components/ui/Settings/SettingMainTitle.vue'
+import SettingTour from '@/components/ui/Settings/SettingTour.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
-
 import { useIsMobile } from '@/composables/useIsMobile'
-
 import { useModalStore } from '@/stores/modal'
-import SettingCursor from './SettingCursor.vue'
-import SettingDeleteDB from './SettingDeleteDB.vue'
-import SettingDesktopShowIcons from './SettingDesktopShowIcons.vue'
-import SettingLanguage from './SettingLanguage.vue'
-import SettingMainTitle from './SettingMainTitle.vue'
-import SettingTour from './SettingTour.vue'
 
 const { t } = useI18n()
 

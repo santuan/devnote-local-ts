@@ -5,13 +5,13 @@ import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
 import ButtonCreateDocument from '@/components/ui/ButtonCreateDocument.vue'
 
+import SelectSort from '@/components/ui/SelectSort.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
+
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'
-
-import SelectSort from './ui/SelectSort.vue'
-import Tooltip from './ui/Tooltip.vue'
 
 const setting = useSettingsStore()
 const modal = useModalStore()

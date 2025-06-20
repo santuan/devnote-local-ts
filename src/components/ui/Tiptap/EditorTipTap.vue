@@ -10,7 +10,7 @@ import { Color } from '@tiptap/extension-color'
 import Document from '@tiptap/extension-document'
 import Gapcursor from '@tiptap/extension-gapcursor'
 import HardBreak from '@tiptap/extension-hard-break'
-import Heading from '@tiptap/extension-heading'
+// import Heading from '@tiptap/extension-heading'
 import History from '@tiptap/extension-history'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Italic from '@tiptap/extension-italic'
@@ -45,6 +45,7 @@ import { useEditorStore } from '@/stores/editor'
 import WebFrame from './addIframe'
 import Video from './addVideo'
 import EditorContextMenu from './EditorContextMenu.vue'
+import HeadingWithAnchor from './HeadingWithAnchor'
 import { ResizableMedia } from './resizableMedia'
 
 const props = defineProps({
@@ -82,7 +83,8 @@ onMounted(() => {
       BulletList,
       OrderedList,
       ListItem,
-      Heading,
+      // Heading,
+      HeadingWithAnchor,
       HardBreak,
       Paragraph,
       HorizontalRule,
@@ -185,7 +187,7 @@ onBeforeUnmount(() => {
         class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
       >
         <EditorContextMenu>
-          <div class="EditorContent max-w-full mx-auto relative prose dark:prose-invert" spellcheck="false">
+          <div class="relative max-w-full mx-auto prose EditorContent dark:prose-invert" spellcheck="false">
             <slot />
             <EditorContent :editor="editor" />
           </div>

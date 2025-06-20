@@ -144,13 +144,13 @@ const scrollAreaMaxHeight = computed(() => {
         <div ref="el" class="px-2 py-1 flex items-center justify-between group cursor-grab active:cursor-grabbing">
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
-              class="cursor-default h-5 inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
+              class="cursor-default  inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
             >
-              <button ref="focus_debug">
-                <ChevronDown class="h-3.5 w-3.5 duration-300" :class="open ? '' : '-rotate-90'" />
+              <button ref="focus_debug" class="size-5 flex justify-center items-center">
+                <ChevronDown class="h-3 w-3 duration-300" :class="open ? '' : '-rotate-90'" />
               </button>
             </CollapsibleTrigger>
-            <span class="text-foreground uppercase">Debug</span>
+            <span class="text-foreground select-none uppercase">Debug</span>
           </div>
           <GripHorizontal class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
           <div class="w-20 flex justify-end items-center">

@@ -2,9 +2,9 @@
 import { useSwipe } from '@vueuse/core'
 import { shallowRef, useTemplateRef, watch } from 'vue'
 import Document from '@/components/Document.vue'
-import Sidebar from '@/components/Sidebar.vue'
-import ToggleSidebarLogo from '@/components/ToggleSidebarLogo.vue'
-import PullToRefresh from '@/components/ui/PullToRefresh.vue'
+import PullToRefresh from '@/components/PullToRefresh.vue'
+import Sidebar from '@/components/Sidebar/Sidebar.vue'
+import ToggleSidebarLogo from '@/components/ui/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
 
 const document = useDocumentStore()

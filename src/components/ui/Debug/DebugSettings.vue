@@ -44,7 +44,7 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
     </div>
     <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">
       <div class="flex flex-col  gap-1">
-        <p class="text-primary">
+        <p class="text-muted-foreground">
           Theme
         </p>
         <span class="text-secondary-foreground">{{ colorTheme }}</span>
@@ -53,7 +53,9 @@ const appFontSize = useStorage('appFontSize', 'app-font-size-md')
     </div>
     <div class="text-foreground flex justify-between items-center border-b border-background py-1 min-h-8">
       <div class="grid gap-1">
-        <p>App Size</p>
+        <p class="text-muted-foreground">
+          App Size
+        </p>
         <span class="text-secondary-foreground">{{ appFontSize }}</span>
       </div>
       <ToggleFontSize />

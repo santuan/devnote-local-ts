@@ -41,7 +41,7 @@ function expandAllScreen() {
       :style="`flex: ${layout[1]} 1 0px; overflow: hidden;`"
       class="hidden lg:flex"
     />
-    <SplitterPanel :min-size="72">
+    <SplitterPanel :min-size="30">
       <slot />
     </SplitterPanel>
     <SplitterResizeHandle
@@ -53,7 +53,9 @@ function expandAllScreen() {
         shortcut="ctrl shift alt ."
       >
         <button
-          v-show="database.loaded_id !== '' || document.content_editable === true"
+          v-show="
+            database.loaded_id !== '' || document.content_editable === true
+          "
           class="z-40 flex items-center cursor-auto! justify-center bg-background/30 size-8"
           :class="layout[1] >= 3 ? '' : 'rotate-180'"
           @click="expandAllScreen"
@@ -70,7 +72,7 @@ function expandAllScreen() {
     </SplitterResizeHandle>
     <SplitterPanel
       ref="panelRef"
-      :max-size="28"
+      :max-size="50"
       :collapsed-size="0"
       collapsible
       class="hidden lg:flex"
@@ -83,6 +85,6 @@ function expandAllScreen() {
 @reference "@/assets/main.css";
 
 body:has([data-resize-handle-state="drag"]) iframe {
-  @apply pointer-events-none duration-300
+  @apply pointer-events-none duration-300;
 }
 </style>
