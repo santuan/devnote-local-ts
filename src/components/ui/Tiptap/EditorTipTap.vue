@@ -84,7 +84,6 @@ onMounted(() => {
       BulletList,
       OrderedList,
       ListItem,
-
       // Heading,
       HeadingWithAnchor,
       HardBreak,
@@ -321,23 +320,11 @@ onBeforeUnmount(() => {
 }
 
 .Tiptap-mathematics-editor {
-  background: #202020;
-  color: #fff;
-  font-family: monospace;
-  padding: 0.2rem 0.5rem;
+  @apply bg-secondary text-foreground font-mono py-0.5 px-2 text-sm;
 }
 
 .Tiptap-mathematics-render {
-  padding: 0 0.25rem;
-
-  &--editable {
-    cursor: pointer;
-    transition: background 0.2s;
-
-    &:hover {
-      background: #eee;
-    }
-  }
+  @apply py-0.5 px-2 text-sm;
 }
 
 .Tiptap-mathematics-editor,
