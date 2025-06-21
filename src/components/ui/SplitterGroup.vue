@@ -41,7 +41,7 @@ function expandAllScreen() {
       :style="`flex: ${layout[1]} 1 0px; overflow: hidden;`"
       class="hidden lg:flex"
     />
-    <SplitterPanel :min-size="30">
+    <SplitterPanel :min-size="40">
       <slot />
     </SplitterPanel>
     <SplitterResizeHandle
@@ -72,7 +72,7 @@ function expandAllScreen() {
     </SplitterResizeHandle>
     <SplitterPanel
       ref="panelRef"
-      :max-size="50"
+      :max-size="40"
       :collapsed-size="0"
       collapsible
       class="hidden lg:flex"

@@ -13,10 +13,10 @@ const { t } = useI18n()
   >
     <div class="space-y-0.5">
       <h3 class="text-sm font-medium text-pretty mt-0">
-        1{{ t("settings.showIcons") }}
+        {{ t("settings.showIcons") }}
       </h3>
       <p class="text-xs text-muted-foreground text-balance">
-        1{{ t("settings.showIconsDescription") }}
+        {{ t("settings.showIconsDescription") }}
       </p>
     </div>
     <button

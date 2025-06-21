@@ -73,8 +73,8 @@ watch(
 function expand() {
   if (!sidebar_splitter_ref)
     return
-  if (resize.value > 30) {
-    sidebar_splitter_ref.value?.resize(30)
+  if (resize.value > 31) {
+    sidebar_splitter_ref.value?.resize(10)
   }
   else {
     sidebar_splitter_ref.value?.resize(50)
@@ -136,8 +136,12 @@ function expand() {
         id="splitter-group-1-resize-handle-1"
         class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 z-[79] outline-hidden"
       >
-        <Tooltip name="Expand" side="right">
-          <button class="absolute bottom-0 cursor-default! flex justify-center items-center size-6 z-[80] bg-background text-primary duration-1000 transition-colors hover:text-foreground border-2 border-primary left-0 -translate-x-3 hover:bg-secondary" @click="expand()">
+        <Tooltip :name="`Expand ${resize < 31 ? 'sidebar' : 'editor'}` " side="top">
+          <button
+            class="absolute bottom-0 cursor-default! flex justify-center items-center size-6 z-[80] bg-background text-primary  hover:text-foreground border-2 border-primary left-0  hover:bg-secondary"
+            :class="resize < 31 ? 'translate-x-0' : '-translate-x-6'"
+            @click="expand()"
+          >
             <ArrowRightFromLine v-if="resize < 31" class="size-3 pointer-events-none" />
             <ArrowLeftFromLine v-else class="size-3 pointer-events-none" />
           </button>

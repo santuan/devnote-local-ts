@@ -78,7 +78,7 @@ function getHeadingClass(level: number) {
         <span class="opacity-50">loaded_id: {{ database.loaded_id }}</span>
         <div class="flex justify-end items-center gap-2" :class="!database.document_checked ? 'grid-cols-2' : ''">
           <Tooltip
-            v-if="!database.document_checked" :name="database.document_checked
+            v-if="database.document_checked" :name="database.document_checked
               ? t('message.completed')
               : t('message.unmarked')" side="top"
           >
@@ -101,7 +101,7 @@ function getHeadingClass(level: number) {
     </div>
 
     <!-- Content Statistics -->
-    <div class="pb-3 px-2 border-b border-secondary">
+    <div class="px-2 ">
       <div class="flex items-center justify-between  gap-2">
         <h3 class="text-xs font-semibold text-primary">
           Content Statistics
@@ -110,7 +110,7 @@ function getHeadingClass(level: number) {
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
-      <div v-if="showContentAnalysis" class="grid grid-cols-2 mt-1 gap-2 text-xs">
+      <div v-if="showContentAnalysis" class="grid grid-cols-2 mt-1 gap-2 text-xs pb-3 pt-2">
         <div>
           <span class="opacity-50">Code Blocks:</span>
           <span class="ml-1 font-mono font-bold">
@@ -129,7 +129,7 @@ function getHeadingClass(level: number) {
             {{ contentAnalysis.wordCount }}
           </span>
         </div>
-        <div v-if="editor" class="pt-3 col-span-2 border-y border-secondary">
+        <div v-if="editor" class="mt-0.5 col-span-2 ">
           <div class="flex items-center justify-between mb-1">
             <span class="text-xs opacity-50">Character</span>
             <span class="font-mono text-xs">
@@ -158,7 +158,7 @@ function getHeadingClass(level: number) {
     <!-- Document Outline -->
     <template v-if="contentAnalysis.headings.length > 0">
       <div
-        class="flex items-center justify-between px-2  gap-2"
+        class="flex items-center justify-between px-2  gap-2 border-t pt-2 border-secondary"
         :class="showOnlyHeadings ? 'pb-0' : 'pb-3'"
       >
         <h3 class="text-xs font-semibold text-primary">
