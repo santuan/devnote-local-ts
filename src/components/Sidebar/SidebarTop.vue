@@ -9,8 +9,11 @@ import ToggleFontSize from '@/components/ui/ToggleFontSize.vue'
 
 import ToggleTheme from '@/components/ui/ToggleTheme.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
+import { useIsMobile } from '@/composables/useIsMobile'
 import { useDocumentStore } from '@/stores/document'
 import ToggleLeva from '../ui/ToggleLeva.vue'
+
+const { isMobile } = useIsMobile()
 
 const document = useDocumentStore()
 
@@ -23,14 +26,15 @@ const { t } = useI18n()
   >
     <DropdownLogo />
     <div
-      class="grid-cols-7 gap-0.5 grid"
+      class="gap-0.5 grid"
+      :class="isMobile ? 'grid-cols-6' : 'grid-cols-7'"
     >
       <DialogInfo />
       <DialogSettings />
       <DialogCommandMenu />
       <ToggleFontSize />
       <ToggleTheme />
-      <ToggleLeva />
+      <ToggleLeva v-if="!isMobile" />
       <Tooltip
         shortcut="Ctrl M"
         :name="`${t('verb.close')} panel`"

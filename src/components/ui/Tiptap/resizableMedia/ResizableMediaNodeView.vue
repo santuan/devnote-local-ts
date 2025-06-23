@@ -448,7 +448,7 @@ function togglePause() {
             <Expand class="size-5" />
           </DialogTrigger>
           <DialogPortal>
-            <DialogOverlay class="bg-background/80 grid place-items-center fixed inset-0 z-[100] max-h-screen p-2 overflow-y-auto">
+            <DialogOverlay class="bg-background/80 grid place-items-center fixed inset-0 z-[120] max-h-screen p-2 overflow-y-auto">
               <DialogContent
                 class=" p-1 focus:outline-hidden"
               >

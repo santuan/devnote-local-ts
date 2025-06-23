@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
-import { ChevronDown, GripHorizontal, X } from 'lucide-vue-next'
+import { ChevronDown, GripHorizontal, PanelRightClose, X } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 
 import {
@@ -63,6 +63,7 @@ const style = computed(() => ({
 const settings = useSettingsStore()
 const { leva } = storeToRefs(settings)
 const open = ref(true)
+const attach = ref(true)
 
 const moveStep = 5
 const isFocused = ref(false)
@@ -136,12 +137,13 @@ const scrollAreaMaxHeight = computed(() => {
 <template>
   <transition>
     <div
-      v-show="leva" ref="draggableRef" :style="style" tabindex="0" style="position: absolute"
-      class="text-xs w-72 z-[110] bg-secondary outline outline-secondary text-left outline-none" @focusin="isFocused = true"
-      @focus="isFocused = true" @blur="isFocused = false"
+      v-show="leva" ref="draggableRef" :style="style" tabindex="0"
+      class="text-xs w-72 z-[110] bg-background outline outline-secondary text-left outline-none"
+      :class="!attach ? 'absolute' : ''"
+      @focusin="isFocused = true" @focus="isFocused = true" @blur="isFocused = false"
     >
       <CollapsibleRoot v-model:open="open" class="w-72">
-        <div ref="el" class="px-2 py-1 flex items-center justify-between group cursor-grab active:cursor-grabbing">
+        <div ref="el" class="px-2 py-1 flex bg-secondary items-center justify-between group cursor-grab active:cursor-grabbing">
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
               class="cursor-default  inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
@@ -152,8 +154,14 @@ const scrollAreaMaxHeight = computed(() => {
             </CollapsibleTrigger>
             <span class="text-foreground select-none uppercase">Debug</span>
           </div>
-          <GripHorizontal class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
-          <div class="w-20 flex justify-end items-center">
+          <GripHorizontal v-show="!attach" class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
+          <div class="flex justify-end items-center">
+            <Toggle
+              v-model="attach" aria-label="Toggle attach leva"
+              class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
+            >
+              <PanelRightClose class="size-3.5" />
+            </Toggle>
             <Toggle
               v-model="leva" aria-label="Toggle leva"
               class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
@@ -162,14 +170,9 @@ const scrollAreaMaxHeight = computed(() => {
             </Toggle>
           </div>
         </div>
-        <CollapsibleContent
-          class="CollapsibleContent border-1 select-none border-secondary bg-background"
-        >
-          <ScrollAreaRoot
-            class="w-full text-xs md:min-h-44 relative overflow-hidden"
-            style="--scrollbar-size: 10px"
-          >
-            <ScrollAreaViewport class="w-full h-full" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">
+        <CollapsibleContent class="CollapsibleContent border-1 select-none border-secondary bg-background" :class="attach ? 'attach' : ''">
+          <ScrollAreaRoot class="w-full text-xs md:min-h-44 relative overflow-hidden" style="--scrollbar-size: 10px">
+            <ScrollAreaViewport class="w-full h-full" :class="attach ? 'min-h-screen' : ''" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">
               <slot />
             </ScrollAreaViewport>
             <ScrollAreaScrollbar
@@ -206,6 +209,10 @@ const scrollAreaMaxHeight = computed(() => {
 
 .CollapsibleContent[data-state="closed"] {
   animation: slideUp 300ms ease-out;
+}
+
+.CollapsibleContent.attach .showOnlyHeadings {
+max-height: 74vh;
 }
 
 @keyframes slideDown {
