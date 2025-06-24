@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
-import { ChevronDown, GripHorizontal, PanelRightClose, X } from 'lucide-vue-next'
+import {
+  ChevronDown,
+  GripHorizontal,
+  PanelRightClose,
+  X,
+} from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 
 import {
@@ -18,6 +23,7 @@ import { computed, nextTick, onMounted, onUnmounted, ref, unref } from 'vue'
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
 import { useSettingsStore } from '@/stores/settings'
+import Tooltip from '../Tooltip.vue'
 
 const focus_store = useFocusStore()
 const database = useDatabaseStore()
@@ -25,7 +31,8 @@ const { containerInbound } = storeToRefs(database)
 const el = ref<HTMLElement | null>(null)
 const draggableRef = ref<HTMLElement | null>(null)
 const { focus_debug } = storeToRefs(focus_store)
-
+const isFocusedInSlot = ref(false)
+const slotRef = ref<HTMLElement | null>(null)
 const {
   top: boundsTop,
   left: boundsLeft,
@@ -68,7 +75,7 @@ const attach = ref(true)
 const moveStep = 5
 const isFocused = ref(false)
 function handleKeyDown(e: KeyboardEvent) {
-  if (!isFocused.value || !leva.value)
+  if (!isFocused.value || !leva.value || isFocusedInSlot.value)
     return
 
   const step = e.shiftKey ? 50 : moveStep
@@ -125,54 +132,83 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', calculateHeaderHeight)
 })
-
-const scrollAreaMaxHeight = computed(() => {
-  if (!draggableRef.value || !open.value)
-    return 0 // If not open, height is 0
-  const spaceBelowHeader = containerHeight.value - (adjustedTop.value + headerHeight.value)
-  return spaceBelowHeader
-})
 </script>
 
 <template>
   <transition>
     <div
-      v-show="leva" ref="draggableRef" :style="style" tabindex="0"
+      v-show="leva"
+      ref="draggableRef"
+      :style="style"
+      tabindex="0"
       class="text-xs w-72 z-[110] bg-background outline outline-secondary text-left outline-none"
       :class="!attach ? 'absolute' : ''"
-      @focusin="isFocused = true" @focus="isFocused = true" @blur="isFocused = false"
+      @focusin="isFocused = true"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
     >
       <CollapsibleRoot v-model:open="open" class="w-72">
-        <div ref="el" class="px-2 py-1 flex bg-secondary items-center justify-between group cursor-grab active:cursor-grabbing">
+        <div
+          ref="el"
+          class="px-2 py-1 flex bg-secondary items-center justify-between group cursor-grab active:cursor-grabbing"
+        >
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
-              class="cursor-default  inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
+              class="cursor-default inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
             >
-              <button ref="focus_debug" class="size-5 flex justify-center items-center">
-                <ChevronDown class="h-3 w-3 duration-300" :class="open ? '' : '-rotate-90'" />
+              <button
+                ref="focus_debug"
+                class="size-5 flex justify-center items-center"
+              >
+                <ChevronDown
+                  class="h-3 w-3 duration-300"
+                  :class="open ? '' : '-rotate-90'"
+                />
               </button>
             </CollapsibleTrigger>
             <span class="text-foreground select-none uppercase">Debug</span>
           </div>
-          <GripHorizontal v-show="!attach" class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
+          <GripHorizontal
+            v-show="!attach"
+            class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
+          />
           <div class="flex justify-end items-center">
             <Toggle
-              v-model="attach" aria-label="Toggle attach leva"
+              v-model="attach"
+              aria-label="Toggle attach leva"
               class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
             >
               <PanelRightClose class="size-3.5" />
             </Toggle>
-            <Toggle
-              v-model="leva" aria-label="Toggle leva"
-              class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
+            <Tooltip
+              name="Close leva" side="bottom"
+              shortcut="ctrl + alt + shift + d + f"
             >
-              <X class="size-3.5" />
-            </Toggle>
+              <Toggle
+                v-model="leva"
+                aria-label="Toggle leva"
+                class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
+              >
+                <X class="size-3.5" />
+              </Toggle>
+            </Tooltip>
           </div>
         </div>
-        <CollapsibleContent class="CollapsibleContent border-1 select-none border-secondary bg-background" :class="attach ? 'attach' : ''">
-          <ScrollAreaRoot class="w-full text-xs md:min-h-44 relative overflow-hidden" style="--scrollbar-size: 10px">
-            <ScrollAreaViewport class="w-full h-full" :class="attach ? 'min-h-screen' : ''" :style="{ maxHeight: `${scrollAreaMaxHeight}px` }">
+        <CollapsibleContent
+          class="CollapsibleContent border-1 select-none border-secondary bg-background"
+          :class="attach ? 'attach' : ''"
+        >
+          <ScrollAreaRoot
+            class="w-full text-xs md:min-h-44 relative overflow-hidden"
+            style="--scrollbar-size: 10px"
+          >
+            <ScrollAreaViewport
+              ref="slotRef"
+              class="w-full h-full"
+              :class="attach ? 'min-h-[90vh]' : ''"
+              @focusin="isFocusedInSlot = true"
+              @focusout="isFocusedInSlot = false"
+            >
               <slot />
             </ScrollAreaViewport>
             <ScrollAreaScrollbar
@@ -212,7 +248,7 @@ const scrollAreaMaxHeight = computed(() => {
 }
 
 .CollapsibleContent.attach .showOnlyHeadings {
-max-height: 74vh;
+  max-height: 60vh;
 }
 
 @keyframes slideDown {

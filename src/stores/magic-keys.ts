@@ -36,12 +36,19 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
   const magic_show_fixed = keys['ctrl+alt+shift+f']
   const magic_show_completed = keys['ctrl+alt+shift+y']
   const magic_show_leva = keys['ctrl+alt+shift+d']
+  const magic_hide_leva = keys['ctrl+alt+shift+d+f']
 
   whenever(magic_show_leva, () => {
-    settings.leva = !settings.leva
     if (settings.leva === true) {
       focus.setFocusDebug()
     }
+    else {
+      settings.leva = !settings.leva
+    }
+  })
+
+  whenever(magic_hide_leva, () => {
+    settings.leva = false
   })
 
   whenever(magic_task_list, () => {

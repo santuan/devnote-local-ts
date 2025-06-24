@@ -9,9 +9,6 @@ import {
 import DebugDocument from '@/components/ui/Debug/DebugDocument.vue'
 import DebugSettings from '@/components/ui/Debug/DebugSettings.vue'
 import { useDocumentStore } from '@/stores/document'
-import { useMagicKeysStore } from '@/stores/magic-keys'
-
-useMagicKeysStore()
 
 const document = useDocumentStore()
 const { sidebar_splitter_ref } = storeToRefs(document)

@@ -32,7 +32,7 @@ const { lengthX, isSwiping } = useSwipe(
         if (length > 0) {
           left.value = `${length - 18}rem`
           opacity.value = length * 3 / 100
-          if (length > 18) {
+          if (length > 16) {
             document.show_sidebar_documents = true
             left.value = '0'
             opacity.value = 1
@@ -42,7 +42,7 @@ const { lengthX, isSwiping } = useSwipe(
     },
     onSwipeEnd() {
       const length = Math.abs(lengthX.value) / 18
-      if (length < 18) {
+      if (length < 16) {
         document.show_sidebar_documents = false
         left.value = `-60rem`
         opacity.value = 1
