@@ -68,9 +68,8 @@ const style = computed(() => ({
 }))
 
 const settings = useSettingsStore()
-const { leva } = storeToRefs(settings)
+const { leva, attach } = storeToRefs(settings)
 const open = ref(true)
-const attach = ref(true)
 
 const moveStep = 5
 const isFocused = ref(false)
@@ -141,8 +140,8 @@ onUnmounted(() => {
       ref="draggableRef"
       :style="style"
       tabindex="0"
-      class="text-xs w-72 z-[110] bg-background outline outline-secondary text-left outline-none"
-      :class="!attach ? 'absolute' : ''"
+      class="text-xs w-72 z-[110] outline outline-secondary text-left outline-none"
+      :class="!attach ? 'absolute shadow shadow-secondary' : 'ring ring-secondary'"
       @focusin="isFocused = true"
       @focus="isFocused = true"
       @blur="isFocused = false"
@@ -150,7 +149,8 @@ onUnmounted(() => {
       <CollapsibleRoot v-model:open="open" class="w-72">
         <div
           ref="el"
-          class="px-2 py-1 flex bg-secondary items-center justify-between group cursor-grab active:cursor-grabbing"
+          class="px-2 py-1 flex bg-secondary items-center justify-between group "
+          :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
         >
           <div class="w-20 flex justify-start items-center gap-1">
             <CollapsibleTrigger
@@ -172,7 +172,7 @@ onUnmounted(() => {
             v-show="!attach"
             class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
           />
-          <div class="flex justify-end items-center">
+          <div class="flex justify-end w-20 items-center">
             <Toggle
               v-model="attach"
               aria-label="Toggle attach leva"
@@ -195,8 +195,8 @@ onUnmounted(() => {
           </div>
         </div>
         <CollapsibleContent
-          class="CollapsibleContent border-1 select-none border-secondary bg-background"
-          :class="attach ? 'attach' : ''"
+          class="CollapsibleContent select-none bg-background"
+          :class="attach ? '' : 'not-attach'"
         >
           <ScrollAreaRoot
             class="w-full text-xs md:min-h-44 relative overflow-hidden"
@@ -205,7 +205,7 @@ onUnmounted(() => {
             <ScrollAreaViewport
               ref="slotRef"
               class="w-full h-full"
-              :class="attach ? 'min-h-[90vh]' : ''"
+              :class="attach ? 'min-h-full max-h-[calc(100vh-5rem)]!' : ''"
               @focusin="isFocusedInSlot = true"
               @focusout="isFocusedInSlot = false"
             >
@@ -247,8 +247,8 @@ onUnmounted(() => {
   animation: slideUp 300ms ease-out;
 }
 
-.CollapsibleContent.attach .showOnlyHeadings {
-  max-height: 60vh;
+ .CollapsibleContent.not-attach .showOnlyHeadings {
+  max-height: 12rem;
 }
 
 @keyframes slideDown {

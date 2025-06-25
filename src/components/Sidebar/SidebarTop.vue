@@ -6,17 +6,14 @@ import DialogInfo from '@/components/ui/Dialogs/DialogInfo.vue'
 import DialogSettings from '@/components/ui/Dialogs/DialogSettings.vue'
 import DropdownLogo from '@/components/ui/DropdownLogo.vue'
 import ToggleFontSize from '@/components/ui/ToggleFontSize.vue'
-
+import ToggleLeva from '@/components/ui/ToggleLeva.vue'
 import ToggleTheme from '@/components/ui/ToggleTheme.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useIsMobile } from '@/composables/useIsMobile'
 import { useDocumentStore } from '@/stores/document'
-import ToggleLeva from '../ui/ToggleLeva.vue'
 
 const { isMobile } = useIsMobile()
-
 const document = useDocumentStore()
-
 const { t } = useI18n()
 </script>
 

@@ -28,7 +28,7 @@ function focusOnTitleEsc(e: { keyCode: number }) {
 <template>
   <div
     role="alert"
-    class="absolute ring-2 ring-primary w-40 sm:w-auto top-0.5 m-1 right-0.5 text-right flex-col flex justify-center items-center z-60 pointer-events-none"
+    class="absolute  w-full top-0.5 m-1 right-0.5 text-right flex-col flex justify-center items-center z-60 pointer-events-none"
   >
     <div class="p-2  relative z-10 text-xs text-foreground flex justify-center items-center bg-secondary">
       {{ t('message.documentNotSaved') }}
@@ -40,7 +40,7 @@ function focusOnTitleEsc(e: { keyCode: number }) {
   >
     <span class="sr-only">{{ t('message.clickToEdit') }}</span>
     <Ripple
-      class="transition-opacity duration-1000"
+      class="transition-opacity duration-1000  md:-translate-x-12"
       :class="document.show_sidebar_documents ? 'opacity-70' : 'opacity-100'"
     />
   </button>

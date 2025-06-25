@@ -36,7 +36,7 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
   const magic_show_fixed = keys['ctrl+alt+shift+f']
   const magic_show_completed = keys['ctrl+alt+shift+y']
   const magic_show_leva = keys['ctrl+alt+shift+d']
-  const magic_hide_leva = keys['ctrl+alt+shift+d+f']
+  const magic_hide_leva = keys['ctrl+alt+shift+d+c']
 
   whenever(magic_show_leva, () => {
     if (settings.leva === true) {

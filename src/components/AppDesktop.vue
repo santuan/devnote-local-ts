@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
-import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import {
   SplitterGroup,
@@ -17,7 +16,6 @@ import ToggleSidebarLogo from '@/components/ui/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import { useSettingsStore } from '@/stores/settings'
-import Tooltip from './ui/Tooltip.vue'
 
 useMagicKeysStore()
 const settings = useSettingsStore()
@@ -69,17 +67,6 @@ watch(
   },
   { immediate: true },
 )
-
-function expand() {
-  if (!sidebar_splitter_ref)
-    return
-  if (resize.value > 31) {
-    sidebar_splitter_ref.value?.resize(10)
-  }
-  else {
-    sidebar_splitter_ref.value?.resize(50)
-  }
-}
 </script>
 
 <template>
@@ -135,18 +122,7 @@ function expand() {
       <SplitterResizeHandle
         id="splitter-group-1-resize-handle-1"
         class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 z-[79] outline-hidden"
-      >
-        <Tooltip :name="`Expand ${resize < 31 ? 'sidebar' : 'editor'}` " side="top">
-          <button
-            class="absolute bottom-0 cursor-default! flex justify-center items-center size-6 z-[80] bg-background text-primary  hover:text-foreground border-2 border-primary left-0  hover:bg-secondary"
-            :class="resize < 31 ? 'translate-x-0' : '-translate-x-6'"
-            @click="expand()"
-          >
-            <ArrowRightFromLine v-if="resize < 31" class="size-3 pointer-events-none" />
-            <ArrowLeftFromLine v-else class="size-3 pointer-events-none" />
-          </button>
-        </Tooltip>
-      </SplitterResizeHandle>
+      />
       <SplitterPanel id="splitter-group-1-panel-2" :min-size="50">
         <button
           v-if="document.show_sidebar_documents"

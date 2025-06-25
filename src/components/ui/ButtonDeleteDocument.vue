@@ -15,11 +15,13 @@ import {
 import { useI18n } from 'vue-i18n'
 import { useDatabaseStore } from '@/stores/database'
 import { useModalStore } from '@/stores/modal'
+import { useSettingsStore } from '@/stores/settings'
 import Tooltip from './Tooltip.vue'
 
 const database = useDatabaseStore()
 const modal = useModalStore()
 const { show_delete_document_modal } = storeToRefs(modal)
+const settings = useSettingsStore()
 
 const { t } = useI18n()
 </script>
@@ -28,8 +30,11 @@ const { t } = useI18n()
   <AlertDialogRoot v-model:open="show_delete_document_modal">
     <Tooltip :name="t('editor.delete')" shortcut="shift + delete">
       <AlertDialogTrigger
-        class="fixed bottom-1 print:hidden md:bottom-0 right-1 md:right-1 lg:right-0 flex items-center justify-center ml-auto text-xs ButtonDeleteDocument size-10 z-50 text-primary hover:bg-primary/20"
-        :class="database.loaded_id ? '' : 'hidden'"
+        class="absolute bottom-1 print:hidden md:bottom-0 right-1 md:right-1 lg:right-0 flex items-center justify-center ml-auto text-xs ButtonDeleteDocument size-10 z-50 text-primary hover:bg-primary/20"
+        :class="[
+          database.loaded_id ? '' : 'hidden',
+          settings.leva === true && settings.attach === true ? 'lg:-translate-x-72' : '',
+        ]"
       >
         <Trash2 class="size-4 pointer-events-none" />
         <span class="select-none! sr-only">{{ t("editor.delete") }}</span>

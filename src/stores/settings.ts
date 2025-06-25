@@ -11,6 +11,7 @@ export const useSettingsStore = defineStore('settings', {
       desktop_show_icons_sidebar_collapse: true,
       product_tour_seen: false,
       leva: false,
+      attach: false,
     }
   },
   persist: true,

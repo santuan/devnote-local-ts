@@ -3,15 +3,17 @@ import { BookOpenText, PencilLine } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useDocumentStore } from '@/stores/document'
+import { useSettingsStore } from '@/stores/settings'
 
+const settings = useSettingsStore()
 const document = useDocumentStore()
 const { t } = useI18n()
 </script>
 
 <template>
   <div
-    class="fixed bottom-0 z-30 flex items-center justify-center left-0 md:left-0 print:hidden lg:left-auto md:justify-start lg:bottom-auto lg:top-1 lg:right-0"
-    :class="document.content_editable ? '' : ''"
+    class="fixed md:absolute bottom-0 z-[101] md:z-30 flex items-center justify-center left-0 md:left-0 print:hidden lg:left-auto md:justify-start lg:bottom-auto lg:top-1 lg:right-0"
+    :class="settings.leva === true && settings.attach === true ? 'lg:-translate-x-72' : ''"
   >
     <Tooltip
       :name="

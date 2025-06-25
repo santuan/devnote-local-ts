@@ -168,7 +168,7 @@ function getHeadingClass(level: number) {
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
-      <div v-if="showOnlyHeadings" class="showOnlyHeadings px-2 pb-3 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-72 max-h-56">
+      <div v-if="showOnlyHeadings" class="showOnlyHeadings px-2 pb-3 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-72">
         <div
           v-for="(heading, index) in contentAnalysis.headings" :key="index"
           class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
