@@ -18,21 +18,29 @@ import {
   ScrollAreaViewport,
   Toggle,
 } from 'reka-ui'
-import { computed, nextTick, onMounted, onUnmounted, ref, unref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, unref, watch } from 'vue'
 
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
 import { useSettingsStore } from '@/stores/settings'
 import Tooltip from '../Tooltip.vue'
 
-const focus_store = useFocusStore()
 const database = useDatabaseStore()
-const { containerInbound } = storeToRefs(database)
-const el = ref<HTMLElement | null>(null)
+const settings = useSettingsStore()
+const focus_store = useFocusStore()
+
+const moveStep = 5
+const adjustedLeft = ref(50)
+const adjustedTop = ref(220)
 const draggableRef = ref<HTMLElement | null>(null)
-const { focus_debug } = storeToRefs(focus_store)
+const el = ref<HTMLElement | null>(null)
 const isFocusedInSlot = ref(false)
 const slotRef = ref<HTMLElement | null>(null)
+
+const { containerInbound } = storeToRefs(database)
+const { focus_debug } = storeToRefs(focus_store)
+const { leva, attach, leva_collapse } = storeToRefs(settings)
+
 const {
   top: boundsTop,
   left: boundsLeft,
@@ -42,9 +50,6 @@ const {
 
 const { width: draggableWidth, height: draggableHeight }
   = useElementSize(draggableRef)
-
-const adjustedLeft = ref(50)
-const adjustedTop = ref(50)
 
 useDraggable(el, {
   onMove({ x, y }) {
@@ -67,18 +72,14 @@ const style = computed(() => ({
   top: `${adjustedTop.value}px`,
 }))
 
-const settings = useSettingsStore()
-const { leva, attach } = storeToRefs(settings)
-const open = ref(true)
-
-const moveStep = 5
 const isFocused = ref(false)
+
 function handleKeyDown(e: KeyboardEvent) {
   if (!isFocused.value || !leva.value || isFocusedInSlot.value)
     return
 
   const step = e.shiftKey ? 50 : moveStep
-  const maxLeft = containerWidth.value - draggableWidth.value
+  const maxLeft = containerWidth.value - (draggableWidth.value)
   const maxTop = containerHeight.value - draggableHeight.value
 
   switch (e.key) {
@@ -100,6 +101,38 @@ function handleKeyDown(e: KeyboardEvent) {
       break
   }
 }
+
+function attach_panel() {
+  attach.value = !attach.value
+  if (attach.value === true) {
+    leva_collapse.value = true
+  }
+}
+
+function resetPositionToTopLeft() {
+  adjustedLeft.value = 50
+  adjustedTop.value = 0
+}
+
+function checkAndResetPosition() {
+  // Check if the current position would place the panel outside the container bounds
+  const maxLeft = containerWidth.value - draggableWidth.value
+  const maxTop = containerHeight.value - draggableHeight.value
+
+  if (adjustedLeft.value > maxLeft || adjustedTop.value > maxTop) {
+    resetPositionToTopLeft()
+  }
+}
+
+// Watch for container size changes and reset position if panel goes out of bounds
+watch([containerWidth, containerHeight], () => {
+  // Only check and reset if the panel is not attached
+  if (!attach.value) {
+    nextTick(() => {
+      checkAndResetPosition()
+    })
+  }
+}, { flush: 'post' })
 
 onMounted(() => {
   nextTick(() => {
@@ -134,92 +167,66 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <transition>
-    <div
-      v-show="leva"
-      ref="draggableRef"
-      :style="style"
-      tabindex="0"
-      class="text-xs w-72 z-[110] outline outline-secondary text-left outline-none"
-      :class="!attach ? 'absolute shadow shadow-secondary' : 'ring ring-secondary'"
-      @focusin="isFocused = true"
-      @focus="isFocused = true"
-      @blur="isFocused = false"
-    >
-      <CollapsibleRoot v-model:open="open" class="w-72">
-        <div
-          ref="el"
-          class="px-2 py-1 flex bg-secondary items-center justify-between group "
-          :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
-        >
-          <div class="w-20 flex justify-start items-center gap-1">
-            <CollapsibleTrigger
-              class="cursor-default inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
-            >
-              <button
-                ref="focus_debug"
-                class="size-5 flex justify-center items-center"
-              >
-                <ChevronDown
-                  class="h-3 w-3 duration-300"
-                  :class="open ? '' : '-rotate-90'"
-                />
-              </button>
-            </CollapsibleTrigger>
-            <span class="text-foreground select-none uppercase">Debug</span>
-          </div>
-          <GripHorizontal
-            v-show="!attach"
-            class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
-          />
-          <div class="flex justify-end w-20 items-center">
-            <Toggle
-              v-model="attach"
-              aria-label="Toggle attach leva"
-              class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
-            >
-              <PanelRightClose class="size-3.5" />
-            </Toggle>
-            <Tooltip
-              name="Close leva" side="bottom"
-              shortcut="ctrl + alt + shift + d + f"
-            >
-              <Toggle
-                v-model="leva"
-                aria-label="Toggle leva"
-                class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-6"
-              >
-                <X class="size-3.5" />
-              </Toggle>
-            </Tooltip>
-          </div>
-        </div>
-        <CollapsibleContent
-          class="CollapsibleContent select-none bg-background"
-          :class="attach ? '' : 'not-attach'"
-        >
-          <ScrollAreaRoot
-            class="w-full text-xs md:min-h-44 relative overflow-hidden"
-            style="--scrollbar-size: 10px"
+  <div
+    v-show="leva" ref="draggableRef" :style="style" tabindex="0"
+    class="text-xs w-72 z-[110] outline outline-secondary text-left outline-none"
+    :class="!attach ? 'absolute shadow shadow-secondary' : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary '"
+    @focusin="isFocused = true" @focus="isFocused = true" @blur="isFocused = false"
+  >
+    <CollapsibleRoot v-model:open="leva_collapse" class="w-72">
+      <div
+        ref="el" class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group "
+        :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
+      >
+        <div class="w-20 flex justify-start items-center gap-1">
+          <CollapsibleTrigger
+            :class="attach ? 'lg:hidden!' : ''"
+            class="cursor-default inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
           >
-            <ScrollAreaViewport
-              ref="slotRef"
-              class="w-full h-full"
-              :class="attach ? 'min-h-full max-h-[calc(100vh-5rem)]!' : ''"
-              @focusin="isFocusedInSlot = true"
-              @focusout="isFocusedInSlot = false"
+            <button ref="focus_debug" class="size-5 flex justify-center items-center">
+              <ChevronDown class="h-3 w-3 duration-300" :class="leva_collapse ? '' : '-rotate-90'" />
+            </button>
+          </CollapsibleTrigger>
+          <span class="text-foreground select-none uppercase">Debug</span>
+        </div>
+        <GripHorizontal v-show="!attach" class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90" />
+        <div class="flex justify-end w-20 items-center">
+          <button
+            aria-label="Toggle attach leva"
+            class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-8"
+            :class="attach ? 'bg-primary text-primary-foreground hover:bg-primary! ' : ''"
+            @click="attach_panel()"
+          >
+            <PanelRightClose class="size-4" :class="!attach ? 'rotate-90 lg:rotate-0 ' : ''" absolute-stroke-width stroke-width="2" />
+          </button>
+          <Tooltip name="Close leva" side="bottom" shortcut="ctrl + alt + shift + d + f">
+            <Toggle
+              v-model="leva" aria-label="Toggle leva"
+              class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-8"
             >
-              <slot />
-            </ScrollAreaViewport>
-            <ScrollAreaScrollbar
-              class="flex select-none touch-none p-0.5 z-20 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
-              orientation="vertical"
-            >
-              <ScrollAreaThumb
-                class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
-              />
-            </ScrollAreaScrollbar>
-            <!-- <ScrollAreaScrollbar
+              <X class="size-5 lg:size-4" absolute-stroke-width stroke-width="2" />
+            </Toggle>
+          </Tooltip>
+        </div>
+      </div>
+      <CollapsibleContent class="CollapsibleContent select-none bg-background" :class="attach ? '' : 'not-attach'">
+        <ScrollAreaRoot class="w-full text-xs md:min-h-44 relative overflow-hidden" style="--scrollbar-size: 10px">
+          <ScrollAreaViewport
+            ref="slotRef" class="w-full h-full"
+            :class="attach ? 'min-h-full max-h-[calc(100vh-1rem)]!' : ''" @focusin="isFocusedInSlot = true"
+            @focusout="isFocusedInSlot = false"
+          >
+            <slot />
+          </ScrollAreaViewport>
+          <ScrollAreaScrollbar
+            class="flex select-none touch-none p-0.5 z-20 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+            orientation="vertical"
+          >
+            <ScrollAreaThumb
+              class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
+            />
+          </ScrollAreaScrollbar>
+          <!-- <ScrollAreaScrollbar
               class="flex select-none touch-none p-0.5 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
               orientation="horizontal"
             >
@@ -227,11 +234,10 @@ onUnmounted(() => {
                 class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
               />
             </ScrollAreaScrollbar> -->
-          </ScrollAreaRoot>
-        </CollapsibleContent>
-      </CollapsibleRoot>
-    </div>
-  </transition>
+        </ScrollAreaRoot>
+      </CollapsibleContent>
+    </CollapsibleRoot>
+  </div>
 </template>
 
 <style>
@@ -239,6 +245,7 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
+/*
 .CollapsibleContent[data-state="open"] {
   animation: slideDown 300ms ease-out;
 }
@@ -246,8 +253,8 @@ onUnmounted(() => {
 .CollapsibleContent[data-state="closed"] {
   animation: slideUp 300ms ease-out;
 }
-
- .CollapsibleContent.not-attach .showOnlyHeadings {
+*/
+.CollapsibleContent.not-attach .showOnlyHeadings {
   max-height: 12rem;
 }
 

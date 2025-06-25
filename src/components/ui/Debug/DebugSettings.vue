@@ -126,7 +126,7 @@ function toggleCursor() {
         </button>
       </div>
     </div>
-    <div class="text-foreground flex justify-between items-center border-b border-secondary py-1 min-h-12">
+    <div class="text-foreground flex justify-between items-center pt-1 min-h-10">
       <p class="text-muted-foreground">
         cursor
       </p>

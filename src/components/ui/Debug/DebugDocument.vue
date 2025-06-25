@@ -174,7 +174,7 @@ function getHeadingClass(level: number) {
           class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
           :class="[getHeadingClass(heading.level)]"
         >
-          <a class="truncate w-40" :href="`#${slugify(heading.text)}`">
+          <a class="truncate w-52" :href="`#${slugify(heading.text)}`">
             {{ heading.text }}
           </a>
           <span class="opacity-30">H{{ heading.level }}</span>
