@@ -21,13 +21,13 @@ const { sidebar_splitter_ref } = storeToRefs(document)
       aria-label="Manage your account"
     >
       <TabsTrigger
-        class="py-3 flex-1 flex focus-visible:border focus-visible:border-foreground focus-visible:border-dashed items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary duration-300 outline-none"
+        class="py-3 flex-1 flex focus-visible:border focus-visible:border-foreground focus-visible:border-dashed items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary data-[state=active]:opacity-100 opacity-40 duration-300 outline-none"
         value="tab1"
       >
         Settings
       </TabsTrigger>
       <TabsTrigger
-        class="py-3 flex-1 flex focus-visible:border focus-visible:border-foreground focus-visible:border-dashed items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary duration-300 outline-none"
+        class="py-3 flex-1 flex focus-visible:border focus-visible:border-foreground focus-visible:border-dashed items-center justify-center text-xs border-b border-secondary leading-none text-foreground select-none hover:text-primary data-[state=active]:text-primary data-[state=active]:border-b-primary data-[state=active]:opacity-100 opacity-40 duration-300 outline-none"
         value="tab2"
       >
         Document

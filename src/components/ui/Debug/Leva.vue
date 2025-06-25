@@ -178,12 +178,12 @@ onUnmounted(() => {
         ref="el" class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group "
         :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
       >
-        <div class="w-20 flex justify-start items-center gap-1">
+        <div ref="focus_debug" tabIndex="-1" class="w-20 flex justify-start items-center gap-1">
           <CollapsibleTrigger
             :class="attach ? 'lg:hidden!' : ''"
             class="cursor-default inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
           >
-            <button ref="focus_debug" class="size-5 flex justify-center items-center">
+            <button class="size-5 flex justify-center items-center">
               <ChevronDown class="h-3 w-3 duration-300" :class="leva_collapse ? '' : '-rotate-90'" />
             </button>
           </CollapsibleTrigger>
