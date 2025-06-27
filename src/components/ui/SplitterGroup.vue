@@ -41,7 +41,7 @@ function expandAllScreen() {
       :style="`flex: ${layout[1]} 1 0px; overflow: hidden;`"
       class="hidden lg:flex"
     />
-    <SplitterPanel :min-size="40">
+    <SplitterPanel :min-size="40" :default-size="100">
       <slot />
     </SplitterPanel>
     <SplitterResizeHandle

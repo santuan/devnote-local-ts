@@ -21,7 +21,7 @@ export default defineComponent({
   },
 
   methods: {
-    onItemClick(id: any) {
+    onItemClick(e, id) {
       if (this.editor) {
         const element = this.editor.view.dom.querySelector(`[data-toc-id="${id}"`)
         const pos = this.editor.view.posAtDOM(element, 0)
@@ -38,10 +38,6 @@ export default defineComponent({
         if (history.pushState) {
           history.pushState(null, null, `#${id}`)
         }
-        // window.scrollTo({
-        //   top: element.getBoundingClientRect().top + window.scrollY,
-        //   behavior: 'smooth',
-        // })
 
         const scrollContainer = document.getElementById('editorScrollArea')
         if (scrollContainer && element) {

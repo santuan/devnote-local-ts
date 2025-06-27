@@ -32,7 +32,6 @@ export default defineComponent({
         classes[level as keyof typeof classes] || 'text-xs text-muted-foreground'
       )
     },
-
   },
 })
 </script>
