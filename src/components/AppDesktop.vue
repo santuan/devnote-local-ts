@@ -20,12 +20,11 @@ import { useSettingsStore } from '@/stores/settings'
 useMagicKeysStore()
 const settings = useSettingsStore()
 const document = useDocumentStore()
-const { sidebar_splitter_ref } = storeToRefs(document)
+const { sidebar_splitter_ref, resize } = storeToRefs(document)
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const largerThanLg = breakpoints.greater('lg')
 const layout = shallowRef<number[]>([0, 0])
-const resize = shallowRef(0)
 
 const resizeTo = computed(() => {
   if (largerThanLg.value === true) {

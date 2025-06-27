@@ -199,7 +199,7 @@ onUnmounted(() => {
           >
             <PanelRightClose class="size-4" :class="!attach ? 'rotate-90 lg:rotate-0 ' : ''" absolute-stroke-width stroke-width="2" />
           </button>
-          <Tooltip name="Close leva" side="bottom" shortcut="ctrl + alt + shift + d + f">
+          <Tooltip name="Close leva" side="bottom" shortcut="ctrl + alt + shift + D + C">
             <Toggle
               v-model="leva" aria-label="Toggle leva"
               class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-8"

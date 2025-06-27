@@ -10,7 +10,7 @@ import { Color } from '@tiptap/extension-color'
 import Document from '@tiptap/extension-document'
 import Gapcursor from '@tiptap/extension-gapcursor'
 import HardBreak from '@tiptap/extension-hard-break'
-// import Heading from '@tiptap/extension-heading'
+import Heading from '@tiptap/extension-heading'
 import History from '@tiptap/extension-history'
 import HorizontalRule from '@tiptap/extension-horizontal-rule'
 import Italic from '@tiptap/extension-italic'
@@ -24,6 +24,7 @@ import Strike from '@tiptap/extension-strike'
 import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
+import { getHierarchicalIndexes, TableOfContents } from '@tiptap/extension-table-of-contents'
 import TableRow from '@tiptap/extension-table-row'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
@@ -46,7 +47,6 @@ import { useEditorStore } from '@/stores/editor'
 import WebFrame from './addIframe'
 import Video from './addVideo'
 import EditorContextMenu from './EditorContextMenu.vue'
-import HeadingWithAnchor from './HeadingWithAnchor'
 import { ResizableMedia } from './resizableMedia'
 
 const props = defineProps({
@@ -67,7 +67,7 @@ const emit = defineEmits(['update:modelValue'])
 const database = useDatabaseStore()
 const document = useDocumentStore()
 const editor_store = useEditorStore()
-const { editor } = storeToRefs(editor_store)
+const { editor, editorTocIndex } = storeToRefs(editor_store)
 const { content_editable } = storeToRefs(document)
 const { t } = useI18n()
 const { document_name, document_body } = storeToRefs(database)
@@ -84,8 +84,13 @@ onMounted(() => {
       BulletList,
       OrderedList,
       ListItem,
-      // Heading,
-      HeadingWithAnchor,
+      Heading,
+      TableOfContents.configure({
+        getIndex: getHierarchicalIndexes,
+        onUpdate: (content: any) => {
+          editorTocIndex.value = content
+        },
+      }),
       HardBreak,
       Paragraph,
       HorizontalRule,
@@ -177,6 +182,7 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="EditorTiptap  @container">
     <ScrollAreaRoot
+
       class="ScrollAreaEditor group"
       :class="[
         toolbar ? 'with-toolbar' : '',
@@ -186,6 +192,7 @@ onBeforeUnmount(() => {
       style="--scrollbar-size: 10px"
     >
       <ScrollAreaViewport
+        id="editorScrollArea"
         class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
       >
         <EditorContextMenu>

@@ -3,7 +3,9 @@ import { ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { computed, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
-import slugify from '@/composables/slugify'
+// Compute content statistics and index
+import Toc from '@/components/ui/Tiptap/toc/toc.vue'
+
 import { useDatabaseStore } from '@/stores/database'
 import { useEditorStore } from '@/stores/editor'
 import { useModalStore } from '@/stores/modal'
@@ -14,10 +16,10 @@ const { t } = useI18n()
 const document = useEditorStore()
 const database = useDatabaseStore()
 const modal = useModalStore()
-const { editor } = storeToRefs(document)
+const { editor, editorTocIndex } = storeToRefs(document)
 const showContentAnalysis = shallowRef(true)
 const showOnlyHeadings = shallowRef(true)
-// Compute content statistics and index
+
 const contentAnalysis = computed(() => {
   if (!editor.value) {
     return {
@@ -53,21 +55,6 @@ const contentAnalysis = computed(() => {
     characterCount: editor.value.storage.characterCount?.characters?.() || 0,
   }
 })
-
-// Get heading level styling
-function getHeadingClass(level: number) {
-  const classes = {
-    1: 'pl-1 pr-3 text-xs font-bold text-foreground',
-    2: 'pl-1 pr-3 text-xs text-foreground',
-    3: 'pl-2 pr-3 text-xs text-foreground',
-    4: 'pl-3 pr-3 text-xs text-foreground',
-    5: 'pl-4 pr-3 text-xs text-muted-foreground',
-    6: 'pl-5 pr-3 text-xs text-muted-foreground',
-  }
-  return (
-    classes[level as keyof typeof classes] || 'text-xs text-muted-foreground'
-  )
-}
 </script>
 
 <template>
@@ -168,17 +155,8 @@ function getHeadingClass(level: number) {
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
-      <div v-if="showOnlyHeadings" class="showOnlyHeadings px-2 pb-3 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-72">
-        <div
-          v-for="(heading, index) in contentAnalysis.headings" :key="index"
-          class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
-          :class="[getHeadingClass(heading.level)]"
-        >
-          <a class="truncate w-52" :href="`#${slugify(heading.text)}`">
-            {{ heading.text }}
-          </a>
-          <span class="opacity-30">H{{ heading.level }}</span>
-        </div>
+      <div v-if="showOnlyHeadings" class="showOnlyHeadings px-2 pb-3 pt-0.5 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-72">
+        <Toc :editor="editor" :items="editorTocIndex" />
       </div>
     </template>
   </div>
