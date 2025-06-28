@@ -1,9 +1,11 @@
 import { driver } from 'driver.js'
 import { storeToRefs } from 'pinia'
+import { useDocumentStore } from '@/stores/document'
 import { useSettingsStore } from '@/stores/settings'
 import 'driver.js/dist/driver.css'
 
 function DriverJsInit() {
+  const document = useDocumentStore()
   const setting = useSettingsStore()
   const { product_tour_seen } = storeToRefs(setting)
 
@@ -102,6 +104,8 @@ function DriverJsInit() {
     },
   })
 
+  document.show_sidebar_documents = true
+  document.content_editable = true
   driverObj.drive()
 }
 

@@ -8,6 +8,7 @@ import ToolbarClear from './toolbar/ToolbarClear.vue'
 import ToolbarCodeBlock from './toolbar/ToolbarCodeBlock.vue'
 import ToolbarHeadingSelector from './toolbar/ToolbarHeadingSelector.vue'
 import ToolbarInlineCode from './toolbar/ToolbarInlineCode.vue'
+import ToolbarLatex from './toolbar/ToolbarLatex.vue'
 import ToolbarLinks from './toolbar/ToolbarLinks.vue'
 import ToolbarList from './toolbar/ToolbarList.vue'
 import ToolbarMedia from './toolbar/ToolbarMedia.vue'
@@ -46,6 +47,7 @@ const { editor } = storeToRefs(editor_store)
         <ToolbarTaskList />
         <ToolbarList />
         <ToolbarQuote />
+        <ToolbarLatex />
         <ToolbarTextSeparator />
         <ToolbarTable />
         <ToolbarLinks />

@@ -8,6 +8,7 @@ import Toc from '@/components/ui/Tiptap/toc/toc.vue'
 
 import { useDatabaseStore } from '@/stores/database'
 import { useEditorStore } from '@/stores/editor'
+import { useFocusStore } from '@/stores/focus'
 import { useModalStore } from '@/stores/modal'
 import Tooltip from '../Tooltip.vue'
 
@@ -16,7 +17,10 @@ const { t } = useI18n()
 const document = useEditorStore()
 const database = useDatabaseStore()
 const modal = useModalStore()
+const focus_store = useFocusStore()
 const { editor, editorTocIndex } = storeToRefs(document)
+const { focus_debug_heading } = storeToRefs(focus_store)
+
 const showContentAnalysis = shallowRef(true)
 const showOnlyHeadings = shallowRef(true)
 
@@ -151,7 +155,7 @@ const contentAnalysis = computed(() => {
         <h3 class="text-xs font-semibold text-primary">
           Headings
         </h3>
-        <button class="flex items-center justify-center size-5" @click="showOnlyHeadings = !showOnlyHeadings">
+        <button ref="focus_debug_heading" class="flex items-center justify-center size-5" @click="showOnlyHeadings = !showOnlyHeadings">
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>

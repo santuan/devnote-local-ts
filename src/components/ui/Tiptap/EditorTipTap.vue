@@ -1,9 +1,7 @@
 <script setup lang='ts'>
 import Blockquote from '@tiptap/extension-blockquote'
 import Bold from '@tiptap/extension-bold'
-
 import BulletList from '@tiptap/extension-bullet-list'
-
 import CharacterCount from '@tiptap/extension-character-count'
 import Code from '@tiptap/extension-code'
 import { Color } from '@tiptap/extension-color'
@@ -63,6 +61,7 @@ const props = defineProps({
     default: false,
   },
 })
+
 const emit = defineEmits(['update:modelValue'])
 const database = useDatabaseStore()
 const document = useDocumentStore()
@@ -71,6 +70,7 @@ const { editor, editorTocIndex } = storeToRefs(editor_store)
 const { content_editable } = storeToRefs(document)
 const { t } = useI18n()
 const { document_name, document_body } = storeToRefs(database)
+
 watchEffect(() => {
   if (document_name.value || document_body.value)
     database.auto_save()
@@ -79,47 +79,47 @@ watchEffect(() => {
 onMounted(() => {
   editor.value = new Editor({
     extensions: [
-      Document,
       Blockquote,
+      Bold,
       BulletList,
-      OrderedList,
-      ListItem,
+      Code,
+      Document,
+      Gapcursor,
+      HardBreak,
       Heading,
+      History,
+      HorizontalRule,
+      Italic,
+      ListItem,
+      Mathematics,
+      OrderedList,
+      Paragraph,
+      ResizableMedia,
+      Strike,
+      TableCell,
+      TableHeader,
+      TableRow,
+      TaskList,
+      Text,
+      Typography,
+      Underline,
+      Video,
+      WebFrame,
+      // Custom extensions
+      CharacterCount.configure({ limit: 50000 }),
+      Color.configure({ types: [TextStyle.name, ListItem.name] }),
+      Placeholder.configure({ placeholder: t('editor.placeholder') }),
+      Table.configure({ resizable: false, allowTableNodeSelection: true }),
+      TaskItem.configure({ nested: false }),
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      TextStyle.configure(),
+      Youtube.configure({ controls: true, ccLanguage: 'es', nocookie: true }),
       TableOfContents.configure({
         getIndex: getHierarchicalIndexes,
         onUpdate: (content: any) => {
           editorTocIndex.value = content
         },
       }),
-      HardBreak,
-      Paragraph,
-      HorizontalRule,
-      Strike,
-      Bold,
-      Italic,
-      Underline,
-      Text,
-      Code,
-      History,
-      Color.configure({ types: [TextStyle.name, ListItem.name] }),
-      TextStyle.configure(),
-      TaskList,
-      TaskItem.configure({
-        nested: false,
-      }),
-      Mathematics,
-      ResizableMedia,
-      // Image.configure({
-      //   allowBase64: true,
-      //   inline: true,
-      //   HTMLAttributes: {
-      //     class: "w-full my-6",
-      //   },
-      // }),
-      Gapcursor,
-      Video,
-      WebFrame,
-      Typography,
       Link.configure({
         openOnClick: true,
         defaultProtocol: 'https',
@@ -130,27 +130,6 @@ onMounted(() => {
           rel: 'noopener',
           class: 'px-1 underline-offset-2 text-primary cursor-pointer hover:text-primary/80',
         },
-      }),
-      Table.configure({
-        resizable: false,
-        allowTableNodeSelection: true,
-      }),
-      CharacterCount.configure({
-        limit: 50000,
-      }),
-      TableRow,
-      TableHeader,
-      TableCell,
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
-      }),
-      Placeholder.configure({
-        placeholder: t('editor.placeholder'),
-      }),
-      Youtube.configure({
-        controls: true,
-        ccLanguage: 'es',
-        nocookie: true,
       }),
       CodeBlockShiki.extend({
         addNodeView() {
@@ -165,9 +144,7 @@ onMounted(() => {
     ],
     content: props.modelValue,
     editable: !props.editable,
-    onCreate: () => {
-
-    },
+    onCreate: () => { },
     onUpdate: () => {
       emit('update:modelValue', editor.value.getHTML())
     },
@@ -182,14 +159,11 @@ onBeforeUnmount(() => {
 <template>
   <div v-if="editor" class="EditorTiptap  @container">
     <ScrollAreaRoot
-
-      class="ScrollAreaEditor group"
-      :class="[
+      class="ScrollAreaEditor group" :class="[
         toolbar ? 'with-toolbar' : '',
         content_editable ? 'is-editable' : 'is-preview',
         database.loaded_id === '' || editor.isEmpty ? 'is-empty' : '',
-      ]"
-      style="--scrollbar-size: 10px"
+      ]" style="--scrollbar-size: 10px"
     >
       <ScrollAreaViewport
         id="editorScrollArea"

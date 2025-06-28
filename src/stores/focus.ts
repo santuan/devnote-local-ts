@@ -9,12 +9,19 @@ export const useFocusStore = defineStore('focus', () => {
   const focus_toolbar = shallowRef<HTMLElement | null>(null)
   const focus_menu = shallowRef<HTMLElement | null>(null)
   const focus_debug = shallowRef<HTMLElement | null>(null)
+  const focus_debug_heading = shallowRef<HTMLElement | null>(null)
   const document = useDocumentStore()
 
   function SetFocusTitle() {
     document.content_editable = true
     if (focus_title_textarea.value instanceof HTMLElement) {
       focus_title_textarea.value.focus()
+    }
+  }
+
+  function SetFocusDebugHeading() {
+    if (focus_debug_heading.value instanceof HTMLElement) {
+      focus_debug_heading.value.focus()
     }
   }
 
@@ -55,11 +62,13 @@ export const useFocusStore = defineStore('focus', () => {
     setFocusToolbar,
     setFocusMenu,
     setFocusDebug,
+    SetFocusDebugHeading,
     focus_title_textarea,
     focus_sidebar,
     focus_documents,
     focus_toolbar,
     focus_menu,
     focus_debug,
+    focus_debug_heading,
   }
 })
