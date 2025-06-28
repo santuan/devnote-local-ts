@@ -45,10 +45,9 @@ export default defineComponent({
     :style="{ '--level': item.level }"
   >
     <a
-      class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+      class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none cursor-default focus:ring-1 focus:ring-primary"
       :class="[getHeadingClass(item.originalLevel)]" :href="`#${item.id}`" :data-item-index="item.itemIndex" @click.prevent="onItemClick"
     >
-
       <span class="truncate w-52">
         {{ item.textContent }}
       </span>
