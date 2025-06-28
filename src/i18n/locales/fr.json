@@ -117,7 +117,9 @@
     "attention": "Attention !",
     "database": "Base de données",
     "perspective": "Perspective",
-    "deleteDB": "Supprimer la base de données de l'indexedDB"
+    "deleteDB": "Supprimer la base de données de l'indexedDB",
+    "showIcons": "Afficher les icônes",
+    "showIconsDescription": "Afficher les icônes dans la barre latérale lorsqu'elle est réduite."
   },
   "importDB": {
     "description": "Sélectionnez ou glissez-déposez un fichier JSON exporté depuis cette application.",
@@ -136,6 +138,17 @@
     "focusDocumentsList": "Liste des documents",
     "focusTitle": "Titre du document",
     "focusToolbar": "Barre d'outils"
+  },
+  "leva": {
+    "settings": "Paramètres",
+    "document": "Document",
+    "status": "Statut",
+    "contentStatistics": "Statistiques de Contenu",
+    "codeBlocks": "Blocs de Code",
+    "words": "Mots",
+    "headings": "Titres",
+    "task": "Tâches",
+    "character": "Caractères"
   },
   "message": {
     "databaseClearedWithExample": "Base de données effacée et un document exemple a été créé",

@@ -117,7 +117,9 @@
     "attention": "Achtung!",
     "database": "Datenbank",
     "perspective": "Perspektive",
-    "deleteDB": "Datenbank aus IndexedDB löschen"
+    "deleteDB": "Datenbank aus IndexedDB löschen",
+    "showIcons": "Symbole anzeigen",
+    "showIconsDescription": "Symbole in der Seitenleiste anzeigen, wenn sie eingeklappt ist."
   },
   "importDB": {
     "description": "Wählen Sie eine JSON-Datei aus oder ziehen Sie sie hierher.",
@@ -136,6 +138,17 @@
     "focusDocumentsList": "Dokumentenliste",
     "focusTitle": "Dokumenttitel",
     "focusToolbar": "Werkzeugleiste"
+  },
+  "leva": {
+    "settings": "Einstellungen",
+    "document": "Dokument",
+    "status": "Status",
+    "contentStatistics": "Inhaltsstatistiken",
+    "codeBlocks": "Codeblöcke",
+    "words": "Wörter",
+    "headings": "Überschriften",
+    "task": "Aufgaben",
+    "character": "Zeichen"
   },
   "message": {
     "databaseClearedWithExample": "Datenbank gelöscht und ein Beispieldokument wurde erstellt",

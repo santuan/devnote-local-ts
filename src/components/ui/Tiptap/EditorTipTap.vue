@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import Blockquote from '@tiptap/extension-blockquote'
 import Bold from '@tiptap/extension-bold'
 import BulletList from '@tiptap/extension-bullet-list'
@@ -22,7 +22,10 @@ import Strike from '@tiptap/extension-strike'
 import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
-import { getHierarchicalIndexes, TableOfContents } from '@tiptap/extension-table-of-contents'
+import {
+  getHierarchicalIndexes,
+  TableOfContents,
+} from '@tiptap/extension-table-of-contents'
 import TableRow from '@tiptap/extension-table-row'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
@@ -34,7 +37,12 @@ import Underline from '@tiptap/extension-underline'
 import Youtube from '@tiptap/extension-youtube'
 import { Editor, EditorContent, VueNodeViewRenderer } from '@tiptap/vue-3'
 import { storeToRefs } from 'pinia'
-import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
+import {
+  ScrollAreaRoot,
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+  ScrollAreaViewport,
+} from 'reka-ui'
 import CodeBlockShiki from 'tiptap-extension-code-block-shiki'
 import { onBeforeUnmount, onMounted, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -66,7 +74,7 @@ const emit = defineEmits(['update:modelValue'])
 const database = useDatabaseStore()
 const document = useDocumentStore()
 const editor_store = useEditorStore()
-const { editor, editorTocIndex } = storeToRefs(editor_store)
+const { editor, editor_toc } = storeToRefs(editor_store)
 const { content_editable } = storeToRefs(document)
 const { t } = useI18n()
 const { document_name, document_body } = storeToRefs(database)
@@ -117,7 +125,7 @@ onMounted(() => {
       TableOfContents.configure({
         getIndex: getHierarchicalIndexes,
         onUpdate: (content: any) => {
-          editorTocIndex.value = content
+          editor_toc.value = content
         },
       }),
       Link.configure({
@@ -128,7 +136,8 @@ onMounted(() => {
         HTMLAttributes: {
           target: '_blank',
           rel: 'noopener',
-          class: 'px-1 underline-offset-2 text-primary cursor-pointer hover:text-primary/80',
+          class:
+            'px-1 underline-offset-2 text-primary cursor-pointer hover:text-primary/80',
         },
       }),
       CodeBlockShiki.extend({
@@ -144,7 +153,7 @@ onMounted(() => {
     ],
     content: props.modelValue,
     editable: !props.editable,
-    onCreate: () => { },
+    onCreate: () => {},
     onUpdate: () => {
       emit('update:modelValue', editor.value.getHTML())
     },
@@ -157,20 +166,25 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="editor" class="EditorTiptap  @container">
+  <div v-if="editor" class="EditorTiptap @container">
     <ScrollAreaRoot
-      class="ScrollAreaEditor group" :class="[
+      class="ScrollAreaEditor group"
+      :class="[
         toolbar ? 'with-toolbar' : '',
         content_editable ? 'is-editable' : 'is-preview',
         database.loaded_id === '' || editor.isEmpty ? 'is-empty' : '',
-      ]" style="--scrollbar-size: 10px"
+      ]"
+      style="--scrollbar-size: 10px"
     >
       <ScrollAreaViewport
         id="editorScrollArea"
         class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
       >
         <EditorContextMenu>
-          <div class="relative max-w-full mx-auto prose EditorContent dark:prose-invert" spellcheck="false">
+          <div
+            class="relative max-w-full mx-auto prose EditorContent dark:prose-invert"
+            spellcheck="false"
+          >
             <slot />
             <EditorContent :editor="editor" />
           </div>
@@ -267,7 +281,7 @@ onBeforeUnmount(() => {
 
   &.is-preview {
     /* height: calc(100dvh); */
-    @apply max-h-screen bg-background min-h-[90dvh] ;
+    @apply max-h-screen bg-background min-h-[90dvh];
 
     .tiptap td,
     .tiptap th {
@@ -288,7 +302,7 @@ onBeforeUnmount(() => {
 }
 
 .tiptap p.is-editor-empty:first-child::before {
-  @apply !text-foreground/25
+  @apply !text-foreground/25;
 }
 
 .tiptap h1,
@@ -381,8 +395,8 @@ html.dark .shiki span {
   @apply w-full relative border! border-primary! grid ring-transparent bg-background;
 }
 
-.is-preview .iframeContainer  {
-  @apply pt-0!
+.is-preview .iframeContainer {
+  @apply pt-0!;
 }
 
 .is-preview .iframeContainer iframe {
@@ -394,49 +408,49 @@ html.dark .shiki span {
 }
 
 .iframeContainer .iframeControls {
-@apply flex justify-between w-full border-b border-secondary bg-background h-10 items-center z-20
+  @apply flex justify-between w-full border-b border-secondary bg-background h-10 items-center z-20;
 }
 
 .iframeContainer .iframeTitle {
-  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate w-56 sm:w-auto sm:max-w-xl
+  @apply border-secondary border h-6 mr-auto top-1 px-2 font-mono font-normal block text-xs bg-background py-1 truncate w-56 sm:w-auto sm:max-w-xl;
 }
 
 .iframeContainer .iframeEditButton {
-  @apply absolute right-1 md:right-10 flex items-center font-mono justify-center   hover:bg-background  size-8 bg-secondary rounded-none  shrink-0
+  @apply absolute right-1 md:right-10 flex items-center font-mono justify-center   hover:bg-background  size-8 bg-secondary rounded-none  shrink-0;
 }
 
 .iframeContainer.fullscreen .iframeEditButton {
-  display: none !important
+  display: none !important;
 }
 
 .iframeContainer .iframeFullscreenButton {
-  @apply absolute hidden right-1 md:flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none
+  @apply absolute hidden right-1 md:flex items-center font-mono justify-center  hover:bg-background  size-8 bg-secondary rounded-none;
 }
 
 .iframeContainer .iframeFullscreenButton svg {
-  @apply pointer-events-none
+  @apply pointer-events-none;
 }
 
 .iframeContainer:has(iframe[src*="youtube"]) {
   @apply pt-0 max-w-5xl mx-auto;
 
   .iframeEditButton {
-    @apply right-1!
+    @apply right-1!;
   }
 
   .iframeFullscreenButton {
-    @apply hidden
+    @apply hidden;
   }
 
   iframe {
-    @apply aspect-video h-[32rem]
+    @apply aspect-video h-[32rem];
   }
 }
 
 .iframeContainer.fullscreen {
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   right: 0;
   height: 100vh;
   z-index: 200;
@@ -462,7 +476,7 @@ html.dark .shiki span {
 
 .tiptap td,
 .tiptap th {
-  @apply border border-muted ;
+  @apply border border-muted;
   box-sizing: border-box;
   min-width: 1em;
   padding: 6px 8px;
@@ -548,10 +562,9 @@ html.dark .shiki span {
   /* cursor: pointer; */
   height: 0;
   width: 0;
-
 }
 .tiptap ul[data-type="taskList"] li:focus-within span {
-  @apply outline-2! border-primary
+  @apply outline-2! border-primary;
 }
 
 .tiptap ul[data-type="taskList"] li[data-checked] label span {
@@ -560,7 +573,7 @@ html.dark .shiki span {
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  @apply bg-primary/10 border-primary/50 border-2 -translate-y-px ;
+  @apply bg-primary/10 border-primary/50 border-2 -translate-y-px;
   vertical-align: middle;
 }
 
@@ -568,7 +581,11 @@ html.dark .shiki span {
   @apply bg-primary border-primary;
 }
 
-.ScrollAreaEditor.is-editable ul[data-type="taskList"] li[data-checked]:hover label span {
+.ScrollAreaEditor.is-editable
+  ul[data-type="taskList"]
+  li[data-checked]:hover
+  label
+  span {
   @apply bg-primary border-primary;
 }
 
@@ -591,7 +608,12 @@ html.dark .shiki span {
   background-position: center;
 }
 
-.dark .tiptap ul[data-type="taskList"] li[data-checked="true"] label span::after {
+.dark
+  .tiptap
+  ul[data-type="taskList"]
+  li[data-checked="true"]
+  label
+  span::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
 }
 

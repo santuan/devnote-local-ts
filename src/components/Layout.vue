@@ -4,12 +4,11 @@ import { storeToRefs } from 'pinia'
 import DialogExportDB from '@/components/ui/Dialogs/DialogExportDB.vue'
 import DialogImportDB from '@/components/ui/Dialogs/DialogImportDB.vue'
 import Toasts from '@/components/ui/Toasts.vue'
-import ToggleEditable from '@/components/ui/ToggleEditable.vue'
+import ToggleEditable from '@/components/ui/Toggle/ToggleEditable.vue'
 import { useDatabaseStore } from '@/stores/database'
 
 const database = useDatabaseStore()
 const { containerInbound } = storeToRefs(database)
-
 const cursor_pointer = useStorage('cursor', true)
 </script>
 

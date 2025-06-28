@@ -3,7 +3,7 @@ import { Plane } from 'lucide-vue-next'
 
 import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
-import Driver from '@/composables/driver.ts'
+import Driver from '@/composables/tour.ts'
 import { useDocumentStore } from '@/stores/document'
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'

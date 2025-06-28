@@ -33,7 +33,5 @@ watch(needRefresh, (value) => {
 </script>
 
 <template>
-  <div />
   <Toaster :theme="mode === 'light' ? 'light' : 'dark'" position="bottom-right" />
-  <!-- TODO, fix this convert to proper file -->
 </template>

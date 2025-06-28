@@ -13,10 +13,10 @@ import {
   AlertDialogTrigger,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+import Tooltip from '@/components/ui/Tooltip.vue'
 import { useDatabaseStore } from '@/stores/database'
 import { useModalStore } from '@/stores/modal'
 import { useSettingsStore } from '@/stores/settings'
-import Tooltip from './Tooltip.vue'
 
 const database = useDatabaseStore()
 const modal = useModalStore()

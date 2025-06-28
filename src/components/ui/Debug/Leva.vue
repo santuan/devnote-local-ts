@@ -104,9 +104,6 @@ function handleKeyDown(e: KeyboardEvent) {
 
 function attach_panel() {
   attach.value = !attach.value
-  if (attach.value === true) {
-    leva_collapse.value = true
-  }
 }
 
 function resetPositionToTopLeft() {
@@ -115,7 +112,6 @@ function resetPositionToTopLeft() {
 }
 
 function checkAndResetPosition() {
-  // Check if the current position would place the panel outside the container bounds
   const maxLeft = containerWidth.value - draggableWidth.value
   const maxTop = containerHeight.value - draggableHeight.value
 
@@ -124,15 +120,19 @@ function checkAndResetPosition() {
   }
 }
 
-// Watch for container size changes and reset position if panel goes out of bounds
 watch([containerWidth, containerHeight], () => {
-  // Only check and reset if the panel is not attached
   if (!attach.value) {
     nextTick(() => {
       checkAndResetPosition()
     })
   }
 }, { flush: 'post' })
+
+watch(attach, (value) => {
+  if (value === true) {
+    leva_collapse.value = true
+  }
+})
 
 onMounted(() => {
   nextTick(() => {
@@ -193,16 +193,18 @@ onUnmounted(() => {
         <div class="flex justify-end w-20 items-center">
           <button
             aria-label="Toggle attach leva"
-            class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-8"
-            :class="attach ? 'bg-primary text-primary-foreground hover:bg-primary! ' : ''"
-            @click="attach_panel()"
+            class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
+            :class="attach ? 'bg-primary text-foreground  ' : ''" @click="attach_panel()"
           >
-            <PanelRightClose class="size-4" :class="!attach ? 'rotate-90 lg:rotate-0 ' : ''" absolute-stroke-width stroke-width="2" />
+            <PanelRightClose
+              class="size-4" :class="!attach ? 'rotate-90 lg:rotate-0 ' : ''" absolute-stroke-width
+              stroke-width="2"
+            />
           </button>
           <Tooltip name="Close leva" side="bottom" shortcut="ctrl + alt + shift + D + C">
             <Toggle
               v-model="leva" aria-label="Toggle leva"
-              class="flex items-center justify-center bg-background border hover:bg-secondary/80 border-secondary size-8"
+              class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
             >
               <X class="size-5 lg:size-4" absolute-stroke-width stroke-width="2" />
             </Toggle>
@@ -213,7 +215,7 @@ onUnmounted(() => {
         <ScrollAreaRoot class="w-full text-xs md:min-h-44 relative overflow-hidden" style="--scrollbar-size: 10px">
           <ScrollAreaViewport
             ref="slotRef" class="w-full h-full"
-            :class="attach ? 'min-h-full max-h-[calc(100vh-1rem)]!' : ''" @focusin="isFocusedInSlot = true"
+            :class="attach ? 'min-h-full max-h-[calc(100vh-2rem)]!' : ''" @focusin="isFocusedInSlot = true"
             @focusout="isFocusedInSlot = false"
           >
             <slot />
@@ -245,15 +247,6 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-/*
-.CollapsibleContent[data-state="open"] {
-  animation: slideDown 300ms ease-out;
-}
-
-.CollapsibleContent[data-state="closed"] {
-  animation: slideUp 300ms ease-out;
-}
-*/
 .CollapsibleContent.not-attach .showOnlyHeadings {
   max-height: 12rem;
 }

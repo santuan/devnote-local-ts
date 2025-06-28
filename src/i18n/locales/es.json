@@ -117,7 +117,9 @@
     "attention": "¡Atención!",
     "database": "Base de datos",
     "perspective": "Perspectiva",
-    "deleteDB": "Eliminar base de datos de indexdedDB"
+    "deleteDB": "Eliminar base de datos de indexdedDB",
+    "showIcons": "Mostrar iconos",
+    "showIconsDescription": "Mostrar iconos en la barra lateral cuando está colapsada."
   },
   "importDB": {
     "description": "Selecciona o arrastrar un archivo JSON exportado desde esta app.",
@@ -136,6 +138,17 @@
     "focusTitle": "Título del documento",
     "focusEditor": "Al editor",
     "focusToolbar": "Barra de herramientas"
+  },
+  "leva": {
+    "settings": "Configuraciones",
+    "document": "Documento",
+    "status": "Estado",
+    "contentStatistics": "Estadísticas de contenido",
+    "codeBlocks": "Bloques código",
+    "words": "Palabras",
+    "headings": "Títulos",
+    "task": "Tareas",
+    "character": "Caracteres"
   },
   "message": {
     "databaseClearedWithExample": "Base de datos eliminada y se creó un documento de ejemplo",

@@ -2,7 +2,7 @@
 import type { HTMLAttributes } from 'vue'
 
 import { computed, onMounted, ref } from 'vue'
-import { cn } from '@/utils'
+import { cn } from '@/composables/twmerge'
 
 const props = withDefaults(
   defineProps<{

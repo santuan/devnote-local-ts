@@ -19,7 +19,7 @@ const document = useEditorStore()
 const database = useDatabaseStore()
 const modal = useModalStore()
 const focus_store = useFocusStore()
-const { editor, editorTocIndex } = storeToRefs(document)
+const { editor, editor_toc } = storeToRefs(document)
 const { focus_debug_heading } = storeToRefs(focus_store)
 
 const showContentAnalysis = shallowRef(true)
@@ -108,7 +108,7 @@ const contentAnalysis = computed(() => {
     <div class="px-2 ">
       <div class="flex items-center justify-between  gap-2">
         <h3 class="text-xs font-semibold text-primary">
-          Content Statistics
+          {{ t("leva.contentStatistics") }}
         </h3>
         <button class="flex items-center justify-center size-5" @click="showContentAnalysis = !showContentAnalysis">
           <ChevronsUpDown class="text-foreground size-3" />
@@ -116,25 +116,25 @@ const contentAnalysis = computed(() => {
       </div>
       <div v-if="showContentAnalysis" class="grid grid-cols-2 mt-1 gap-2 text-xs pb-3 pt-2">
         <div>
-          <span class="opacity-50">Code Blocks:</span>
+          <span class="opacity-50">{{ t("leva.codeBlocks") }}:</span>
           <span class="ml-1 font-mono font-bold">
             {{ contentAnalysis.codeBlocks }}
           </span>
         </div>
         <div class="flex justify-end items-center">
-          <span class="opacity-50">Headings:</span>
+          <span class="opacity-50">{{ t("leva.headings") }}:</span>
           <span class="ml-1 font-mono font-bold">
             {{ contentAnalysis.totalHeadings }}
           </span>
         </div>
         <div>
-          <span class="opacity-50">Words:</span>
+          <span class="opacity-50">{{ t("leva.words") }}:</span>
           <span class="ml-1 font-mono font-bold">
             {{ contentAnalysis.wordCount }}
           </span>
         </div>
         <div class="flex justify-end items-center">
-          <span class="opacity-50">Task:</span>
+          <span class="opacity-50">{{ t("leva.task") }}:</span>
           <span
             v-if="contentAnalysis.taskListCount !== 0" class="ml-1 font-mono font-bold"
             :class="contentAnalysis.taskListCount === contentAnalysis.taskListCheckedCount ? 'text-primary' : ''"
@@ -147,7 +147,7 @@ const contentAnalysis = computed(() => {
         </div>
         <div v-if="editor" class="mt-0.5 col-span-2 ">
           <div class="flex items-center justify-between mb-1">
-            <span class="text-xs opacity-50">Character</span>
+            <span class="text-xs opacity-50">{{ t("leva.character") }}</span>
             <span class="font-mono text-xs">
               {{ contentAnalysis.characterCount }}
               / 50000</span>
@@ -178,14 +178,14 @@ const contentAnalysis = computed(() => {
         :class="showOnlyHeadings ? 'pb-0' : 'pb-3'"
       >
         <h3 class="text-xs font-semibold text-primary">
-          Headings
+          {{ t("leva.headings") }}
         </h3>
         <button ref="focus_debug_heading" class="flex items-center justify-center size-5" @click="showOnlyHeadings = !showOnlyHeadings">
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
       <div v-if="showOnlyHeadings" class="showOnlyHeadings px-2 pb-3 pt-0.5 space-y-1 overflow-x-hidden scrollbar scrollbar-thumb-primary scrollbar-track-secondary overflow-y-auto max-w-72">
-        <Toc :editor="editor" :items="editorTocIndex" />
+        <Toc :editor="editor" :items="editor_toc" />
       </div>
     </template>
   </div>

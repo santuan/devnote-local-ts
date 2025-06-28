@@ -3,9 +3,9 @@ import { ref } from 'vue'
 
 export const useEditorStore = defineStore('editor_tiptap', () => {
   const editor = ref()
-  const editorTocIndex = ref([])
+  const editor_toc = ref([])
   return {
     editor,
-    editorTocIndex,
+    editor_toc,
   }
 })

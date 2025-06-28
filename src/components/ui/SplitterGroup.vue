@@ -10,11 +10,12 @@ import { useDocumentStore } from '@/stores/document'
 const document = useDocumentStore()
 const database = useDatabaseStore()
 const panelRef = shallowRef()
-const layout = shallowRef<number[]>([0, 0]) // Initialize as an array
+const layout = shallowRef<number[]>([0, 0])
 const keys = useMagicKeys()
-const magicExpandDocument = keys['ctrl+shift+alt+period']
-const resize = shallowRef(0) // Declare resize variable
-whenever(magicExpandDocument, (n) => {
+const magic_expand_document = keys['ctrl+shift+alt+period']
+const resize = shallowRef(0)
+
+whenever(magic_expand_document, (n) => {
   if (n)
     expandAllScreen()
 })

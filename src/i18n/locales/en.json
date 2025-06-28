@@ -117,7 +117,9 @@
     "attention": "Atention!",
     "database": "Database",
     "perspective": "Perspective",
-    "deleteDB": "Delete database from indexedDB"
+    "deleteDB": "Delete database from indexedDB",
+    "showIcons": "Show icons",
+    "showIconsDescription": "Show icons in the sidebar when collapsed."
   },
   "importDB": {
     "description": "Select or drag and drop a json exported from this app.",
@@ -136,6 +138,17 @@
     "focusDocumentsList": "Documents list",
     "focusTitle": "Document title",
     "focusToolbar": "Toolbar"
+  },
+  "leva": {
+    "settings": "Settings",
+    "document": "Document",
+    "status": "Status",
+    "contentStatistics": "Content Statistics",
+    "codeBlocks": "Code Blocks",
+    "words": "Words",
+    "headings": "Headings",
+    "task": "Task",
+    "character": "Character"
   },
   "message": {
     "databaseClearedWithExample": "Database deleted and a sample document was created.",

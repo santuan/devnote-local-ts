@@ -117,7 +117,9 @@
     "attention": "Внимание!",
     "database": "База данных",
     "perspective": "Перспектива",
-    "deleteDB": "Удалить базу данных из IndexedDB"
+    "deleteDB": "Удалить базу данных из IndexedDB",
+    "showIcons": "Показать иконки",
+    "showIconsDescription": "Показывать иконки в боковой панели при сворачивании."
   },
   "importDB": {
     "description": "Выберите файл JSON или перетащите его сюда.",
@@ -136,6 +138,17 @@
     "focusDocumentsList": "Список документов",
     "focusTitle": "Заголовок документа",
     "focusToolbar": "Панель инструментов"
+  },
+  "leva": {
+    "settings": "Настройки",
+    "document": "Документ",
+    "status": "Статус",
+    "contentStatistics": "Статистика Контента",
+    "codeBlocks": "Блоки Кода",
+    "words": "Слова",
+    "headings": "Заголовки",
+    "task": "Задачи",
+    "character": "Символы"
   },
   "message": {
     "databaseClearedWithExample": "База данных очищена, и был создан пример документа",

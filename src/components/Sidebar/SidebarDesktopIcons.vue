@@ -3,9 +3,9 @@ import { motion } from 'motion-v'
 import DialogCommandMenu from '@/components/ui/Dialogs/DialogCommandMenu.vue'
 import DialogInfo from '@/components/ui/Dialogs/DialogInfo.vue'
 import DialogSettings from '@/components/ui/Dialogs/DialogSettings.vue'
-import ToggleFontSize from '@/components/ui/ToggleFontSize.vue'
-import ToggleLeva from '@/components/ui/ToggleLeva.vue'
-import ToggleTheme from '@/components/ui/ToggleTheme.vue'
+import ToggleFontSize from '@/components/ui/Toggle/ToggleFontSize.vue'
+import ToggleLeva from '@/components/ui/Toggle/ToggleLeva.vue'
+import ToggleTheme from '@/components/ui/Toggle/ToggleTheme.vue'
 
 const props = defineProps({
   isCollapsed: {

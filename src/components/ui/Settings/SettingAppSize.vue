@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import ToggleFontSize from '@/components/ui/ToggleFontSize.vue'
+import ToggleFontSize from '@/components/ui/Toggle/ToggleFontSize.vue'
 
 const { t } = useI18n()
 </script>

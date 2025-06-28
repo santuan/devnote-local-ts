@@ -1,18 +1,14 @@
 <script setup lang="ts">
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
-import {
-  SplitterGroup,
-  SplitterPanel,
-  SplitterResizeHandle,
-} from 'reka-ui'
+import { SplitterGroup, SplitterPanel, SplitterResizeHandle } from 'reka-ui'
 import { computed, shallowRef, watch } from 'vue'
 import Document from '@/components/Document.vue'
 import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import SidebarDesktopIcons from '@/components/Sidebar/SidebarDesktopIcons.vue'
 import Leva from '@/components/ui/Debug/Leva.vue'
 import LevaTabs from '@/components/ui/Debug/LevaTabs.vue'
-import ToggleSidebarLogo from '@/components/ui/ToggleSidebarLogo.vue'
+import ToggleSidebarLogo from '@/components/ui/Toggle/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import { useSettingsStore } from '@/stores/settings'
@@ -102,10 +98,8 @@ watch(
       >
         <div
           v-show="!sidebar_splitter_ref?.isCollapsed"
-          class="w-full "
-          :class="[
-            document.show_sidebar_documents ? 'relative z-[71]' : '',
-          ]"
+          class="w-full"
+          :class="[document.show_sidebar_documents ? 'relative z-[71]' : '']"
         >
           <Sidebar class="min-w-80" />
           <transition>

@@ -2,13 +2,13 @@
 import { useStorage } from '@vueuse/core'
 import { BookOpenText, CircleCheckBig, CircleDashed, Heading1, MousePointer, PanelLeftClose, PanelLeftDashed, PencilLine, Pointer } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
-import DropdownLanguage from '@/components/ui/DropdownLanguage.vue'
+import DropdownLanguage from '@/components/ui/Dropdown/DropdownLanguage.vue'
+import ToggleFontSize from '@/components/ui/Toggle/ToggleFontSize.vue'
+import ToggleTheme from '@/components/ui/Toggle/ToggleTheme.vue'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
-import { useSettingsStore } from '@/stores/settings'
-import ToggleFontSize from '../ToggleFontSize.vue'
 
-import ToggleTheme from '../ToggleTheme.vue'
+import { useSettingsStore } from '@/stores/settings'
 
 const settings = useSettingsStore()
 const { t } = useI18n()
@@ -28,7 +28,7 @@ function toggleCursor() {
 <template>
   <div class="pb-2 px-2">
     <div class="text-foreground flex justify-between items-center border-b border-secondary pb-1 min-h-12 ">
-      <p>Status</p>
+      <p>{{ t("leva.status") }}</p>
       <span>{{ database.status }}</span>
     </div>
     <div class="text-foreground flex justify-between items-center border-b border-secondary py-1 min-h-12 ">

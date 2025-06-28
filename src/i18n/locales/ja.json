@@ -117,7 +117,9 @@
     "attention": "注意！",
     "database": "データベース",
     "perspective": "視点",
-    "deleteDB": "IndexedDBからデータベースを削除"
+    "deleteDB": "IndexedDBからデータベースを削除",
+    "showIcons": "アイコンを表示",
+    "showIconsDescription": "サイドバーが折りたたまれているときにアイコンを表示します。"
   },
   "importDB": {
     "description": "JSONファイルを選択するか、ここにドラッグしてください。",
@@ -136,6 +138,17 @@
     "focusDocumentsList": "ドキュメントリスト",
     "focusTitle": "ドキュメントタイトル",
     "focusToolbar": "ツールバー"
+  },
+  "leva": {
+    "settings": "設定",
+    "document": "ドキュメント",
+    "status": "ステータス",
+    "contentStatistics": "コンテンツ統計",
+    "codeBlocks": "コードブロック",
+    "words": "単語",
+    "headings": "見出し",
+    "task": "タスク",
+    "character": "文字"
   },
   "message": {
     "databaseClearedWithExample": "データベースがクリアされ、サンプルドキュメントが作成されました",

@@ -14,7 +14,6 @@ export default defineComponent({
   },
 
   emits: ['itemClick'],
-
   methods: {
     onItemClick(event: any) {
       this.$emit('itemClick', event, this.item.id)

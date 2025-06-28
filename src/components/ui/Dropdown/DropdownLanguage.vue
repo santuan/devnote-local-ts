@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from 'reka-ui'
 import { useI18n } from 'vue-i18n'
-import Tooltip from './Tooltip.vue'
+import Tooltip from '@/components/ui/Tooltip.vue'
 
 const storedLocale = useStorage('locale', 'es')
 const { t, locale } = useI18n()

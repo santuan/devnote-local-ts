@@ -13,7 +13,11 @@ const { t } = useI18n()
 <template>
   <div
     class="fixed md:absolute bottom-0 z-[101] md:z-30 flex items-center justify-center left-0 md:left-0 print:hidden lg:left-auto md:justify-start lg:bottom-auto lg:top-0.5 lg:right-0"
-    :class="settings.leva === true && settings.attach === true ? 'lg:-translate-x-72' : ''"
+    :class="
+      settings.leva === true && settings.attach === true
+        ? 'lg:-translate-x-72'
+        : ''
+    "
   >
     <Tooltip
       :name="
@@ -25,7 +29,7 @@ const { t } = useI18n()
       side="top"
     >
       <button
-        class="relative flex items-center justify-center ToggleEditable bg-background text-primary hover:text-primary-foreground  hover:bg-primary/80 size-10"
+        class="relative flex items-center justify-center ToggleEditable bg-background text-primary hover:text-primary-foreground hover:bg-primary/80 size-10"
         @click="document.toggle_editable()"
       >
         <BookOpenText
