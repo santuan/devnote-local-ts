@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NumberFlow from '@number-flow/vue'
 import { ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { computed, shallowRef } from 'vue'
@@ -32,12 +33,16 @@ const contentAnalysis = computed(() => {
       totalHeadings: 0,
       wordCount: 0,
       characterCount: 0,
+      taskListCount: 0,
+      taskListCheckedCount: 0,
     }
   }
 
   const doc = editor.value.state.doc
   const headings: Array<{ level: number, text: string, pos: number }> = []
   let codeBlocks = 0
+  let taskListCount = 0
+  let taskListCheckedCount = 0
 
   // Traverse the document to find headings and code blocks
   doc.descendants((node: any, pos: any) => {
@@ -49,11 +54,19 @@ const contentAnalysis = computed(() => {
     else if (node.type.name === 'codeBlock') {
       codeBlocks++
     }
+    else if (node.type.name === 'taskItem') {
+      if (node.attrs.checked === true) {
+        taskListCheckedCount++
+      }
+      taskListCount++
+    }
   })
 
   return {
     codeBlocks,
     headings,
+    taskListCount,
+    taskListCheckedCount,
     totalHeadings: headings.length,
     wordCount: editor.value.storage.characterCount?.words?.() || 0,
     characterCount: editor.value.storage.characterCount?.characters?.() || 0,
@@ -108,7 +121,7 @@ const contentAnalysis = computed(() => {
             {{ contentAnalysis.codeBlocks }}
           </span>
         </div>
-        <div>
+        <div class="flex justify-end items-center">
           <span class="opacity-50">Headings:</span>
           <span class="ml-1 font-mono font-bold">
             {{ contentAnalysis.totalHeadings }}
@@ -119,6 +132,18 @@ const contentAnalysis = computed(() => {
           <span class="ml-1 font-mono font-bold">
             {{ contentAnalysis.wordCount }}
           </span>
+        </div>
+        <div class="flex justify-end items-center">
+          <span class="opacity-50">Task:</span>
+          <span
+            v-if="contentAnalysis.taskListCount !== 0" class="ml-1 font-mono font-bold"
+            :class="contentAnalysis.taskListCount === contentAnalysis.taskListCheckedCount ? 'text-primary' : ''"
+          >
+            <NumberFlow :value="contentAnalysis.taskListCheckedCount" />
+            /
+            <NumberFlow :value="contentAnalysis.taskListCount" />
+          </span>
+          <span v-else>---</span>
         </div>
         <div v-if="editor" class="mt-0.5 col-span-2 ">
           <div class="flex items-center justify-between mb-1">
