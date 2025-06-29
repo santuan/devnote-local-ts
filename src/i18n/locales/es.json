@@ -12,6 +12,20 @@
     "deleteConfirm": "Esta acción no tiene vuelta atrás",
     "copyToClipboard": "Copiar código"
   },
+  "speech": {
+    "readAloud": "Leer en voz alta",
+    "pause": "Pausar lectura",
+    "resume": "Reanudar lectura",
+    "stop": "Detener lectura",
+    "settings": "Configuración de voz",
+    "settingsDescription": "Configurar voz, velocidad, tono y volumen para texto a voz",
+    "voice": "Voz",
+    "rate": "Velocidad",
+    "pitch": "Tono",
+    "volume": "Volumen",
+    "testVoice": "Probar voz",
+    "testText": "Esta es una prueba de la configuración de voz seleccionada."
+  },
   "toolbar": {
     "toolbar": "barra de herramientas",
     "undo": "Deshacer",
@@ -144,6 +158,7 @@
     "document": "Documento",
     "status": "Estado",
     "contentStatistics": "Estadísticas de contenido",
+    "documentControls": "Controles del documento",
     "codeBlocks": "Bloques código",
     "words": "Palabras",
     "headings": "Títulos",

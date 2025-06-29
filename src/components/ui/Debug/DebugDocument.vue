@@ -6,6 +6,7 @@ import { computed, shallowRef } from 'vue'
 import { useI18n } from 'vue-i18n'
 // Compute content statistics and index
 import Toc from '@/components/ui/Tiptap/toc/toc.vue'
+import { db } from '@/db'
 
 import { useDatabaseStore } from '@/stores/database'
 import { useEditorStore } from '@/stores/editor'
@@ -72,6 +73,38 @@ const contentAnalysis = computed(() => {
     characterCount: editor.value.storage.characterCount?.characters?.() || 0,
   }
 })
+
+async function toggleDocumentChecked() {
+  if (!database.loaded_id)
+    return
+
+  try {
+    const result = await db.documents.get(database.loaded_id)
+    if (result) {
+      await database.change_document_checked(result, !result.document_data?.checked)
+      database.document_checked = !database.document_checked
+    }
+  }
+  catch (error) {
+    console.error('Error toggling document checked status:', error)
+  }
+}
+
+async function toggleDocumentFixed() {
+  if (!database.loaded_id)
+    return
+
+  try {
+    const result = await db.documents.get(database.loaded_id)
+    if (result) {
+      await database.change_document_fixed(result, result.document_data?.fixed)
+      database.document_fixed = !database.document_fixed
+    }
+  }
+  catch (error) {
+    console.error('Error toggling document fixed status:', error)
+  }
+}
 </script>
 
 <template>
@@ -93,7 +126,7 @@ const contentAnalysis = computed(() => {
             v-if="!database.document_checked"
             :name="database.document_fixed ? t('verb.fixed') : t('verb.unfixed')" side="top"
           >
-            <Pin class="origin-center size-3" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
+            <Pin class="origin-center size-3 outline-none" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
           </Tooltip>
         </div>
       </div>
@@ -102,6 +135,40 @@ const contentAnalysis = computed(() => {
           database.document_name?.length === 0 ? "---" : database.document_name
         }}
       </h3>
+    </div>
+
+    <!-- Document Controls -->
+    <div class="px-2 border-b border-secondary pb-3">
+      <h3 class="text-xs font-semibold text-primary mb-2">
+        {{ t("leva.documentControls") }}
+      </h3>
+      <div class="grid grid-cols-2 gap-2">
+        <!-- Toggle Completed Status -->
+        <button
+          class="flex items-center justify-between p-2 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+          :class="database.document_checked ? 'bg-primary/10 border-primary/30' : ''"
+          @click="toggleDocumentChecked"
+        >
+          <span class="flex items-center gap-2">
+            <CircleOff v-if="database.document_checked" class="size-3" />
+            <Circle v-else class="size-3" />
+            <span class="capitalize">{{ database.document_checked ? t('message.completed') : t('message.unmarked') }}</span>
+          </span>
+        </button>
+
+        <!-- Toggle Fixed Status -->
+        <button
+          class="flex items-center justify-between p-2 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+          :class="database.document_fixed ? 'bg-primary/10 border-primary/30' : ''"
+          @click="toggleDocumentFixed"
+        >
+          <span class="flex items-center gap-2">
+            <Pin class="size-3" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
+            <span :key="database.loaded_id">{{ database.document_fixed ? t('verb.fixed') : t('verb.unfixed') }}</span>
+          </span>
+          {{ database.loaded_id }}
+        </button>
+      </div>
     </div>
 
     <!-- Content Statistics -->

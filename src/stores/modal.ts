@@ -15,6 +15,7 @@ export const useModalStore = defineStore('modal', () => {
   const show_youtube_url_dialog = shallowRef(false)
   const show_link_url_dialog = shallowRef(false)
   const show_iframe_url_dialog = shallowRef(false)
+  const show_speech_settings = shallowRef(false)
   const editing_iframe_pos = shallowRef<null | number>(null)
   return {
     show_info,
@@ -30,6 +31,7 @@ export const useModalStore = defineStore('modal', () => {
     show_youtube_url_dialog,
     show_link_url_dialog,
     show_iframe_url_dialog,
+    show_speech_settings,
     editing_iframe_pos,
   }
 })

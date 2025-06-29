@@ -12,6 +12,20 @@
     "deleteConfirm": "この操作は元に戻せません",
     "copyToClipboard": "コードをクリップボードにコピー"
   },
+  "speech": {
+    "readAloud": "音声で読み上げ",
+    "pause": "読み上げを一時停止",
+    "resume": "読み上げを再開",
+    "stop": "読み上げを停止",
+    "settings": "音声設定",
+    "settingsDescription": "テキスト読み上げの音声、速度、ピッチ、音量を設定",
+    "voice": "音声",
+    "rate": "速度",
+    "pitch": "ピッチ",
+    "volume": "音量",
+    "testVoice": "音声をテスト",
+    "testText": "これは選択された音声設定のテストです。"
+  },
   "toolbar": {
     "toolbar": "ツールバー",
     "undo": "元に戻す",
@@ -144,6 +158,7 @@
     "document": "ドキュメント",
     "status": "ステータス",
     "contentStatistics": "コンテンツ統計",
+    "documentControls": "ドキュメント制御",
     "codeBlocks": "コードブロック",
     "words": "単語",
     "headings": "見出し",

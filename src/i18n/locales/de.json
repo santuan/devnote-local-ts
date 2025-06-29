@@ -12,6 +12,20 @@
     "deleteConfirm": "Diese Aktion kann nicht rückgängig gemacht werden",
     "copyToClipboard": "Code in die Zwischenablage kopieren"
   },
+  "speech": {
+    "readAloud": "Vorlesen",
+    "pause": "Vorlesen pausieren",
+    "resume": "Vorlesen fortsetzen",
+    "stop": "Vorlesen stoppen",
+    "settings": "Spracheinstellungen",
+    "settingsDescription": "Stimme, Geschwindigkeit, Tonhöhe und Lautstärke für Text-zu-Sprache konfigurieren",
+    "voice": "Stimme",
+    "rate": "Geschwindigkeit",
+    "pitch": "Tonhöhe",
+    "volume": "Lautstärke",
+    "testVoice": "Stimme testen",
+    "testText": "Dies ist ein Test der ausgewählten Spracheinstellungen."
+  },
   "toolbar": {
     "toolbar": "Werkzeugleiste",
     "undo": "Rückgängig",
@@ -144,6 +158,7 @@
     "document": "Dokument",
     "status": "Status",
     "contentStatistics": "Inhaltsstatistiken",
+    "documentControls": "Dokumentsteuerung",
     "codeBlocks": "Codeblöcke",
     "words": "Wörter",
     "headings": "Überschriften",
