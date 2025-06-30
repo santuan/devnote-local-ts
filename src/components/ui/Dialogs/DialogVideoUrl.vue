@@ -54,13 +54,13 @@ function handleSubmit() {
           </label>
           <div class="flex justify-end gap-4">
             <DialogClose
-              class="bg-background border-secondary border text-foreground hover:bg-backgorund/80 text-xs inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none focus:outline-2 focus:outline-foreground focus:outline gap-3 focus:outline-offset-2"
+              class="bg-background border-secondary border text-foreground hover:bg-backgorund/80 text-xs inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none  focus:outline-foreground focus:outline gap-3 focus:outline-offset-2"
             >
               {{ t("verb.cancel") }}
             </DialogClose>
             <button
               type="submit"
-              class="bg-primary text-primary-foreground hover:bg-primary/80 text-xs inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none hover:outline-hidden focus:outline-2 focus:outline-foreground focus:outline focus:outline-offset-2"
+              class="bg-primary text-primary-foreground hover:bg-primary/80 text-xs inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-semibold leading-none hover:outline-hidden  focus:outline-foreground focus:outline focus:outline-offset-2"
             >
               {{ t("verb.add") }}
             </button>

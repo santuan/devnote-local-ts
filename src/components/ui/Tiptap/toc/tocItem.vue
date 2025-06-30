@@ -15,7 +15,7 @@ export default defineComponent({
 
   emits: ['itemClick'],
   methods: {
-    onItemClick(event: any) {
+    onItemClick(event: MouseEvent) {
       this.$emit('itemClick', event, this.item.id)
     },
     getHeadingClass(level: number) {
@@ -28,7 +28,8 @@ export default defineComponent({
         6: 'pl-5 pr-3 text-xs text-muted-foreground',
       }
       return (
-        classes[level as keyof typeof classes] || 'text-xs text-muted-foreground'
+        classes[level as keyof typeof classes]
+        || 'text-xs text-muted-foreground'
       )
     },
   },
@@ -41,11 +42,14 @@ export default defineComponent({
       'is-active': item.isActive && !item.isScrolledOver,
       'is-scrolled-over': item.isScrolledOver,
     }"
-    :style="{ '--level': item.level }"
+    :style="{ '--level': item.originalLevel }"
   >
     <a
       class="flex items-center justify-between w-full gap-2 p-1 truncate transition-colors duration-150 rounded hover:bg-secondary/50 focus:outline-none cursor-default focus:ring-1 focus:ring-primary"
-      :class="[getHeadingClass(item.originalLevel)]" :href="`#${item.id}`" :data-item-index="item.itemIndex" @click.prevent="onItemClick"
+      :class="[getHeadingClass(item.originalLevel)]"
+      :href="`#${item.id}`"
+      :data-item-index="item.itemIndex"
+      @click.prevent="onItemClick"
     >
       <span class="truncate w-52">
         {{ item.textContent }}

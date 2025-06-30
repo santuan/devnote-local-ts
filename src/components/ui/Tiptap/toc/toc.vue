@@ -21,30 +21,23 @@ export default defineComponent({
   },
 
   methods: {
-    onItemClick(e, id) {
+    onItemClick(e: any, id: any) {
       if (this.editor) {
         const element = this.editor.view.dom.querySelector(`[data-toc-id="${id}"`)
         const pos = this.editor.view.posAtDOM(element, 0)
-
         // set focus
         const tr = this.editor.view.state.tr
-
         tr.setSelection(new TextSelection(tr.doc.resolve(pos)))
-
         this.editor.view.dispatch(tr)
-
         this.editor.view.focus()
-
         if (history.pushState) {
-          history.pushState(null, null, `#${id}`)
+          history.pushState(null, '', `#${id}`)
         }
-
         const scrollContainer = document.getElementById('editorScrollArea')
         if (scrollContainer && element) {
           const containerRect = scrollContainer.getBoundingClientRect()
           const elementRect = element.getBoundingClientRect()
           const scrollTop = elementRect.top - containerRect.top + scrollContainer.scrollTop - 20
-
           scrollContainer.scrollTo({
             top: scrollTop,
             behavior: 'smooth',
