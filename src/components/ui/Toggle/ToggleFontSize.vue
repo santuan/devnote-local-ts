@@ -114,18 +114,18 @@ onMounted(() => {
 }
 
 .interactive[data-state="open"] .AArrowDown {
-  @apply !flex;
+  @apply flex!;
 }
 
 .interactive[data-state="closed"] .AArrowDown {
-  @apply !hidden;
+  @apply hidden!;
 }
 
 .interactive[data-state="open"] .AArrowUp {
-  @apply !hidden;
+  @apply hidden!;
 }
 
 .interactive[data-state="closed"] .AArrowUp {
-  @apply !flex;
+  @apply flex!;
 }
 </style>

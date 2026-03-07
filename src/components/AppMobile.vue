@@ -6,6 +6,7 @@ import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import PullToRefresh from '@/components/ui/PullToRefresh.vue'
 import ToggleSidebarLogo from '@/components/ui/Toggle/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
+import SpeechPanel from './ui/Tiptap/SpeechPanel.vue'
 
 const document = useDocumentStore()
 const swipeTarget = useTemplateRef('swipeTarget')
@@ -61,7 +62,7 @@ const { lengthX, isSwiping } = useSwipe(swipeTarget, {
       <ToggleSidebarLogo />
       <div
         ref="swipeTarget"
-        class="top-12 z-[198] bg-background touch-pan-x text-xs bottom-12 fixed w-9"
+        class="top-12 z-198 bg-background touch-pan-x text-xs bottom-12 fixed w-9"
       />
       <Sidebar
         class="max-w-80"
@@ -73,13 +74,14 @@ const { lengthX, isSwiping } = useSwipe(swipeTarget, {
       <transition>
         <button
           v-if="document.show_sidebar_documents"
-          class="fixed inset-0 print:hidden z-[199] bg-background/90 border-0! ring-0! outline-hidden!"
+          class="fixed inset-0 print:hidden z-199 bg-background/90 border-0! ring-0! outline-hidden!"
           @click="
             document.show_sidebar_documents = !document.show_sidebar_documents
           "
         />
       </transition>
       <Document />
+      <SpeechPanel />
     </div>
   </PullToRefresh>
 </template>

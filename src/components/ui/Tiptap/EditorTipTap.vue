@@ -145,9 +145,6 @@ onMounted(() => {
           return VueNodeViewRenderer(EditorCodeBlock)
         },
       }).configure({
-        HTMLAttributes: {
-          spellcheck: 'false',
-        },
         defaultTheme: 'houston',
       }),
     ],
@@ -166,7 +163,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="editor" class="EditorTiptap @container">
+  <div v-if="editor && !editor.isDestroyed " class="EditorTiptap @container">
     <ScrollAreaRoot
       class="ScrollAreaEditor group"
       :class="[
@@ -216,12 +213,12 @@ onBeforeUnmount(() => {
 } */
 
 [data-reka-scroll-area-viewport] {
-  @apply print:overflow-y-visible! print:!border-0;
+  @apply print:overflow-y-visible! print:border-0!;
 }
 
 @media print {
   html {
-    @apply !text-xs;
+    @apply text-xs!;
   }
 
   @page {
@@ -242,12 +239,12 @@ onBeforeUnmount(() => {
 
   [data-reka-scroll-area-viewport] {
     --secondary: 240 4.8% 90.9%;
-    @apply overflow-y-visible! !border;
+    @apply overflow-y-visible! border!;
   }
 
   .tiptap td,
   .tiptap th {
-    @apply border! !border-muted/20;
+    @apply border! border-muted/20!;
   }
 
   h2,
@@ -263,7 +260,7 @@ onBeforeUnmount(() => {
 }
 
 .ScrollAreaEditor {
-  @apply w-full scrollbar-none border-0 print:h-full! print:max-h-none! overflow-x-hidden print:!overflow-y-auto;
+  @apply w-full scrollbar-none border-0 print:h-full! print:max-h-none! overflow-x-hidden print:overflow-y-auto!;
 
   &.is-editable {
     @apply bg-background border border-secondary;
@@ -290,7 +287,7 @@ onBeforeUnmount(() => {
 
     .ProseMirror-trailingBreak,
     .ProseMirror-separator {
-      @apply !hidden;
+      @apply hidden!;
     }
   }
 }
@@ -302,7 +299,7 @@ onBeforeUnmount(() => {
 }
 
 .tiptap p.is-editor-empty:first-child::before {
-  @apply !text-foreground/25;
+  @apply text-foreground/25!;
 }
 
 .tiptap h1,
@@ -339,11 +336,11 @@ onBeforeUnmount(() => {
 }
 
 .tiptap p a span {
-  @apply !text-inherit;
+  @apply text-inherit!;
 }
 
 .tiptap p {
-  @apply break-words;
+  @apply wrap-break-word;
   hyphens: auto;
 }
 
@@ -607,6 +604,14 @@ html.dark .shiki span {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.tiptap h2::selection,
+.tiptap h3::selection,
+.tiptap h4::selection,
+.tiptap h5::selection,
+.tiptap p::selection {
+  @apply bg-primary/20 text-primary;
+  }
 
 .dark
   .tiptap

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { ToolbarRoot } from 'reka-ui'
+import { /* ToolbarButton, */ ToolbarRoot } from 'reka-ui'
+// import { Printer } from 'lucide-vue-next'
+// import Tooltip from '../Tooltip.vue'
+// import { useI18n } from 'vue-i18n'
 import { useEditorStore } from '@/stores/editor'
 import { useFocusStore } from '@/stores/focus'
 import ToolbarCharacters from './toolbar/ToolbarCharacters.vue'
@@ -22,16 +25,24 @@ import ToolbarUndo from './toolbar/ToolbarUndo.vue'
 import ToolbarWebFrame from './toolbar/ToolbarWebFrame.vue'
 import ToolbarWebFrameNote from './toolbar/ToolbarWebFrameNote.vue'
 
+// const { t } = useI18n()
+
 const focus_store = useFocusStore()
 const { focus_toolbar } = storeToRefs(focus_store)
 
 const editor_store = useEditorStore()
 const { editor } = storeToRefs(editor_store)
+
+// function printPDF() {
+//   window.print()
+// }
 </script>
 
 <template>
   <div v-if="editor" class="py-1 z-10 relative bg-background print:hidden">
-    <div class="relative grid w-full max-w-full mx-auto control-group focus-visible:ring-2 focus-visible:ring-primary">
+    <div
+      class="relative grid w-full max-w-full mx-auto control-group focus-visible:ring-2 focus-visible:ring-primary"
+    >
       <span ref="focus_toolbar" class="sr-only" tabindex="-1"> Toolbar </span>
       <ToolbarRoot
         class="flex gap-0.5 pr-0 gap-y-1 justify-start select-none button-group items-center md:w-auto focus-visible:outline! focus-visible:outline-primary/10! focus-visible:outline-offset-[1.5px]!"
@@ -54,6 +65,12 @@ const { editor } = storeToRefs(editor_store)
         <ToolbarMedia />
         <ToolbarWebFrame />
         <ToolbarClear />
+        <!-- <Tooltip :name="t('toolbar.print')" shortcut="Ctrl P" side="bottom">
+          <ToolbarButton class="px-3 flex gap-2" @click="printPDF">
+            <Printer class="size-4" />
+            <span class="sr-only">{{ t("toolbar.print") }}</span>
+          </ToolbarButton>
+        </Tooltip> -->
       </ToolbarRoot>
     </div>
   </div>
@@ -72,7 +89,7 @@ const { editor } = storeToRefs(editor_store)
 }
 
 .control-group button {
-  @apply  disabled:opacity-50 hover:disabled:text-foreground! disabled:pointer-events-none;
+  @apply disabled:opacity-50 hover:disabled:text-foreground! disabled:pointer-events-none;
 }
 
 .button-group button.is-active {

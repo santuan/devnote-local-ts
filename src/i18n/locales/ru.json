@@ -68,7 +68,15 @@
     "deleteTable": "Удалить таблицу",
     "mergeCells": "Объединить ячейки",
     "splitCell": "Разделить ячейку",
-    "addTask": "Добавить задачу"
+    "addTask": "Добавить задачу",
+    "print": "Печать",
+    "selectVoiceTooltip": "Выбрать язык и голос",
+    "selectVoice": "Выбрать голос",
+    "speakDocument": "Читать документ",
+    "stopSpeaking": "Остановить",
+    "searchVoices": "Поиск голосов...",
+    "noVoicesFound": "Голоса не найдены",
+    "local": "Локальный"
   },
   "sidebar": {
     "newDocument": "Новый документ",

@@ -68,7 +68,15 @@
     "deleteTable": "テーブルを削除",
     "mergeCells": "セルを結合",
     "splitCell": "セルを分割",
-    "addTask": "タスクを追加"
+    "addTask": "タスクを追加",
+    "print": "印刷",
+    "selectVoiceTooltip": "音声と言語を選択",
+    "selectVoice": "音声を選択",
+    "speakDocument": "ドキュメントを読む",
+    "stopSpeaking": "停止",
+    "searchVoices": "音声を検索...",
+    "noVoicesFound": "音声が見つかりません",
+    "local": "ローカル"
   },
   "sidebar": {
     "newDocument": "新規ドキュメント",

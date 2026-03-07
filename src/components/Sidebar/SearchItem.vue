@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import type { Documents } from '@/db'
-import { breakpointsTailwind, useBreakpoints, useDateFormat } from '@vueuse/core'
-import { Circle, Pin } from 'lucide-vue-next'
+import {
+  breakpointsTailwind,
+  useBreakpoints,
+} from '@vueuse/core'
+import { CheckCircle2, Circle, Pin, PinOff, Trash2 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
-import { HoverCardContent, HoverCardPortal, HoverCardRoot, HoverCardTrigger } from 'reka-ui'
-import { computed, ref } from 'vue'
+
+import {
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuPortal,
+  ContextMenuRoot,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from 'reka-ui'
 import { useI18n } from 'vue-i18n'
+
 import Tooltip from '@/components/ui/Tooltip.vue'
-import { useLocaleTimeAgo } from '@/composables/useTimeAgoLocale'
 
 import { useUnsavedChanges } from '@/composables/useUnsavedChanges'
 import { useDatabaseStore } from '@/stores/database'
@@ -22,7 +32,6 @@ const props = defineProps({
     default: () => ({}),
   },
 })
-const hoverState = ref(false)
 
 const database = useDatabaseStore()
 const document = useDocumentStore()
@@ -33,12 +42,7 @@ const largerThanLg = breakpoints.greater('lg')
 const { loaded_id } = storeToRefs(database)
 const { editor } = storeToRefs(editor_store)
 const { hasUnsavedChanges } = useUnsavedChanges()
-const { t, locale } = useI18n()
-
-const date_created = useDateFormat(props?.data.document_data?.date_created, 'D MMM YYYY HH:mm', { locales: locale })
-const date_updated = computed(() => {
-  return useLocaleTimeAgo(props?.data.date)
-})
+const { t } = useI18n()
 
 function set_active_document(id: string | undefined) {
   database.select_id = id
@@ -65,88 +69,107 @@ function toggleCheck(item: Documents, event: Event) {
 function toggleFixed(item: any, isfixed: any) {
   database.change_document_fixed(item, isfixed)
 }
+
+function handleDelete() {
+  database.select_id = props.data.id
+  modal.show_delete_document_modal = true
+}
 </script>
 
 <template>
-  <div
-    class="relative flex min-w-80 items-center justify-between w-full pr-3 pl-0.5 min-h-8 gap-2 md:pr-2 hover:ring-1 hover:bg-primary/10 hover:ring-primary"
-    :class="loaded_id === props.data.id ? ' ring-1 ring-primary/70' : ''
-    "
-  >
-    <div class="flex items-center">
-      <button
-        class="flex items-center justify-center w-6 h-6 py-1 mx-0  outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:!outline-offset-2"
-        @click="toggleFixed(props.data, props.data.document_data?.fixed)"
+  <ContextMenuRoot>
+    <ContextMenuTrigger as-child>
+      <div
+        class="relative flex min-w-80 items-center justify-between w-full pr-3 pl-0.5 min-h-8 gap-2 md:pr-2 hover:ring-1 hover:bg-primary/10 hover:ring-primary"
+        :class="loaded_id === props.data.id ? ' ring-1 ring-primary/70' : ''"
       >
-        <Pin class="size-4" :class="props.data.document_data?.fixed ? 'fill-current  text-primary' : ''" />
-        <span class="sr-only">{{
-          props.data.document_data?.fixed ? t("verb.unfixed") : t("verb.fixed")
-        }}</span>
-      </button>
-    </div>
-    <HoverCardRoot v-model:open="hoverState" :close-delay="10" :open-delay="0">
-      <div as="div" class="flex hover:text-primary!  px-0.5  w-full items-center  justify-start text-sm text-left ">
+        <div class="flex items-center">
+          <button
+            class="flex items-center justify-center w-6 h-6 py-1 mx-0 outline-hidden md:py-0 ring-primary hover:text-primary focus-visible:outlined-1 focus-visible:outline-primary focus-visible:outline-dotted focus-visible:outline-offset-2!"
+            @click="toggleFixed(props.data, props.data.document_data?.fixed)"
+          >
+            <Pin
+              class="size-4"
+              :class="
+                props.data.document_data?.fixed ? 'fill-current  text-primary' : ''
+              "
+            />
+            <span class="sr-only">{{
+              props.data.document_data?.fixed ? t("verb.unfixed") : t("verb.fixed")
+            }}</span>
+          </button>
+        </div>
         <button
-          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary  outline-hidden focus-visible:!outline-2 focus-visible:outline-primary focus-visible:!outline-offset-4 focus-visible:outline-dotted"
+          class="@sm:max-w-full w-full text-left max-w-80 focus-visible:text-primary outline-hidden focus-visible:outline-2! focus-visible:outline-primary focus-visible:outline-offset-4! focus-visible:outline-dotted"
           :class="loaded_id === props.data.id ? 'text-primary' : ''"
           @dblclick="document.toggle_editable()"
           @click="set_active_document(props.data.id)"
         >
-          <template v-if="props.data.document_data?.name">
-            <span class="sr-only">{{ t("verb.open") }}</span>
-            <HoverCardTrigger as="span" class="line-clamp-1">
-              {{
-                props.data.document_data?.name
-              }}
-            </HoverCardTrigger>
-
-            <span class="sr-only">document in editor</span>
-          </template>
-          <template v-else>
-            <span class="opacity-50">{{ t("editor.untitled") }}</span>
-          </template>
+          <p class="my-1 text-sm text-left font-medium">
+            {{ props.data.document_data?.name }}
+          </p>
         </button>
+        <Tooltip :name="t('sidebar.markAsDone')" side="right">
+          <span>
+            <label :for="`item-${props.data.id}`" class="">
+              <input
+                :id="`item-${props.data.id}`"
+                type="checkbox"
+                :checked="props.data.document_data?.checked"
+                required
+                class="sr-only peer"
+                :aria-label="t('sidebar.markAsDone')"
+                @change="toggleCheck(props.data, $event)"
+              >
+              <div
+                class="peer-focus:outline-hidden items-center size-7 md:size-6 flex justify-center rounded-full relative z-50 mr-0.5 peer-focus:ring-1 peer-focus:ring-blue-300 dark:peer-focus:ring-primary hover:ring-primary hover:ring-2"
+              >
+                <Circle
+                  v-show="loaded_id === props.data.id"
+                  class="size-5 md:size-4 text-primary"
+                />
+                <Circle
+                  v-show="loaded_id !== props.data.id"
+                  class="size-5 md:size-4"
+                />
+              </div>
+              <span class="sr-only">{{ t("sidebar.markAsDone") }}</span>
+            </label>
+          </span>
+        </Tooltip>
       </div>
-      <HoverCardPortal>
-        <HoverCardContent
-          class="z-10 p-2 font-mono border shadow-xs w-96 bg-background text-foreground border-primary"
-          :side-offset="50" :side="'right'" :align="'center'"
+    </ContextMenuTrigger>
+    <ContextMenuPortal>
+      <ContextMenuContent
+        class="min-w-[180px] z-50 font-mono bg-background ring-1 ring-primary text-foreground outline-hidden rounded p-1.5 shadow-sm"
+        :side-offset="5"
+      >
+        <ContextMenuItem
+          class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
+          @click="toggleCheck(props.data, { target: { checked: !props.data.document_data?.checked } } as Event)"
         >
-          <div class="flex flex-col">
-            <div class="relative flex flex-col">
-              <div class="mb-3 text-sm font-medium">
-                {{ props.data.document_data?.name }}
-              </div>
-              <p class="text-xs ">
-                {{ t("verb.lastUpdated") }} {{ date_updated }}
-              </p>
-              <p class="text-xs ">
-                {{ t("verb.created") }} {{ date_created }}hs
-              </p>
-              <div v-if="props.data.document_data?.fixed" class="absolute  right-0 m-1 bottom-1">
-                <Pin class="fill-current size-4 text-primary " />
-              </div>
-            </div>
-          </div>
-        </HoverCardContent>
-      </HoverCardPortal>
-    </HoverCardRoot>
-    <Tooltip :name="t('sidebar.markAsDone')" side="right">
-      <span>
-        <label :for="`item-${props.data.id}`" class="">
-          <input
-            :id="`item-${props.data.id}`" type="checkbox" :checked="props.data.document_data?.checked" required
-            class="sr-only peer" :aria-label="t('sidebar.markAsDone')" @change="toggleCheck(props.data, $event)"
-          >
-          <div
-            class="peer-focus:outline-hidden items-center size-7 md:size-6 flex justify-center rounded-full relative z-50 mr-0.5 peer-focus:ring-1 peer-focus:ring-blue-300 dark:peer-focus:ring-primary hover:ring-primary hover:ring-2"
-          >
-            <Circle v-show="loaded_id === props.data.id" class="size-5 md:size-4 text-primary" />
-            <Circle v-show="loaded_id !== props.data.id" class="size-5 md:size-4" />
-          </div>
-          <span class="sr-only">{{ t("sidebar.markAsDone") }}</span>
-        </label>
-      </span>
-    </Tooltip>
-  </div>
+          <CheckCircle2 class="size-4 mr-2" />
+          <span>{{ props.data.document_data?.checked ? t('sidebar.markAsUndone') : t('sidebar.markAsDone') }}</span>
+        </ContextMenuItem>
+        <ContextMenuItem
+          class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
+          @click="toggleFixed(props.data, props.data.document_data?.fixed)"
+        >
+          <component
+            :is="props.data.document_data?.fixed ? PinOff : Pin"
+            class="size-4 mr-2"
+          />
+          <span>{{ props.data.document_data?.fixed ? t('verb.unfixed') : t('verb.fixed') }}</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator class="h-[0.0125rem] bg-secondary my-1" />
+        <ContextMenuItem
+          class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20 text-destructive hover:text-destructive"
+          @click="handleDelete"
+        >
+          <Trash2 class="size-4 mr-2" />
+          <span>{{ t('verb.delete') }}</span>
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenuPortal>
+  </ContextMenuRoot>
 </template>

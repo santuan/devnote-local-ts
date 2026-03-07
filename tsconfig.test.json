@@ -1,4 +1,7 @@
 {
   "extends": "./tsconfig.node.json",
-  "include": ["src/**/*.test.ts"]
+  "compilerOptions": {
+    "lib": ["ES2020", "DOM", "DOM.Iterable"]
+  },
+  "include": ["src/**/*.test.ts", "src/db.ts"]
 }

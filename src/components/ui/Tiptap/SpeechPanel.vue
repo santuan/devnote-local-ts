@@ -2,20 +2,10 @@
 import { useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
 import {
   ChevronDown,
-  GripHorizontal,
-  PanelRightClose,
   X,
 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
-
 import {
-  CollapsibleContent,
-  CollapsibleRoot,
-  CollapsibleTrigger,
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
   Toggle,
 } from 'reka-ui'
 import {
@@ -27,27 +17,32 @@ import {
   unref,
   watch,
 } from 'vue'
-
+import { useI18n } from 'vue-i18n'
 import { useDatabaseStore } from '@/stores/database'
+import { useEditorStore } from '@/stores/editor'
 import { useFocusStore } from '@/stores/focus'
 import { useSettingsStore } from '@/stores/settings'
 import Tooltip from '../Tooltip.vue'
+import Speech from './Speech.vue'
 
 const database = useDatabaseStore()
 const settings = useSettingsStore()
 const focus_store = useFocusStore()
+const editor_store = useEditorStore()
+const { t } = useI18n()
 
 const moveStep = 5
 const adjustedLeft = ref(50)
-const adjustedTop = ref(220)
+const adjustedTop = ref(300)
 const draggableRef = ref<HTMLElement | null>(null)
 const el = ref<HTMLElement | null>(null)
 const isFocusedInSlot = ref(false)
-const slotRef = ref<HTMLElement | null>(null)
 
 const { containerInbound } = storeToRefs(database)
-const { focus_debug } = storeToRefs(focus_store)
-const { leva, attach, leva_collapse } = storeToRefs(settings)
+const { focus_debug, focus_speech } = storeToRefs(focus_store)
+const { speech, speech_attach, speech_collapse }
+  = storeToRefs(settings)
+const { editor } = storeToRefs(editor_store)
 
 const {
   top: boundsTop,
@@ -58,6 +53,8 @@ const {
 
 const { width: draggableWidth, height: draggableHeight }
   = useElementSize(draggableRef)
+
+const isDraggingTouch = ref(false)
 
 useDraggable(el, {
   onMove({ x, y }) {
@@ -73,6 +70,13 @@ useDraggable(el, {
       containerHeight.value - draggableHeight.value,
     )
   },
+  onStart() {
+    isDraggingTouch.value = true
+  },
+  onEnd() {
+    isDraggingTouch.value = false
+  },
+  preventDefault: true,
 })
 
 const style = computed(() => ({
@@ -83,7 +87,7 @@ const style = computed(() => ({
 const isFocused = ref(false)
 
 function handleKeyDown(e: KeyboardEvent) {
-  if (!isFocused.value || !leva.value || isFocusedInSlot.value)
+  if (!isFocused.value || !speech.value || isFocusedInSlot.value)
     return
 
   const step = e.shiftKey ? 50 : moveStep
@@ -110,10 +114,6 @@ function handleKeyDown(e: KeyboardEvent) {
   }
 }
 
-function attach_panel() {
-  attach.value = !attach.value
-}
-
 function resetPositionToTopLeft() {
   adjustedLeft.value = 50
   adjustedTop.value = 0
@@ -131,7 +131,7 @@ function checkAndResetPosition() {
 watch(
   [containerWidth, containerHeight],
   () => {
-    if (!attach.value) {
+    if (!speech_attach.value) {
       nextTick(() => {
         checkAndResetPosition()
       })
@@ -139,12 +139,6 @@ watch(
   },
   { flush: 'post' },
 )
-
-watch(attach, (value) => {
-  if (value === true) {
-    leva_collapse.value = true
-  }
-})
 
 onMounted(() => {
   nextTick(() => {
@@ -180,13 +174,13 @@ onUnmounted(() => {
 
 <template>
   <div
-    v-show="leva"
-    ref="draggableRef"
+    v-show="speech"
+    :ref="(el) => { draggableRef = el as HTMLElement | null; focus_speech = el as HTMLElement | null }"
     :style="style"
     tabindex="0"
-    class="text-xs w-72 z-110 outline outline-secondary text-left outline-none"
+    class="text-xs w-80 z-110 outline-primary outline-2 text-left"
     :class="
-      !attach
+      !speech_attach
         ? 'absolute shadow shadow-secondary'
         : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary '
     "
@@ -194,56 +188,46 @@ onUnmounted(() => {
     @focus="isFocused = true"
     @blur="isFocused = false"
   >
-    <CollapsibleRoot v-model:open="leva_collapse" class="w-72">
+    <div class="w-80">
       <div
         ref="el"
-        class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group"
-        :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
+        class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group "
+        :class="[
+          !speech_attach ? 'cursor-grab active:cursor-grabbing' : '',
+          isDraggingTouch ? 'touch-none select-none opacity-80' : '',
+        ]"
+        :style="!speech_attach ? 'touch-action: none' : ''"
       >
         <div
-          ref="focus_debug"
+          :ref="(el) => { focus_debug = el as HTMLElement | null }"
           tabIndex="-1"
-          class="w-20 flex justify-start items-center gap-1"
+          class="w-56 flex justify-start items-center gap-1"
         >
-          <CollapsibleTrigger
-            :class="attach ? 'lg:hidden!' : ''"
-            class="cursor-default inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
+          <button
+            class="cursor-default inline-flex items-center text-foreground hover:opacity-100 focus-visible:ring focus-visible:ring-primary opacity-60 gap-1 justify-start"
+            @click="speech_collapse = !speech_collapse"
           >
-            <button class="size-5 flex justify-center items-center">
+            <span class="size-5 flex justify-center items-center">
               <ChevronDown
                 class="h-3 w-3 duration-300"
-                :class="leva_collapse ? '' : '-rotate-90'"
+                :class="speech_collapse ? '' : '-rotate-90'"
               />
-            </button>
-          </CollapsibleTrigger>
-          <span class="text-foreground select-none uppercase">Debug</span>
-        </div>
-        <GripHorizontal
-          v-show="!attach"
-          class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
-        />
-        <div class="flex justify-end w-20 items-center">
-          <button
-            aria-label="Toggle attach leva"
-            class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
-            :class="attach ? 'bg-primary text-foreground  ' : ''"
-            @click="attach_panel()"
-          >
-            <PanelRightClose
-              class="size-4"
-              :class="!attach ? 'rotate-90 lg:rotate-0 ' : ''"
-              absolute-stroke-width
-              stroke-width="2"
-            />
+            </span>
           </button>
+          <span class="text-foreground select-none uppercase">{{
+            t("speech.readAloud")
+          }}</span>
+          <div v-if="!speech_attach" id="SpeechPortal" />
+        </div>
+        <div class="flex justify-end w-44 items-center">
           <Tooltip
-            name="Close leva"
+            name="Close speech"
             side="bottom"
-            shortcut="ctrl + alt + shift + D + C"
+            shortcut="ctrl + alt + shift + S + C"
           >
             <Toggle
-              v-model="leva"
-              aria-label="Toggle leva"
+              v-model="speech"
+              aria-label="Toggle speech"
               class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
             >
               <X
@@ -255,42 +239,14 @@ onUnmounted(() => {
           </Tooltip>
         </div>
       </div>
-      <CollapsibleContent
+      <div
+        v-show="speech_collapse"
         class="CollapsibleContent select-none bg-background"
-        :class="attach ? '' : 'not-attach'"
+        :class="speech_attach ? '' : 'not-attach'"
       >
-        <ScrollAreaRoot
-          class="w-full text-xs md:min-h-44 relative overflow-hidden"
-          style="--scrollbar-size: 10px"
-        >
-          <ScrollAreaViewport
-            ref="slotRef"
-            class="w-full h-full"
-            :class="attach ? 'min-h-full max-h-[calc(100vh-2rem)]!' : ''"
-            @focusin="isFocusedInSlot = true"
-            @focusout="isFocusedInSlot = false"
-          >
-            <slot />
-          </ScrollAreaViewport>
-          <ScrollAreaScrollbar
-            class="flex select-none touch-none p-0.5 z-20 bg-transparent transition-colors duration-160ms ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
-            orientation="vertical"
-          >
-            <ScrollAreaThumb
-              class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
-            />
-          </ScrollAreaScrollbar>
-          <!-- <ScrollAreaScrollbar
-              class="flex select-none touch-none p-0.5 bg-transparent transition-colors duration-[160ms] ease-out hover:bg-secondary data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
-              orientation="horizontal"
-            >
-              <ScrollAreaThumb
-                class="flex-1 bg-primary rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]"
-              />
-            </ScrollAreaScrollbar> -->
-        </ScrollAreaRoot>
-      </CollapsibleContent>
-    </CollapsibleRoot>
+        <Speech :editor="editor" />
+      </div>
+    </div>
   </div>
 </template>
 

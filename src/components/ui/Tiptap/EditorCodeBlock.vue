@@ -101,7 +101,7 @@ export default {
     class="code-block group  ring-1 ring-muted"
     spellcheck="false"
     :class="[
-      showFullCode ? 'absolute! bg-background z-[90] !my-0 left-0! min-h-screen inset-0!' : '',
+      showFullCode ? 'absolute! bg-background z-90 my-0! left-0! min-h-screen inset-0!' : '',
     ]"
   >
     <ScrollAreaRoot class="w-full ScrollAreaRootCodeBlock h-full" style="--scrollbar-size: 10px">
@@ -122,7 +122,7 @@ export default {
     <div class=" absolute top-0 right-0">
       <div
         class="sticky codeBlockActions top-0 right-0  flex items-center duration-100 justify-end gap-1  translate-y-1"
-        :class="showFullCode ? '-translate-x-3 z-[91]' : '-translate-x-2 z-30'"
+        :class="showFullCode ? '-translate-x-3 z-91' : '-translate-x-2 z-30'"
       >
         <Transition mode="out-in">
           <span
@@ -187,16 +187,16 @@ export default {
 }
 
 .tiptap .code-block pre code * {
-  @apply !select-text;
+  @apply select-text!;
 }
 
 .is-preview * {
-  @apply !select-text;
+  @apply select-text!;
 }
 
 @media print {
   .tiptap .code-block {
-    @apply !ml-[0.1125rem];
+    @apply ml-[0.1125rem]!;
   }
 
   .tiptap .code-block pre code div {

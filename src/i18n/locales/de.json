@@ -68,7 +68,15 @@
     "deleteTable": "Tabelle löschen",
     "mergeCells": "Zellen verbinden",
     "splitCell": "Zelle teilen",
-    "addTask": "Aufgabe hinzufügen"
+    "addTask": "Aufgabe hinzufügen",
+    "print": "Drucken",
+    "selectVoiceTooltip": "Sprache und Stimme auswählen",
+    "selectVoice": "Stimme auswählen",
+    "speakDocument": "Dokument vorlesen",
+    "stopSpeaking": "Stopp",
+    "searchVoices": "Stimmen suchen...",
+    "noVoicesFound": "Keine Stimmen gefunden",
+    "local": "Lokal"
   },
   "sidebar": {
     "newDocument": "Neues Dokument",

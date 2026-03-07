@@ -8,6 +8,7 @@ import Sidebar from '@/components/Sidebar/Sidebar.vue'
 import SidebarDesktopIcons from '@/components/Sidebar/SidebarDesktopIcons.vue'
 import Leva from '@/components/ui/Debug/Leva.vue'
 import LevaTabs from '@/components/ui/Debug/LevaTabs.vue'
+import SpeechPanel from '@/components/ui/Tiptap/SpeechPanel.vue'
 import ToggleSidebarLogo from '@/components/ui/Toggle/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
@@ -89,7 +90,7 @@ watch(
         class="min-w-10 items-center justify-center"
         :class="[
           document.show_sidebar_documents
-            ? 'fixed md:relative min-w-80 md:min-w-auto flex z-[71]'
+            ? 'fixed md:relative min-w-80 md:min-w-auto flex z-71'
             : 'hidden lg:flex',
           sidebar_splitter_ref?.isCollapsed ? 'max-w-10!' : '',
           resize === 10 ? ' border-r-2! border-primary!' : '',
@@ -99,14 +100,14 @@ watch(
         <div
           v-show="!sidebar_splitter_ref?.isCollapsed"
           class="w-full"
-          :class="[document.show_sidebar_documents ? 'relative z-[71]' : '']"
+          :class="[document.show_sidebar_documents ? 'relative z-71' : '']"
         >
           <Sidebar class="min-w-80" />
           <transition>
             <div
               v-show="resize < 25"
               v-if="!sidebar_splitter_ref?.isCollapsed"
-              class="absolute top-10 right-0 z-[200] transition-opacity h-screen w-5 duration-1000 bg-gradient-to-r from-transparent bottom-0 to-background"
+              class="absolute top-10 right-0 z-200 transition-opacity h-screen w-5 duration-1000 bg-linear-to-r from-transparent bottom-0 to-background"
               :class="resize === 10 ? 'to-primary opacity-20' : 'opacity-100'"
             />
           </transition>
@@ -114,12 +115,12 @@ watch(
       </SplitterPanel>
       <SplitterResizeHandle
         id="splitter-group-1-resize-handle-1"
-        class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 z-[79] outline-hidden"
+        class="hidden print:hidden! w-0.5 lg:flex group justify-center items-center bg-secondary relative border-secondary/10 data-[state=hover]:border-primary/90 data-[state=drag]:bg-primary/90 data-[state=hover]:delay-700 data-[state=hover]:bg-primary duration-100 focus:ring-primary focus:ring-1 z-79 outline-hidden"
       />
       <SplitterPanel id="splitter-group-1-panel-2" :min-size="50">
         <button
           v-if="document.show_sidebar_documents"
-          class="fixed inset-0 print:hidden z-[70] bg-background/90 border-0! ring-0! md:hidden outline-hidden!"
+          class="fixed inset-0 print:hidden z-70 bg-background/90 border-0! ring-0! md:hidden outline-hidden!"
           @click="
             document.show_sidebar_documents = !document.show_sidebar_documents
           "
@@ -130,5 +131,6 @@ watch(
     <Leva>
       <LevaTabs />
     </Leva>
+    <SpeechPanel />
   </div>
 </template>

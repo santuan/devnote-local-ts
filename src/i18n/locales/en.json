@@ -68,7 +68,15 @@
     "deleteTable": "Delete table",
     "mergeCells": "Merge cells",
     "splitCell": "Split cell",
-    "addTask": "Add task"
+    "addTask": "Add task",
+    "print": "Print",
+    "selectVoiceTooltip": "Select speech language and voice",
+    "selectVoice": "Select Voice",
+    "speakDocument": "Speak Document",
+    "stopSpeaking": "Stop",
+    "searchVoices": "Search voices...",
+    "noVoicesFound": "No voices found",
+    "local": "Local"
   },
   "sidebar": {
     "newDocument": "New document",

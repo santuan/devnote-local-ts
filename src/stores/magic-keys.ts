@@ -1,5 +1,6 @@
 import { useMagicKeys, whenever } from '@vueuse/core'
 import { defineStore, storeToRefs } from 'pinia'
+import { nextTick } from 'vue'
 // import { useFontSize } from '@/composables/useFontSize'
 import { useDatabaseStore } from '@/stores/database'
 import { useDocumentStore } from '@/stores/document'
@@ -38,6 +39,16 @@ export const useMagicKeysStore = defineStore('magic-keys', () => {
   const magic_show_leva = keys['ctrl+alt+shift+d']
   const magic_hide_leva = keys['ctrl+alt+shift+d+c']
   const magic_focus_leva_heading = keys['ctrl+alt+shift+d+h']
+  const magic_toggle_speech = keys['ctrl+alt+shift+k']
+
+  whenever(magic_toggle_speech, () => {
+    settings.speech = !settings.speech
+    if (settings.speech) {
+      nextTick(() => {
+        focus.setFocusSpeech()
+      })
+    }
+  })
 
   whenever(magic_focus_leva_heading, (n) => {
     if (n)

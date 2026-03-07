@@ -10,6 +10,7 @@ export const useFocusStore = defineStore('focus', () => {
   const focus_menu = shallowRef<HTMLElement | null>(null)
   const focus_debug = shallowRef<HTMLElement | null>(null)
   const focus_debug_heading = shallowRef<HTMLElement | null>(null)
+  const focus_speech = shallowRef<HTMLElement | null>(null)
   const document = useDocumentStore()
 
   function SetFocusTitle() {
@@ -42,6 +43,12 @@ export const useFocusStore = defineStore('focus', () => {
     }
   }
 
+  function setFocusSpeech() {
+    if (focus_speech.value instanceof HTMLElement) {
+      focus_speech.value.focus()
+    }
+  }
+
   function setFocusDocumentsLists() {
     if (focus_documents.value instanceof HTMLElement) {
       focus_documents.value.focus()
@@ -63,6 +70,7 @@ export const useFocusStore = defineStore('focus', () => {
     setFocusMenu,
     setFocusDebug,
     SetFocusDebugHeading,
+    setFocusSpeech,
     focus_title_textarea,
     focus_sidebar,
     focus_documents,
@@ -70,5 +78,6 @@ export const useFocusStore = defineStore('focus', () => {
     focus_menu,
     focus_debug,
     focus_debug_heading,
+    focus_speech,
   }
 })

@@ -6,6 +6,7 @@ import DialogSettings from '@/components/ui/Dialogs/DialogSettings.vue'
 import ToggleFontSize from '@/components/ui/Toggle/ToggleFontSize.vue'
 import ToggleLeva from '@/components/ui/Toggle/ToggleLeva.vue'
 import ToggleTheme from '@/components/ui/Toggle/ToggleTheme.vue'
+import ToggleSpeech from '../ui/Toggle/ToggleSpeech.vue'
 
 const props = defineProps({
   isCollapsed: {
@@ -17,14 +18,17 @@ const props = defineProps({
 
 <template>
   <motion.div
-    v-if="props?.isCollapsed" class="fixed! top-11! left-1! flex flex-col gap-1 z-[81]!" :initial="{
+    v-if="props?.isCollapsed"
+    class="fixed! top-11! left-1! flex flex-col gap-1 z-81!"
+    :initial="{
       x: -10,
       opacity: 0,
       transition: {
         default: { type: 'spring' },
         opacity: { ease: 'linear' },
       },
-    }" :animate="{
+    }"
+    :animate="{
       x: 0,
       opacity: 1,
       transition: {
@@ -38,6 +42,7 @@ const props = defineProps({
     <DialogCommandMenu />
     <ToggleFontSize />
     <ToggleTheme />
+    <ToggleSpeech />
     <ToggleLeva />
   </motion.div>
 </template>

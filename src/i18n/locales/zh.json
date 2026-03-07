@@ -68,7 +68,15 @@
     "deleteTable": "删除表格",
     "mergeCells": "合并单元格",
     "splitCell": "拆分单元格",
-    "addTask": "添加任务"
+    "addTask": "添加任务",
+    "print": "打印",
+    "selectVoiceTooltip": "选择语音和语言",
+    "selectVoice": "选择语音",
+    "speakDocument": "朗读文档",
+    "stopSpeaking": "停止",
+    "searchVoices": "搜索语音...",
+    "noVoicesFound": "未找到语音",
+    "local": "本地"
   },
   "sidebar": {
     "newDocument": "新文档",

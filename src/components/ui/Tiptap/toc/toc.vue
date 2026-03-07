@@ -21,7 +21,7 @@ export default defineComponent({
   },
 
   methods: {
-    onItemClick(e: any, id: any) {
+    onItemClick(_e: any, id: any) {
       if (this.editor) {
         const element = this.editor.view.dom.querySelector(`[data-toc-id="${id}"`)
         const pos = this.editor.view.posAtDOM(element, 0)

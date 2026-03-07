@@ -97,11 +97,15 @@ export const useDatabaseStore = defineStore('database', () => {
           ? `"${item.document_data?.name}" ${t('message.completed')}`
           : `"${item.document_data?.name}" ${t('message.unmarked')}`,
       )
-      if (isChecked) {
-        if (item.id === select_id.value) {
-          document_store.clear_editor()
-        }
+
+      if (item.id === loaded_id.value) {
+        document_checked.value = isChecked
       }
+      // if (isChecked) {
+      //   if (item.id === select_id.value) {
+      //     document_store.clear_editor()
+      //   }
+      // }
     }
     catch (error) {
       handle_error('Error al marcar el proyecto', error)
@@ -120,6 +124,10 @@ export const useDatabaseStore = defineStore('database', () => {
           date_created: item.document_data?.date_created,
         },
       })
+
+      if (item.id === loaded_id.value) {
+        document_fixed.value = !isFixed
+      }
     }
     catch (error) {
       handle_error('Error al marcar el proyecto', error)

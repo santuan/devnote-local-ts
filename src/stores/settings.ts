@@ -13,6 +13,11 @@ export const useSettingsStore = defineStore('settings', {
       leva: false,
       leva_collapse: true,
       attach: true,
+      speech: false,
+      speech_collapse: false,
+      speech_attach: false,
+      speech_voice_name: '',
+      speech_voice_lang: 'en-US',
     }
   },
   persist: true,

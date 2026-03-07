@@ -21,7 +21,7 @@ const { t } = useI18n()
   <div :key="database.loaded_id" class="@container">
     <article
       class="editor"
-      :class="document.show_sidebar_documents ? '!pl-2' : ''"
+      :class="document.show_sidebar_documents ? 'pl-2!' : ''"
       :style="`--editorToolbar:${height + 50}px`"
     >
       <div v-if="document.content_editable" class="editor-top">
