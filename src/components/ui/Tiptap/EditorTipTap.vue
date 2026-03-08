@@ -53,8 +53,8 @@ import { useEditorStore } from '@/stores/editor'
 import WebFrame from './addIframe'
 import Video from './addVideo'
 import DialogMath from './DialogMath.vue'
-import EditorContextMenu from './EditorContextMenu.vue'
 import { ResizableMedia } from './resizableMedia'
+// import EditorContextMenu from './EditorContextMenu.vue'
 
 const props = defineProps({
   modelValue: {
@@ -86,7 +86,11 @@ const mathDialogTitle = ref('')
 const mathDialogInitialValue = ref('')
 const mathDialogCallback = ref<((latex: string) => void) | null>(null)
 
-function openMathDialog(title: string, initialValue: string, callback: (latex: string) => void) {
+function openMathDialog(
+  title: string,
+  initialValue: string,
+  callback: (latex: string) => void,
+) {
   mathDialogTitle.value = title
   mathDialogInitialValue.value = initialValue
   mathDialogCallback.value = callback
@@ -127,28 +131,30 @@ onMounted(() => {
       Mathematics.configure({
         blockOptions: {
           onClick: (node, pos) => {
-            openMathDialog(
-              'Edit Block Math',
-              node.attrs.latex,
-              (latex) => {
-                if (latex.trim()) {
-                  editor.value.chain().setNodeSelection(pos).updateBlockMath({ latex }).focus().run()
-                }
-              },
-            )
+            openMathDialog('Edit Block Math', node.attrs.latex, (latex) => {
+              if (latex.trim()) {
+                editor.value
+                  .chain()
+                  .setNodeSelection(pos)
+                  .updateBlockMath({ latex })
+                  .focus()
+                  .run()
+              }
+            })
           },
         },
         inlineOptions: {
           onClick: (node, pos) => {
-            openMathDialog(
-              'Edit Inline Math',
-              node.attrs.latex,
-              (latex) => {
-                if (latex.trim()) {
-                  editor.value.chain().setNodeSelection(pos).updateInlineMath({ latex }).focus().run()
-                }
-              },
-            )
+            openMathDialog('Edit Inline Math', node.attrs.latex, (latex) => {
+              if (latex.trim()) {
+                editor.value
+                  .chain()
+                  .setNodeSelection(pos)
+                  .updateInlineMath({ latex })
+                  .focus()
+                  .run()
+              }
+            })
           },
         },
         katexOptions: {
@@ -158,7 +164,6 @@ onMounted(() => {
             '\\N': '\\mathbb{N}',
           },
         },
-
       }),
       OrderedList,
       Paragraph,
@@ -223,7 +228,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="editor && !editor.isDestroyed " class="EditorTiptap @container">
+  <div v-if="editor && !editor.isDestroyed" class="EditorTiptap @container">
     <ScrollAreaRoot
       class="ScrollAreaEditor group"
       :class="[
@@ -237,15 +242,13 @@ onBeforeUnmount(() => {
         id="editorScrollArea"
         class="w-full h-full border-transparent border outline-hidden group-focus-within:ring-primary! group-focus-within:ring-2! group-focus-within:ring-inset! focus:ring-primary! focus:ring-1!"
       >
-        <EditorContextMenu>
-          <div
-            class="relative max-w-full mx-auto prose EditorContent dark:prose-invert"
-            spellcheck="false"
-          >
-            <slot />
-            <EditorContent :editor="editor" />
-          </div>
-        </EditorContextMenu>
+        <div
+          class="relative max-w-full mx-auto prose EditorContent dark:prose-invert"
+          spellcheck="false"
+        >
+          <slot />
+          <EditorContent :editor="editor" />
+        </div>
       </ScrollAreaViewport>
       <ScrollAreaScrollbar
         class="print:hidden! flex select-none touch-none p-0.5 ease-out data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
@@ -679,7 +682,7 @@ html.dark .shiki span {
 .tiptap h5::selection,
 .tiptap p::selection {
   @apply bg-primary/20 text-primary;
-  }
+}
 
 .dark
   .tiptap

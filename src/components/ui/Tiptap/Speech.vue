@@ -251,10 +251,10 @@ defineExpose({
       <h3 class="text-xs font-semibold text-primary mb-2">
         {{ t("toolbar.selectVoice") }}
       </h3>
-      <div class="flex mb-3">
+      <div class="flex mb-3 w-full">
         <ComboboxRoot
           v-model="selectedVoiceName"
-          class="relative w-72"
+          class="relative w-full"
           @update:model-value="onVoiceSelect"
         >
           <ComboboxAnchor class="flex items-center gap-2">

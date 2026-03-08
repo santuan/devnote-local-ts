@@ -215,7 +215,7 @@ function insertFormula(formula: string) {
         <div class="space-y-2">
           <span class="text-xs font-medium text-foreground">Quick Formulas:</span>
           <div
-            class="grid grid-cols-3  md:grid-cols-8 gap-1 max-h-32 overflow-y-auto border border-secondary rounded p-2"
+            class="grid grid-cols-3 md:grid-cols-8 gap-1 max-h-32 overflow-y-auto border border-secondary rounded p-2"
           >
             <button
               v-for="formula in quickFormulas"
@@ -223,7 +223,7 @@ function insertFormula(formula: string) {
               side="top"
               :name="formula.label"
               type="button"
-              class="text-xs px-2 min-h-12 py-1 bg-secondary hover:bg-secondary/80 text-foreground rounded text-center truncate focus:outline-none focus:ring-1 focus:ring-primary"
+              class="text-xs px-2 min-h-12 sm:min-h-auto py-1 bg-secondary hover:bg-secondary/80 text-foreground rounded text-center truncate focus:outline-none focus:ring-1 focus:ring-primary"
               @click="insertFormula(formula.formula)"
             >
               <div class="sr-only text-xs font-medium text-center">

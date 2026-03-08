@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
 import {
+  ArrowLeftToLine,
+  ArrowRightToLine,
   ChevronDown,
+  Lock,
+  PanelRightClose,
+  Unlock,
   X,
 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
@@ -36,6 +41,8 @@ const { t } = useI18n()
 const moveStep = 5
 const adjustedLeft = ref(50)
 const adjustedTop = ref(300)
+const adjustedBottom = ref<number | undefined>(undefined)
+const adjustedRight = ref<number | undefined>(undefined)
 const draggableRef = ref<HTMLElement | null>(null)
 const el = ref<HTMLElement | null>(null)
 const isFocusedInSlot = ref(false)
@@ -63,6 +70,8 @@ useDraggable(el, {
     const offsetX = x - unref(boundsLeft)
     const offsetY = y - unref(boundsTop)
 
+    adjustedBottom.value = undefined
+    adjustedRight.value = undefined
     adjustedLeft.value = Math.min(
       Math.max(0, offsetX),
       containerWidth.value - draggableWidth.value,
@@ -83,8 +92,10 @@ useDraggable(el, {
 })
 
 const style = computed(() => ({
-  left: `${adjustedLeft.value}px`,
-  top: `${adjustedTop.value}px`,
+  left: adjustedRight.value === undefined ? `${adjustedLeft.value}px` : undefined,
+  top: adjustedBottom.value === undefined ? `${adjustedTop.value}px` : undefined,
+  right: adjustedRight.value !== undefined ? `${adjustedRight.value}px` : undefined,
+  bottom: adjustedBottom.value !== undefined ? `${adjustedBottom.value}px` : undefined,
 }))
 
 const isFocused = ref(false)
@@ -96,6 +107,9 @@ function handleKeyDown(e: KeyboardEvent) {
   const step = e.shiftKey ? 50 : moveStep
   const maxLeft = containerWidth.value - draggableWidth.value
   const maxTop = containerHeight.value - draggableHeight.value
+
+  adjustedBottom.value = undefined
+  adjustedRight.value = undefined
 
   switch (e.key) {
     case 'ArrowUp':
@@ -117,17 +131,23 @@ function handleKeyDown(e: KeyboardEvent) {
   }
 }
 
-function resetPositionToTopLeft() {
-  adjustedLeft.value = 50
-  adjustedTop.value = 0
-}
-
 function checkAndResetPosition() {
   const maxLeft = containerWidth.value - draggableWidth.value
   const maxTop = containerHeight.value - draggableHeight.value
 
-  if (adjustedLeft.value > maxLeft || adjustedTop.value > maxTop) {
-    resetPositionToTopLeft()
+  if (adjustedLeft.value > maxLeft && adjustedTop.value > maxTop) {
+    adjustedLeft.value = 50
+    adjustedTop.value = 220
+    adjustedBottom.value = 0
+    adjustedRight.value = 0
+  }
+  else if (adjustedTop.value > maxTop) {
+    adjustedTop.value = 220
+    adjustedBottom.value = 0
+  }
+  else if (adjustedLeft.value > maxLeft) {
+    adjustedLeft.value = 50
+    adjustedRight.value = 0
   }
 }
 
@@ -142,6 +162,20 @@ watch(
   },
   { flush: 'post' },
 )
+
+watch(draggableHeight, () => {
+  if (!speech_attach.value) {
+    nextTick(() => {
+      checkAndResetPosition()
+    })
+  }
+})
+
+watch(speech_attach, (value) => {
+  if (value === true) {
+    speech_collapse.value = true
+  }
+})
 
 onMounted(() => {
   nextTick(() => {
@@ -185,8 +219,9 @@ onUnmounted(() => {
     :class="[
       !speech_attach
         ? 'absolute shadow shadow-secondary'
-        : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary ',
+        : 'absolute top-auto! left-auto! right-0! bottom-0! lg:fixed lg:left-auto! lg:top-auto! ring ring-secondary ',
       isActivePanel('speech') ? 'z-200' : 'z-110',
+      speech_attach ? 'z-201' : '',
     ]"
     @focusin="isFocused = true; setActivePanel('speech')"
     @focus="isFocused = true; setActivePanel('speech')"
@@ -195,9 +230,9 @@ onUnmounted(() => {
     <div class="w-72">
       <div
         ref="el"
-        class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group "
+        class="px-2 py-1 h-10 flex  items-center justify-between group "
         :class="[
-          !speech_attach ? 'cursor-grab active:cursor-grabbing' : '',
+          !speech_attach ? 'cursor-grab active:cursor-grabbing bg-primary text-primary-foreground!' : 'bg-secondary',
           isDraggingTouch ? 'touch-none select-none' : '',
         ]"
         :style="!speech_attach ? 'touch-action: none' : ''"
@@ -208,7 +243,7 @@ onUnmounted(() => {
           class="w-56 flex justify-start items-center gap-1"
         >
           <button
-            class="cursor-default inline-flex items-center text-foreground hover:opacity-100 focus-visible:ring focus-visible:ring-primary opacity-60 gap-1 justify-start"
+            class="cursor-default inline-flex items-center  hover:opacity-100 focus-visible:ring focus-visible:ring-primary opacity-60 gap-1 justify-start"
             @click="speech_collapse = !speech_collapse"
           >
             <span class="size-5 flex justify-center items-center">
@@ -218,12 +253,35 @@ onUnmounted(() => {
               />
             </span>
           </button>
-          <span class="text-foreground select-none uppercase">{{
+          <span class=" select-none uppercase">{{
             t("speech.readAloud")
           }}</span>
           <div v-if="!speech_attach" id="SpeechPortal" />
         </div>
         <div class="flex justify-end w-44 items-center">
+          <Tooltip
+            :name="speech_attach ? 'Unfix panel' : 'Fix panel'"
+            side="bottom"
+          >
+            <button
+              aria-label="Toggle attach leva"
+              class="flex items-center justify-center hover:border hover:bg-secondary/10 border-secondary size-8"
+              @click="speech_attach = !speech_attach"
+            >
+              <ArrowRightToLine
+                v-if="!speech_attach"
+                class="size-3"
+                absolute-stroke-width
+                stroke-width="2"
+              />
+              <ArrowLeftToLine
+                v-else
+                class="size-3"
+                absolute-stroke-width
+                stroke-width="2"
+              />
+            </button>
+          </Tooltip>
           <Tooltip
             name="Close speech"
             side="bottom"
@@ -232,7 +290,7 @@ onUnmounted(() => {
             <Toggle
               v-model="speech"
               aria-label="Toggle speech"
-              class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
+              class="flex items-center justify-center hover:border hover:bg-secondary/10 border-secondary size-8"
             >
               <X
                 class="size-5 lg:size-4"

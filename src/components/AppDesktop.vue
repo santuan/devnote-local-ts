@@ -13,6 +13,7 @@ import ToggleSidebarLogo from '@/components/ui/Toggle/ToggleSidebarLogo.vue'
 import { useDocumentStore } from '@/stores/document'
 import { useMagicKeysStore } from '@/stores/magic-keys'
 import { useSettingsStore } from '@/stores/settings'
+import DebugDocument from './ui/Debug/DebugDocument.vue'
 
 useMagicKeysStore()
 const settings = useSettingsStore()
@@ -129,7 +130,8 @@ watch(
       </SplitterPanel>
     </SplitterGroup>
     <Leva>
-      <LevaTabs />
+      <!-- <LevaTabs /> -->
+      <DebugDocument />
     </Leva>
     <SpeechPanel />
   </div>

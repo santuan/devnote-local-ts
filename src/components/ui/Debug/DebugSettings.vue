@@ -26,7 +26,7 @@ function toggleCursor() {
 </script>
 
 <template>
-  <div class="pb-2 px-2">
+  <div class="pb-2 px-2 overflow-hidden">
     <div class="text-foreground flex justify-between items-center border-b border-secondary pb-1 min-h-12 ">
       <p>{{ t("leva.status") }}</p>
       <span>{{ database.status }}</span>

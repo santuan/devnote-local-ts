@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { useDraggable, useElementBounding, useElementSize } from '@vueuse/core'
 import {
+  ArrowLeftToLine,
+  ArrowRightToLine,
   ChevronDown,
   GripHorizontal,
+  GripVertical,
+  Lock,
   PanelRightClose,
+  Unlock,
   X,
 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
-
 import {
   CollapsibleContent,
   CollapsibleRoot,
@@ -18,6 +22,7 @@ import {
   ScrollAreaViewport,
   Toggle,
 } from 'reka-ui'
+
 import {
   computed,
   nextTick,
@@ -28,7 +33,9 @@ import {
   useTemplateRef,
   watch,
 } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+import { cn } from '@/composables/twmerge'
 import { useFloatingPanels } from '@/composables/useFloatingPanels'
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
@@ -43,6 +50,8 @@ const { isActivePanel, setActivePanel } = useFloatingPanels()
 const moveStep = 5
 const adjustedLeft = ref(50)
 const adjustedTop = ref(220)
+const adjustedBottom = ref<number | undefined>(undefined)
+const adjustedRight = ref<number | undefined>(undefined)
 const draggableRef = ref<HTMLElement | null>(null)
 const el = ref<HTMLElement | null>(null)
 const isFocusedInSlot = ref(false)
@@ -52,7 +61,8 @@ const focusDebugRef = useTemplateRef<HTMLElement>('focus-debug')
 
 const { containerInbound } = storeToRefs(database)
 const { focus_debug } = storeToRefs(focus_store)
-const { leva, attach, leva_collapse } = storeToRefs(settings)
+const { leva, attach, leva_collapse, speech_collapse, speech } = storeToRefs(settings)
+const { t } = useI18n()
 
 watch(focus_debug, () => {
   focusDebugRef.value?.focus()
@@ -68,11 +78,15 @@ const {
 const { width: draggableWidth, height: draggableHeight }
   = useElementSize(draggableRef)
 
+const isDraggingTouch = ref(false)
+
 useDraggable(el, {
   onMove({ x, y }) {
     const offsetX = x - unref(boundsLeft)
     const offsetY = y - unref(boundsTop)
 
+    adjustedBottom.value = undefined
+    adjustedRight.value = undefined
     adjustedLeft.value = Math.min(
       Math.max(0, offsetX),
       containerWidth.value - draggableWidth.value,
@@ -83,13 +97,20 @@ useDraggable(el, {
     )
   },
   onStart() {
+    isDraggingTouch.value = true
+
     setActivePanel('leva')
+  },
+  onEnd() {
+    isDraggingTouch.value = false
   },
 })
 
 const style = computed(() => ({
-  left: `${adjustedLeft.value}px`,
-  top: `${adjustedTop.value}px`,
+  left: adjustedRight.value === undefined ? `${adjustedLeft.value}px` : undefined,
+  top: adjustedBottom.value === undefined ? `${adjustedTop.value}px` : undefined,
+  right: adjustedRight.value !== undefined ? `${adjustedRight.value}px` : undefined,
+  bottom: adjustedBottom.value !== undefined ? `${adjustedBottom.value}px` : undefined,
 }))
 
 const isFocused = ref(false)
@@ -101,6 +122,9 @@ function handleKeyDown(e: KeyboardEvent) {
   const step = e.shiftKey ? 50 : moveStep
   const maxLeft = containerWidth.value - draggableWidth.value
   const maxTop = containerHeight.value - draggableHeight.value
+
+  adjustedBottom.value = undefined
+  adjustedRight.value = undefined
 
   switch (e.key) {
     case 'ArrowUp':
@@ -126,17 +150,23 @@ function attach_panel() {
   attach.value = !attach.value
 }
 
-function resetPositionToTopLeft() {
-  adjustedLeft.value = 50
-  adjustedTop.value = 0
-}
-
 function checkAndResetPosition() {
   const maxLeft = containerWidth.value - draggableWidth.value
   const maxTop = containerHeight.value - draggableHeight.value
 
-  if (adjustedLeft.value > maxLeft || adjustedTop.value > maxTop) {
-    resetPositionToTopLeft()
+  if (adjustedLeft.value > maxLeft && adjustedTop.value > maxTop) {
+    adjustedLeft.value = 50
+    adjustedTop.value = 220
+    adjustedBottom.value = 0
+    adjustedRight.value = 0
+  }
+  else if (adjustedTop.value > maxTop) {
+    adjustedTop.value = 220
+    adjustedBottom.value = 0
+  }
+  else if (adjustedLeft.value > maxLeft) {
+    adjustedLeft.value = 50
+    adjustedRight.value = 0
   }
 }
 
@@ -151,6 +181,14 @@ watch(
   },
   { flush: 'post' },
 )
+
+watch(draggableHeight, () => {
+  if (!attach.value) {
+    nextTick(() => {
+      checkAndResetPosition()
+    })
+  }
+})
 
 watch(attach, (value) => {
   if (value === true) {
@@ -210,8 +248,8 @@ onUnmounted(() => {
     <CollapsibleRoot v-model:open="leva_collapse" class="w-72">
       <div
         ref="el"
-        class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group"
-        :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
+        class="px-2 py-1 h-10 flex  items-center justify-between group"
+        :class="!attach ? 'cursor-grab active:cursor-grabbing bg-primary text-primary-foreground!' : 'bg-secondary'"
       >
         <div
           ref="focus-debug"
@@ -220,7 +258,7 @@ onUnmounted(() => {
         >
           <CollapsibleTrigger
             :class="attach ? 'lg:hidden!' : ''"
-            class="cursor-default inline-flex items-center text-foreground outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
+            class="cursor-default inline-flex items-center  outline-none hover:opacity-100 opacity-60 gap-1 justify-start"
           >
             <button class="size-5 flex justify-center items-center">
               <ChevronDown
@@ -229,26 +267,37 @@ onUnmounted(() => {
               />
             </button>
           </CollapsibleTrigger>
-          <span class="text-foreground select-none uppercase">Debug</span>
+          <span
+            class=" select-none uppercase"
+            :class="attach ? 'text-foreground' : 'text-primary-foreground!'"
+          >{{ t("leva.document") }}</span>
         </div>
-        <GripHorizontal
-          v-show="!attach"
-          class="h-3.5 w-3.5 text-foreground opacity-50 group-hover:opacity-90"
-        />
+
         <div class="flex justify-end w-20 items-center">
-          <button
-            aria-label="Toggle attach leva"
-            class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
-            :class="attach ? 'bg-primary text-foreground  ' : ''"
-            @click="attach_panel()"
+          <Tooltip
+            :name="attach ? 'Unfix panel' : 'Fix panel'"
+            side="bottom"
           >
-            <PanelRightClose
-              class="size-4"
-              :class="!attach ? 'rotate-90 lg:rotate-0 ' : ''"
-              absolute-stroke-width
-              stroke-width="2"
-            />
-          </button>
+            <button
+              aria-label="Toggle attach leva"
+              class="flex items-center justify-center hover:border hover:bg-secondary/10 border-secondary size-8"
+              :class="attach ? ' ' : ''"
+              @click="attach_panel()"
+            >
+              <ArrowRightToLine
+                v-if="!attach"
+                class="size-3"
+                absolute-stroke-width
+                stroke-width="2"
+              />
+              <ArrowLeftToLine
+                v-else
+                class="size-3"
+                absolute-stroke-width
+                stroke-width="2"
+              />
+            </button>
+          </Tooltip>
           <Tooltip
             name="Close leva"
             side="bottom"
@@ -257,7 +306,7 @@ onUnmounted(() => {
             <Toggle
               v-model="leva"
               aria-label="Toggle leva"
-              class="flex items-center justify-center bg-secondary border hover:bg-secondary/80 border-secondary size-8"
+              class="flex items-center justify-center hover:border hover:bg-secondary/20 border-secondary size-8"
             >
               <X
                 class="size-5 lg:size-4"
@@ -273,13 +322,19 @@ onUnmounted(() => {
         :class="attach ? '' : 'not-attach'"
       >
         <ScrollAreaRoot
-          class="w-full text-xs md:min-h-44 relative overflow-hidden"
+          class="w-full text-xs md:min-h-44  relative overflow-hidden"
           style="--scrollbar-size: 10px"
         >
           <ScrollAreaViewport
             ref="slotRef"
             class="w-full h-full"
-            :class="attach ? 'min-h-full max-h-[calc(100vh-2rem)]!' : ''"
+
+            :class="cn(
+              'max-h-[calc(100vh-2rem)]  pr-2',
+              speech_collapse && 'max-h-[calc(100vh-10rem)]',
+              speech_collapse && attach && 'max-h-[calc(100vh-10rem)] pb-32!',
+              !speech && 'max-h-[calc(100vh-2rem)]',
+            )"
             @focusin="isFocusedInSlot = true"
             @focusout="isFocusedInSlot = false"
           >

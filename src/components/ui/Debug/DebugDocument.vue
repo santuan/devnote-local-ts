@@ -109,7 +109,7 @@ async function toggleDocumentFixed() {
 </script>
 
 <template>
-  <div v-if="database.loaded_id" class="grid overflow-hidden gap-3">
+  <div v-if="database.loaded_id" class="grid overflow-hidden pt-3 gap-3">
     <!-- Document Info -->
     <div class="pb-3 px-2 border-b border-secondary">
       <div class="mb-2 grid grid-cols-2">
@@ -177,11 +177,11 @@ async function toggleDocumentFixed() {
         <h3 class="text-xs font-semibold text-primary">
           {{ t("leva.contentStatistics") }}
         </h3>
-        <button class="flex items-center justify-center size-5" @click="showContentAnalysis = !showContentAnalysis">
+        <button class="flex items-center justify-center size-5 z-30" @click="showContentAnalysis = !showContentAnalysis">
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>
-      <div v-if="showContentAnalysis" class="grid grid-cols-2 mt-1 gap-2 text-xs pb-3 pt-2">
+      <div v-if="showContentAnalysis" class="grid pr-2 grid-cols-2 mt-1 gap-2 text-xs pb-3 pt-2">
         <div>
           <span class="opacity-50">{{ t("leva.codeBlocks") }}:</span>
           <span class="ml-1 font-mono font-bold">
@@ -247,7 +247,7 @@ async function toggleDocumentFixed() {
         <h3 class="text-xs font-semibold text-primary">
           {{ t("leva.headings") }}
         </h3>
-        <button ref="focus-debug-heading" class="flex items-center justify-center size-5" @click="showOnlyHeadings = !showOnlyHeadings">
+        <button ref="focus-debug-heading" class="flex items-center justify-center size-5 z-30" @click="showOnlyHeadings = !showOnlyHeadings">
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>

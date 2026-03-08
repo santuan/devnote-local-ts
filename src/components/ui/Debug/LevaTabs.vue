@@ -19,7 +19,7 @@ const { t } = useI18n()
 <template>
   <TabsRoot default-value="tab2">
     <TabsList
-      class="sticky top-0 z-10 bg-background shrink-0 mb-2 flex border-b outline-none! border-0!  border-secondary"
+      class="sticky top-0 z-40 bg-background shrink-0 mb-2 flex border-b outline-none! border-0!  border-secondary"
       aria-label="Manage your account"
     >
       <TabsTrigger
