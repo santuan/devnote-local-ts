@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
-import { Check, ChevronDown, Volume, X } from 'lucide-vue-next'
+import { Check, ChevronDown, Play, X } from 'lucide-vue-next'
 import {
   ComboboxAnchor,
   ComboboxCancel,
@@ -51,6 +51,8 @@ const availableVoices = ref<SpeechSynthesisVoice[]>([])
 const selectedVoice = ref<SpeechSynthesisVoice | null>(null)
 const selectedVoiceName = ref(settings.speech_voice_name || '')
 const selectedLang = ref(settings.speech_voice_lang || 'en-US')
+
+const MAX_CHUNK_SIZE = 100
 
 let synth: SpeechSynthesis | null = null
 let utterance: SpeechSynthesisUtterance | null = null
@@ -142,6 +144,51 @@ onUnmounted(() => {
   }
 })
 
+function splitIntoChunks(text: string): string[] {
+  if (text.length <= MAX_CHUNK_SIZE) {
+    return [text]
+  }
+
+  const chunks: string[] = []
+  const paragraphs = text.split(/\n{2,}/)
+
+  let currentChunk = ''
+  for (const paragraph of paragraphs) {
+    if ((currentChunk + paragraph).length <= MAX_CHUNK_SIZE) {
+      currentChunk += (currentChunk ? '\n\n' : '') + paragraph
+    }
+    else {
+      if (currentChunk) {
+        chunks.push(currentChunk)
+      }
+      if (paragraph.length > MAX_CHUNK_SIZE) {
+        const sentences = paragraph.match(/[^.!?]+[.!?]+/g) || [paragraph]
+        currentChunk = ''
+        for (const sentence of sentences) {
+          if ((currentChunk + sentence).length <= MAX_CHUNK_SIZE) {
+            currentChunk += sentence
+          }
+          else {
+            if (currentChunk) {
+              chunks.push(currentChunk)
+            }
+            currentChunk = sentence
+          }
+        }
+      }
+      else {
+        currentChunk = paragraph
+      }
+    }
+  }
+
+  if (currentChunk) {
+    chunks.push(currentChunk)
+  }
+
+  return chunks
+}
+
 function speak(text: string) {
   if (!synth) {
     emit('error', 'Speech synthesis not supported')
@@ -152,32 +199,49 @@ function speak(text: string) {
     synth.cancel()
   }
 
-  utterance = new SpeechSynthesisUtterance(text)
+  const chunks = splitIntoChunks(text)
 
-  if (selectedVoice.value) {
-    utterance.voice = selectedVoice.value
+  let currentChunkIndex = 0
+
+  function speakNextChunk() {
+    if (currentChunkIndex >= chunks.length) {
+      isSpeaking.value = false
+      emit('end')
+      return
+    }
+
+    const chunkText = chunks[currentChunkIndex]
+    utterance = new SpeechSynthesisUtterance(chunkText)
+
+    if (selectedVoice.value) {
+      utterance.voice = selectedVoice.value
+    }
+
+    utterance.pitch = props.pitch
+    utterance.rate = props.rate
+    utterance.volume = props.volume
+
+    utterance.onstart = () => {
+      isSpeaking.value = true
+      if (currentChunkIndex === 0) {
+        emit('speaking', text)
+      }
+    }
+
+    utterance.onend = () => {
+      currentChunkIndex++
+      speakNextChunk()
+    }
+
+    utterance.onerror = (event) => {
+      isSpeaking.value = false
+      emit('error', event.error)
+    }
+
+    synth?.speak(utterance)
   }
 
-  utterance.pitch = props.pitch
-  utterance.rate = props.rate
-  utterance.volume = props.volume
-
-  utterance.onstart = () => {
-    isSpeaking.value = true
-    emit('speaking', text)
-  }
-
-  utterance.onend = () => {
-    isSpeaking.value = false
-    emit('end')
-  }
-
-  utterance.onerror = (event) => {
-    isSpeaking.value = false
-    emit('error', event.error)
-  }
-
-  synth.speak(utterance)
+  speakNextChunk()
 }
 
 function stopSpeaking() {
@@ -350,7 +414,7 @@ defineExpose({
         "
         @click="speakEditorContent"
       >
-        <Volume class="size-4" />
+        <Play class="size-4" />
         {{ t("toolbar.speakDocument") }}
       </button>
 
@@ -372,6 +436,26 @@ defineExpose({
       <div v-else-if="availableVoices.length === 0" class="warning">
         <p>⏳ Loading voices...</p>
       </div>
+      <Teleport to="#SpeechPortal">
+        <button
+          v-if="!isSpeaking"
+          :disabled="isSpeaking || !isSpeechSynthesisSupported || !selectedVoice"
+          class="  size-8 flex items-center justify-center gap-2"
+          :class="
+            !editor?.getText().trim() ? ' opacity-50! pointer-events-none' : ''
+          "
+          @click="speakEditorContent"
+        >
+          <Play class="size-3" />
+        </button>
+        <button
+          v-if="isSpeaking"
+          class="btn btn-primary w-full px-3 py-2"
+          @click="stopSpeaking"
+        >
+          ⏹
+        </button>
+      </Teleport>
     </div>
   </div>
 </template>

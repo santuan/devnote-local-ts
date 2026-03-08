@@ -253,9 +253,9 @@ onUnmounted(() => {
           <span class=" select-none uppercase">{{
             t("speech.readAloud")
           }}</span>
-          <div v-if="!speech_attach" id="SpeechPortal" />
         </div>
         <div class="flex justify-end w-44 items-center">
+          <div id="SpeechPortal" />
           <Tooltip
             :name="speech_attach ? 'Unfix panel' : 'Fix panel'"
             side="bottom"
