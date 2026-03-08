@@ -4,9 +4,6 @@ import {
   ArrowLeftToLine,
   ArrowRightToLine,
   ChevronDown,
-  Lock,
-  PanelRightClose,
-  Unlock,
   X,
 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'

@@ -4,11 +4,6 @@ import {
   ArrowLeftToLine,
   ArrowRightToLine,
   ChevronDown,
-  GripHorizontal,
-  GripVertical,
-  Lock,
-  PanelRightClose,
-  Unlock,
   X,
 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
