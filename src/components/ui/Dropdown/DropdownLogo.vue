@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'reka-ui'
-import { nextTick, shallowRef } from 'vue'
+import { nextTick, shallowRef, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useDocumentStore } from '@/stores/document'
 import { useEditorStore } from '@/stores/editor'
@@ -25,6 +25,11 @@ const editor_store = useEditorStore()
 const focus_store = useFocusStore()
 const { editor } = storeToRefs(editor_store)
 const { focus_sidebar } = storeToRefs(focus_store)
+const focusSidebarRef = useTemplateRef<HTMLElement>('focus-sidebar')
+
+watch(focus_sidebar, () => {
+  focusSidebarRef.value?.focus()
+})
 const { show_export_db, show_import_db } = storeToRefs(modal)
 
 const { t } = useI18n()
@@ -84,7 +89,7 @@ function showImportModal() {
         />
       </svg>
       <ChevronDown class="size-4 stroke-primary" />
-      <span ref="focus_sidebar" class="sr-only" tabindex="-1"> Devnote. {{ t("sidebar.navigation") }} </span>
+      <span ref="focus-sidebar" class="sr-only" tabindex="-1"> Devnote. {{ t("sidebar.navigation") }} </span>
     </DropdownMenuTrigger>
     <DropdownMenuPortal>
       <DropdownMenuContent

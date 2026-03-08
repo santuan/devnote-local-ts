@@ -68,12 +68,11 @@ const languageGroups = computed(() => {
     groups.get(voice.lang)?.push(voice)
   })
 
-  return Array.from(groups.entries())
-    .map(([lang, voices]) => ({
-      lang,
-      voices,
-      name: getLanguageName(lang),
-    }))
+  return Array.from(groups.entries(), ([lang, voices]) => ({
+    lang,
+    voices,
+    name: getLanguageName(lang),
+  }))
     .sort((a, b) => a.name.localeCompare(b.name))
 })
 

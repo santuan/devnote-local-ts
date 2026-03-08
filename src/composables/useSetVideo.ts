@@ -1,5 +1,7 @@
 import { useModalStore } from '@/stores/modal'
 
+const REGEX_SRC = /src="(?<src>.+?)"/
+
 export function useSetVideo(editor: any) {
   const modal = useModalStore()
 
@@ -16,7 +18,7 @@ export function useSetVideo(editor: any) {
       return
     }
 
-    const srcCheck = videoSrc.match(/src="(?<src>.+?)"/)
+    const srcCheck = videoSrc.match(REGEX_SRC)
     const src = srcCheck ? srcCheck.groups?.src : videoSrc
 
     editor.value

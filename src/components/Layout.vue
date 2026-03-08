@@ -8,6 +8,7 @@ import ToggleEditable from '@/components/ui/Toggle/ToggleEditable.vue'
 import { useDatabaseStore } from '@/stores/database'
 
 const database = useDatabaseStore()
+// @ts-expect-error - used in template via ref="containerInbound"
 const { containerInbound } = storeToRefs(database)
 const cursor_pointer = useStorage('cursor', true)
 </script>

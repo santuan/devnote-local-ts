@@ -100,7 +100,7 @@ export default Node.create<IframeOptions>({
         editButton.onclick = () => {
           const modal = useModalStore()
           modal.show_iframe_url_dialog = true
-          modal.editing_iframe_pos = getPos()
+          modal.editing_iframe_pos = getPos() ?? null
         }
         controlsContainer.appendChild(editButton)
       }

@@ -2,7 +2,7 @@
 import NumberFlow from '@number-flow/vue'
 import { ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
-import { computed, shallowRef } from 'vue'
+import { computed, shallowRef, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 // Compute content statistics and index
 import Toc from '@/components/ui/Tiptap/toc/toc.vue'
@@ -22,6 +22,11 @@ const modal = useModalStore()
 const focus_store = useFocusStore()
 const { editor, editor_toc } = storeToRefs(document)
 const { focus_debug_heading } = storeToRefs(focus_store)
+const focusDebugHeadingRef = useTemplateRef<HTMLElement>('focus-debug-heading')
+
+watch(focus_debug_heading, () => {
+  focusDebugHeadingRef.value?.focus()
+})
 
 const showContentAnalysis = shallowRef(true)
 const showOnlyHeadings = shallowRef(true)
@@ -242,7 +247,7 @@ async function toggleDocumentFixed() {
         <h3 class="text-xs font-semibold text-primary">
           {{ t("leva.headings") }}
         </h3>
-        <button ref="focus_debug_heading" class="flex items-center justify-center size-5" @click="showOnlyHeadings = !showOnlyHeadings">
+        <button ref="focus-debug-heading" class="flex items-center justify-center size-5" @click="showOnlyHeadings = !showOnlyHeadings">
           <ChevronsUpDown class="text-foreground size-3" />
         </button>
       </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { /* ToolbarButton, */ ToolbarRoot } from 'reka-ui'
+import { useTemplateRef, watch } from 'vue'
 // import { Printer } from 'lucide-vue-next'
 // import Tooltip from '../Tooltip.vue'
 // import { useI18n } from 'vue-i18n'
@@ -29,6 +30,11 @@ import ToolbarWebFrameNote from './toolbar/ToolbarWebFrameNote.vue'
 
 const focus_store = useFocusStore()
 const { focus_toolbar } = storeToRefs(focus_store)
+const focusToolbarRef = useTemplateRef<HTMLElement>('focus-toolbar')
+
+watch(focus_toolbar, () => {
+  focusToolbarRef.value?.focus()
+})
 
 const editor_store = useEditorStore()
 const { editor } = storeToRefs(editor_store)
@@ -43,7 +49,7 @@ const { editor } = storeToRefs(editor_store)
     <div
       class="relative grid w-full max-w-full mx-auto control-group focus-visible:ring-2 focus-visible:ring-primary"
     >
-      <span ref="focus_toolbar" class="sr-only" tabindex="-1"> Toolbar </span>
+      <span ref="focus-toolbar" class="sr-only" tabindex="-1"> Toolbar </span>
       <ToolbarRoot
         class="flex gap-0.5 pr-0 gap-y-1 justify-start select-none button-group items-center md:w-auto focus-visible:outline! focus-visible:outline-primary/10! focus-visible:outline-offset-[1.5px]!"
       >

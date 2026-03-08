@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import type { Editor, Node } from '@tiptap/vue-3'
-import type { Node as ProseMirrorNode } from 'prosemirror-model'
-import type { Decoration } from 'prosemirror-view'
+import type { DecorationType, Editor, Node } from '@tiptap/vue-3'
 import NumberFlow, { continuous } from '@number-flow/vue'
 
 import { NodeViewWrapper } from '@tiptap/vue-3'
@@ -32,8 +30,8 @@ const props = defineProps<Props>()
 
 interface Props {
   editor: Editor
-  node: ProseMirrorNode
-  decorations: Decoration
+  node: Node<any, any> & { attrs: Record<string, any> }
+  decorations: DecorationType
   selected: boolean
   extension: Node<any, any>
   getPos: () => number
@@ -117,7 +115,7 @@ function mediaSetupOnLoad() {
     }
     updateSliderValueFromCurrentWidth()
   }
-  setTimeout(() => setMediaActionActiveStates(), 200)
+  setTimeout(setMediaActionActiveStates, 200)
 }
 
 onMounted(() => mediaSetupOnLoad())
@@ -448,7 +446,7 @@ function togglePause() {
             <Expand class="size-5" />
           </DialogTrigger>
           <DialogPortal>
-            <DialogOverlay class="bg-background/80 grid place-items-center fixed inset-0 z-[120] max-h-screen p-2 overflow-y-auto">
+            <DialogOverlay class="bg-background/80 grid place-items-center fixed inset-0 z-120 max-h-screen p-2 overflow-y-auto">
               <DialogContent
                 class=" p-1 focus:outline-hidden"
               >

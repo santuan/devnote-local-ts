@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useDocumentStore } from '@/stores/document'
@@ -10,6 +11,11 @@ const focus_store = useFocusStore()
 
 const { t } = useI18n()
 const { focus_menu } = storeToRefs(focus_store)
+const focusMenuRef = useTemplateRef<HTMLButtonElement>('focus-menu')
+
+watch(focus_menu, () => {
+  focusMenuRef.value?.focus()
+})
 
 function toggleMenu() {
   document.show_sidebar_documents = !document.show_sidebar_documents
@@ -20,7 +26,7 @@ function toggleMenu() {
   <div class="fixed top-0 left-0 m-1 z-[100] bg-background">
     <Tooltip :name="`${t('verb.open')} panel`" shortcut="Ctrl m" side="bottom">
       <button
-        ref="focus_menu"
+        ref="focus-menu"
         class="flex items-center justify-center gap-2 p-1 md:justify-start size-8 md:w-8 md:h-8 focus-visible:ring-1 focus-within:ring-1 focus-within:ring-primary focus-visible:ring-primary"
         @click="toggleMenu()"
       >

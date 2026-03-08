@@ -19,7 +19,7 @@ import OrderedList from '@tiptap/extension-ordered-list'
 import Paragraph from '@tiptap/extension-paragraph'
 import Placeholder from '@tiptap/extension-placeholder'
 import Strike from '@tiptap/extension-strike'
-import Table from '@tiptap/extension-table'
+import { Table } from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import {
@@ -31,7 +31,7 @@ import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
 import Text from '@tiptap/extension-text'
 import TextAlign from '@tiptap/extension-text-align'
-import TextStyle from '@tiptap/extension-text-style'
+import { TextStyle } from '@tiptap/extension-text-style'
 import Typography from '@tiptap/extension-typography'
 import Underline from '@tiptap/extension-underline'
 import Youtube from '@tiptap/extension-youtube'
@@ -522,7 +522,7 @@ html.dark .shiki span {
 }
 
 .is-editable .tiptap .media-node-view.ProseMirror-selectednode {
-  @apply ring-0! ring-transparent! bg-primary/[0.02] border-2 border-primary border-dashed;
+  @apply ring-0! ring-transparent! bg-primary/2 border-2 border-primary border-dashed;
 }
 
 .tiptap li p {

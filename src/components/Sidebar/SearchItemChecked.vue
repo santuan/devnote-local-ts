@@ -129,7 +129,7 @@ function handleDelete() {
       >
         <ContextMenuItem
           class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
-          @click="toggleCheck(props.data, { target: { checked: !props.data.document_data?.checked } } as Event)"
+          @click="toggleCheck(props.data, { target: { checked: !props.data.document_data?.checked } } as unknown as Event)"
         >
           <CheckCircle2 class="size-4 mr-2" />
           <span>{{ t('sidebar.markAsDone') }}</span>

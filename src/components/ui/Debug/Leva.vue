@@ -25,6 +25,7 @@ import {
   onUnmounted,
   ref,
   unref,
+  useTemplateRef,
   watch,
 } from 'vue'
 
@@ -43,11 +44,17 @@ const adjustedTop = ref(220)
 const draggableRef = ref<HTMLElement | null>(null)
 const el = ref<HTMLElement | null>(null)
 const isFocusedInSlot = ref(false)
-const slotRef = ref<HTMLElement | null>(null)
+// @ts-expect-error - used in template via ref="slotRef"
+const slotRef = useTemplateRef<HTMLElement>('slotRef')
+const focusDebugRef = useTemplateRef<HTMLElement>('focus-debug')
 
 const { containerInbound } = storeToRefs(database)
 const { focus_debug } = storeToRefs(focus_store)
 const { leva, attach, leva_collapse } = storeToRefs(settings)
+
+watch(focus_debug, () => {
+  focusDebugRef.value?.focus()
+})
 
 const {
   top: boundsTop,
@@ -201,7 +208,7 @@ onUnmounted(() => {
         :class="!attach ? 'cursor-grab active:cursor-grabbing' : ''"
       >
         <div
-          ref="focus_debug"
+          ref="focus-debug"
           tabIndex="-1"
           class="w-20 flex justify-start items-center gap-1"
         >

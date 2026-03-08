@@ -11,7 +11,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
+
   },
   "include": [
     "src/global.d.ts",
@@ -20,6 +23,7 @@
     "src/**/*.css"
   ],
   "exclude": [
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "**/*/dexie.d.ts"
   ]
 }

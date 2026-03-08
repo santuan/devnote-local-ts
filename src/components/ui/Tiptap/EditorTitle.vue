@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Keyboard } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
+import { useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useIsMobile } from '@/composables/useIsMobile'
@@ -15,6 +16,12 @@ const document = useDocumentStore()
 const db_store = useDatabaseStore()
 const { show_editor_toolbar } = storeToRefs(document)
 const { focus_title_textarea } = storeToRefs(focus)
+const focusTitleTextareaRef = useTemplateRef<HTMLTextAreaElement>('focus-title-textarea')
+
+watch(focus_title_textarea, () => {
+  focusTitleTextareaRef.value?.focus()
+})
+
 const { t } = useI18n()
 </script>
 
@@ -23,7 +30,7 @@ const { t } = useI18n()
     <label for="document_name" class="flex-1">
       <textarea
         id="document_name"
-        ref="focus_title_textarea"
+        ref="focus-title-textarea"
         v-model.trim="db_store.document_name"
         :placeholder="db_store.document_name === '' ? t('editor.untitled') : 'Document title'"
         autocomplete="off"
