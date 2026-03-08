@@ -254,7 +254,7 @@ defineExpose({
       <div class="flex mb-3">
         <ComboboxRoot
           v-model="selectedVoiceName"
-          class="relative w-80"
+          class="relative w-72"
           @update:model-value="onVoiceSelect"
         >
           <ComboboxAnchor class="flex items-center gap-2">
