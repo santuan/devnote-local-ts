@@ -77,12 +77,11 @@
     "pinia-plugin-persistedstate": "4.7.1",
     "reka-ui": "2.9.0",
     "rxjs": "7.8.2",
-    "shiki": "1.29.2",
-    "tiptap-extension-code-block-shiki": "0.4.0",
+    "shiki": "4.0.1",
+    "tiptap-extension-code-block-shiki": "1.0.0",
     "vue": "3.5.29",
-    "vue-i18n": "11.2.8",
-    "vue-sonner": "2.0.9",
-    "wormkey": "0.1.5"
+    "vue-i18n": "11.3.0",
+    "vue-sonner": "2.0.9"
   },
   "devDependencies": {
     "@antfu/eslint-config": "7.7.0",
@@ -111,8 +110,6 @@
     "vue-tsc": "3.2.5"
   },
   "overrides": {
-    "@tiptap/core": "3.20.1",
-    "@tiptap/extension-code-block": "3.20.1",
     "array-buffer-byte-length": "npm:@socketregistry/array-buffer-byte-length@^1",
     "arraybuffer.prototype.slice": "npm:@socketregistry/arraybuffer.prototype.slice@^1",
     "available-typed-arrays": "npm:@socketregistry/available-typed-arrays@^1",
