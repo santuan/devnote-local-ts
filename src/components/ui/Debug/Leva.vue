@@ -29,6 +29,7 @@ import {
   watch,
 } from 'vue'
 
+import { useFloatingPanels } from '@/composables/useFloatingPanels'
 import { useDatabaseStore } from '@/stores/database'
 import { useFocusStore } from '@/stores/focus'
 import { useSettingsStore } from '@/stores/settings'
@@ -37,6 +38,7 @@ import Tooltip from '../Tooltip.vue'
 const database = useDatabaseStore()
 const settings = useSettingsStore()
 const focus_store = useFocusStore()
+const { isActivePanel, setActivePanel } = useFloatingPanels()
 
 const moveStep = 5
 const adjustedLeft = ref(50)
@@ -79,6 +81,9 @@ useDraggable(el, {
       Math.max(0, offsetY),
       containerHeight.value - draggableHeight.value,
     )
+  },
+  onStart() {
+    setActivePanel('leva')
   },
 })
 
@@ -191,14 +196,15 @@ onUnmounted(() => {
     ref="draggableRef"
     :style="style"
     tabindex="0"
-    class="text-xs w-72 z-110 outline outline-secondary text-left outline-none"
-    :class="
+    class="text-xs w-72 outline-2 outline-secondary text-left"
+    :class="[
       !attach
         ? 'absolute shadow shadow-secondary'
-        : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary '
-    "
-    @focusin="isFocused = true"
-    @focus="isFocused = true"
+        : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary ',
+      isActivePanel('leva') ? 'z-200' : 'z-110',
+    ]"
+    @focusin="isFocused = true; setActivePanel('leva')"
+    @focus="isFocused = true; setActivePanel('leva')"
     @blur="isFocused = false"
   >
     <CollapsibleRoot v-model:open="leva_collapse" class="w-72">

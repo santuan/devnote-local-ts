@@ -18,6 +18,7 @@ import {
   watch,
 } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useFloatingPanels } from '@/composables/useFloatingPanels'
 import { useDatabaseStore } from '@/stores/database'
 import { useEditorStore } from '@/stores/editor'
 import { useFocusStore } from '@/stores/focus'
@@ -29,6 +30,7 @@ const database = useDatabaseStore()
 const settings = useSettingsStore()
 const focus_store = useFocusStore()
 const editor_store = useEditorStore()
+const { isActivePanel, setActivePanel } = useFloatingPanels()
 const { t } = useI18n()
 
 const moveStep = 5
@@ -39,7 +41,7 @@ const el = ref<HTMLElement | null>(null)
 const isFocusedInSlot = ref(false)
 
 const { containerInbound } = storeToRefs(database)
-const { focus_debug, focus_speech } = storeToRefs(focus_store)
+const { focus_debug } = storeToRefs(focus_store)
 const { speech, speech_attach, speech_collapse }
   = storeToRefs(settings)
 const { editor } = storeToRefs(editor_store)
@@ -72,6 +74,7 @@ useDraggable(el, {
   },
   onStart() {
     isDraggingTouch.value = true
+    setActivePanel('speech')
   },
   onEnd() {
     isDraggingTouch.value = false
@@ -175,26 +178,27 @@ onUnmounted(() => {
 <template>
   <div
     v-show="speech"
-    :ref="(el) => { draggableRef = el as HTMLElement | null; focus_speech = el as HTMLElement | null }"
+    ref="draggableRef"
     :style="style"
     tabindex="0"
-    class="text-xs w-80 z-110 outline-primary outline-2 text-left"
-    :class="
+    class="text-xs w-72 outline-secondary outline-2 text-left"
+    :class="[
       !speech_attach
         ? 'absolute shadow shadow-secondary'
-        : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary '
-    "
-    @focusin="isFocused = true"
-    @focus="isFocused = true"
+        : 'absolute top-auto! left-auto! right-0! bottom-0! lg:relative lg:left-auto! lg:top-auto! ring ring-secondary ',
+      isActivePanel('speech') ? 'z-200' : 'z-110',
+    ]"
+    @focusin="isFocused = true; setActivePanel('speech')"
+    @focus="isFocused = true; setActivePanel('speech')"
     @blur="isFocused = false"
   >
-    <div class="w-80">
+    <div class="w-72">
       <div
         ref="el"
         class="px-2 py-1 h-10 flex bg-secondary items-center justify-between group "
         :class="[
           !speech_attach ? 'cursor-grab active:cursor-grabbing' : '',
-          isDraggingTouch ? 'touch-none select-none opacity-80' : '',
+          isDraggingTouch ? 'touch-none select-none' : '',
         ]"
         :style="!speech_attach ? 'touch-action: none' : ''"
       >
