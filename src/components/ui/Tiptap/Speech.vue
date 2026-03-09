@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
-import { Check, ChevronDown, Play, X } from 'lucide-vue-next'
+import { Check, ChevronDown, Pause, Play, X } from 'lucide-vue-next'
 import {
   ComboboxAnchor,
   ComboboxCancel,
@@ -74,8 +74,7 @@ const languageGroups = computed(() => {
     lang,
     voices,
     name: getLanguageName(lang),
-  }))
-    .sort((a, b) => a.name.localeCompare(b.name))
+  })).sort((a, b) => a.name.localeCompare(b.name))
 })
 
 function getLanguageName(langCode: string): string {
@@ -307,7 +306,10 @@ defineExpose({
       >
         <SiriWave :active="isSpeaking" />
       </div>
-      <div v-else class="h-20 flex justify-center items-center text-primary/20 mt-3 text-center">
+      <div
+        v-else
+        class="h-20 flex justify-center items-center text-primary/20 mt-3 text-center"
+      >
         No hay texto para leer.
       </div>
     </Transition>
@@ -352,12 +354,16 @@ defineExpose({
               position="popper"
               class="z-10 w-full mt-0 text-foreground font-mono min-w-[360px] bg-background overflow-hidden text-xs shadow-sm border border-secondary"
             >
-              <div class="flex justify-center items-center border-b border-secondary pr-1">
+              <div
+                class="flex justify-center items-center border-b border-secondary pr-1"
+              >
                 <ComboboxInput
                   class="p-2 py-3 bg-background w-full outline-none"
                   :placeholder="t('toolbar.searchVoices')"
                 />
-                <ComboboxCancel class="size-8 flex justify-center shrink-0 items-center rounded-full">
+                <ComboboxCancel
+                  class="size-8 flex justify-center shrink-0 items-center rounded-full"
+                >
                   <X class="size-4" />
                 </ComboboxCancel>
               </div>
@@ -420,10 +426,11 @@ defineExpose({
 
       <button
         v-if="isSpeaking"
-        class="btn btn-primary w-full px-3 py-2"
+        class="btn btn-primary w-full px-3 py-2 gap-2"
         @click="stopSpeaking"
       >
-        ⏹ {{ t("toolbar.stopSpeaking") }}
+        <Pause class="size-4" />
+        {{ t("toolbar.stopSpeaking") }}
       </button>
 
       <span v-if="isSpeaking" class="sr-only">{{
@@ -439,8 +446,10 @@ defineExpose({
       <Teleport to="#SpeechPortal">
         <button
           v-if="!isSpeaking"
-          :disabled="isSpeaking || !isSpeechSynthesisSupported || !selectedVoice"
-          class="  size-8 flex items-center justify-center gap-2"
+          :disabled="
+            isSpeaking || !isSpeechSynthesisSupported || !selectedVoice
+          "
+          class="size-8 flex items-center justify-center "
           :class="
             !editor?.getText().trim() ? ' opacity-50! pointer-events-none' : ''
           "
@@ -450,10 +459,10 @@ defineExpose({
         </button>
         <button
           v-if="isSpeaking"
-          class="btn btn-primary w-full px-3 py-2"
+          class="size-8 flex items-center justify-center "
           @click="stopSpeaking"
         >
-          ⏹
+          <Pause class="size-3" />
         </button>
       </Teleport>
     </div>

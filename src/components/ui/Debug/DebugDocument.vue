@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import NumberFlow from '@number-flow/vue'
-import { ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
+import { ChevronLeft, ChevronRight, ChevronsUpDown, Circle, CircleOff, Pin, Search } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { computed, shallowRef, useTemplateRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -109,14 +109,14 @@ async function toggleDocumentFixed() {
 </script>
 
 <template>
-  <div v-if="database.loaded_id" class="grid overflow-hidden pt-3 gap-3">
+  <div v-if="database.loaded_id" class="grid overflow-hidden pt-3 pb-3 gap-3">
     <!-- Document Info -->
     <div class="pb-3 px-2 border-b border-secondary">
-      <div class="mb-2 grid grid-cols-2">
+      <div class="flex items-center justify-between">
         <span class="opacity-50">loaded_id: {{ database.loaded_id }}</span>
         <div class="flex justify-end items-center gap-2" :class="!database.document_checked ? 'grid-cols-2' : ''">
           <Tooltip
-            v-if="database.document_checked" :name="database.document_checked
+            :name="database.document_checked
               ? t('message.completed')
               : t('message.unmarked')" side="top"
           >
@@ -124,11 +124,22 @@ async function toggleDocumentFixed() {
             <CircleOff v-show="database.document_checked" class="size-3" />
           </Tooltip>
           <Tooltip
-            v-if="!database.document_checked"
             :name="database.document_fixed ? t('verb.fixed') : t('verb.unfixed')" side="top"
           >
             <Pin class="origin-center size-3 outline-none" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
           </Tooltip>
+          <button
+            class="flex items-center justify-center p-1 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+            @click="database.navigate_document('prev')"
+          >
+            <ChevronLeft class="size-3" />
+          </button>
+          <button
+            class="flex items-center justify-center p-1 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+            @click="database.navigate_document('next')"
+          >
+            <ChevronRight class="size-3" />
+          </button>
         </div>
       </div>
       <h3 class="text-balance text-sm">
@@ -242,7 +253,6 @@ async function toggleDocumentFixed() {
     <template v-if="contentAnalysis.headings.length > 0">
       <div
         class="flex items-center justify-between px-2  gap-2 border-t pt-2 border-secondary"
-        :class="showOnlyHeadings ? 'pb-0' : 'pb-3'"
       >
         <h3 class="text-xs font-semibold text-primary">
           {{ t("leva.headings") }}

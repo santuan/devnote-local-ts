@@ -4,7 +4,7 @@ import {
   breakpointsTailwind,
   useBreakpoints,
 } from '@vueuse/core'
-import { CheckCircle2, Circle, Pin, PinOff, Trash2 } from 'lucide-vue-next'
+import { Circle, CircleOff, Pin, PinOff, Trash2 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 
 import {
@@ -105,7 +105,7 @@ function handleDelete() {
           @dblclick="document.toggle_editable()"
           @click="set_active_document(props.data.id)"
         >
-          <p class="my-1 text-sm text-left font-medium">
+          <p class="my-1 text-sm text-left font-medium line-clamp-1">
             {{ props.data.document_data?.name }}
           </p>
         </button>
@@ -141,33 +141,33 @@ function handleDelete() {
     </ContextMenuTrigger>
     <ContextMenuPortal>
       <ContextMenuContent
-        class="min-w-[180px] z-50 font-mono bg-background ring-1 ring-primary text-foreground outline-hidden rounded p-1.5 shadow-sm"
+        class="min-w-[250px] z-50 font-mono grid gap-1 bg-background ring-1 ring-primary/50 text-foreground outline-hidden rounded p-1.5 shadow-sm"
         :side-offset="5"
       >
         <ContextMenuItem
-          class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
+          class="cursor-default justify-between text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
           @click="toggleCheck(props.data, { target: { checked: !props.data.document_data?.checked } } as unknown as Event)"
         >
-          <CheckCircle2 class="size-4 mr-2" />
           <span>{{ props.data.document_data?.checked ? t('sidebar.markAsUndone') : t('sidebar.markAsDone') }}</span>
+          <CircleOff class="size-3 " />
         </ContextMenuItem>
         <ContextMenuItem
-          class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
+          class="cursor-default text-xs flex justify-between items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20"
           @click="toggleFixed(props.data, props.data.document_data?.fixed)"
         >
+          <span>{{ props.data.document_data?.fixed ? t('verb.unfixed') : t('verb.fixed') }}</span>
           <component
             :is="props.data.document_data?.fixed ? PinOff : Pin"
-            class="size-4 mr-2"
+            class="size-3"
           />
-          <span>{{ props.data.document_data?.fixed ? t('verb.unfixed') : t('verb.fixed') }}</span>
         </ContextMenuItem>
         <ContextMenuSeparator class="h-[0.0125rem] bg-secondary my-1" />
         <ContextMenuItem
-          class="cursor-default text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-primary/20 text-destructive hover:text-destructive"
+          class="cursor-default justify-between text-xs flex items-center h-7 px-2 hover:bg-primary/20 outline-hidden data-highlighted:bg-destructive/60 "
           @click="handleDelete"
         >
-          <Trash2 class="size-4 mr-2" />
           <span>{{ t('verb.delete') }}</span>
+          <Trash2 class="size-3" />
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenuPortal>
