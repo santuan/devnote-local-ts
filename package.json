@@ -162,6 +162,7 @@
     "typed-array-byte-offset": "npm:@socketregistry/typed-array-byte-offset@^1",
     "typed-array-length": "npm:@socketregistry/typed-array-length@^1",
     "unbox-primitive": "npm:@socketregistry/unbox-primitive@^1",
+    "vite": "^8.0.0",
     "which-boxed-primitive": "npm:@socketregistry/which-boxed-primitive@^1",
     "which-typed-array": "npm:@socketregistry/which-typed-array@^1"
   },
