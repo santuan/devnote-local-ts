@@ -2,10 +2,12 @@
 import { Bug } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { Toggle } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 
 import { useSettingsStore } from '@/stores/settings'
 
+const { t } = useI18n()
 const settings = useSettingsStore()
 const { leva } = storeToRefs(settings)
 </script>
@@ -13,11 +15,11 @@ const { leva } = storeToRefs(settings)
 <template>
   <Toggle
     v-model="leva"
-    aria-label="Toggle debug"
+    :aria-label="t('verb.toggleDebug')"
     class="flex items-center data-[state=on]:text-primary-foreground data-[state=on]:bg-primary justify-center border hover:bg-secondary/80 border-secondary bg-background size-8"
   >
     <Tooltip
-      name="Toggle debug"
+      :name="t('verb.toggleDebug')"
       side="right"
       shortcut="Ctrl Shift Alt D"
     >
@@ -34,18 +36,18 @@ const { leva } = storeToRefs(settings)
 }
 
 .interactive[data-state="open"] .AArrowDown {
-  @apply !flex;
+  @apply flex!;
 }
 
 .interactive[data-state="closed"] .AArrowDown {
-  @apply !hidden;
+  @apply hidden!;
 }
 
 .interactive[data-state="open"] .AArrowUp {
-  @apply !hidden;
+  @apply hidden!;
 }
 
 .interactive[data-state="closed"] .AArrowUp {
-  @apply !flex;
+  @apply flex!;
 }
 </style>

@@ -185,7 +185,7 @@ function insertFormula(formula: string) {
 
           <!-- Right column: Preview -->
           <div class="space-y-2">
-            <span class="text-xs font-medium text-foreground">Preview:</span>
+            <span class="text-xs font-medium text-foreground">{{ t('verb.latexPreview') }}:</span>
             <div
               class="border border-secondary max-w-full rounded overflow-auto p-4 bg-background min-h-[200px] flex items-center justify-center"
             >
@@ -193,11 +193,11 @@ function insertFormula(formula: string) {
                 v-if="!inputValue.trim()"
                 class="text-muted-foreground text-sm italic"
               >
-                Enter a LaTeX expression to see preview
+                {{ t('verb.latexEnter') }}
               </div>
               <div v-else-if="katexPreview.error" class="text-red-500 text-sm">
                 <div class="font-medium mb-1">
-                  Error:
+                  {{ t('verb.latexError') }}:
                 </div>
                 <div class="text-xs">
                   {{ katexPreview.error }}
@@ -213,7 +213,7 @@ function insertFormula(formula: string) {
         </div>
 
         <div class="space-y-2">
-          <span class="text-xs font-medium text-foreground">Quick Formulas:</span>
+          <span class="text-xs font-medium text-foreground">{{ t('verb.latexQuickFormulas') }}:</span>
           <div
             class="grid grid-cols-3 md:grid-cols-8 gap-1 max-h-32 overflow-y-auto border border-secondary rounded p-2"
           >

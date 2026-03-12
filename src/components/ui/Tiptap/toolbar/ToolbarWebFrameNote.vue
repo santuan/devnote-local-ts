@@ -9,10 +9,12 @@ import {
   DropdownMenuTrigger,
   ToolbarButton,
 } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import DialogIframeUrl from '@/components/ui/Dialogs/DialogIframeUrl.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useEditorStore } from '@/stores/editor'
 
+const { t } = useI18n()
 const document = useEditorStore()
 const { editor } = storeToRefs(document)
 
@@ -33,7 +35,7 @@ function insertIframe(src: string) {
 </script>
 
 <template>
-  <Tooltip name="Add iframe" side="bottom">
+  <Tooltip :name="t('verb.addIframe')" side="bottom">
     <DropdownMenuRoot>
       <DropdownMenuTrigger as-child>
         <ToolbarButton
@@ -42,7 +44,7 @@ function insertIframe(src: string) {
           value="WebFrame"
         >
           <Terminal class="size-4" />
-          <span class="sr-only">Add iframe</span>
+          <span class="sr-only">{{ t('verb.addIframe') }}</span>
         </ToolbarButton>
       </DropdownMenuTrigger>
       <DropdownMenuPortal>

@@ -274,7 +274,7 @@ async function toggleDocumentFixed() {
       @click="modal.show_commandbar = true"
     >
       <Search class="opacity-50 size-9" />
-      <span class="text-xs">Select document</span>
+      <span class="text-xs">{{ t('sidebar.selectDocument') }}</span>
     </button>
   </div>
 </template>

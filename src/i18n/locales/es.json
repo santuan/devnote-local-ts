@@ -76,7 +76,8 @@
     "stopSpeaking": "Detener",
     "searchVoices": "Buscar voces...",
     "noVoicesFound": "No se encontraron voces",
-    "local": "Local"
+    "local": "Local",
+    "noTextToRead": "No hay texto para leer"
   },
   "sidebar": {
     "newDocument": "nuevo documento",
@@ -100,7 +101,8 @@
     "contentPreview": "Cambiar a previsualizar",
     "markAsDone": "Marcar como completo",
     "markAsUndone": "Descarmar",
-    "showPinned": "Mostrar solo fijados"
+    "showPinned": "Mostrar solo fijados",
+    "selectDocument": "Seleccionar documento"
   },
   "settings": {
     "title": "Configuraciones",
@@ -235,7 +237,26 @@
     "jump": "Saltar al",
     "loading": "Cargando",
     "showAll": "Mostrar todos",
-    "focus": "Mover foco"
+    "focus": "Mover foco",
+    "latex": "LaTeX",
+    "latexPreview": "Vista previa",
+    "latexEnter": "Ingrese una expresión LaTeX para ver la vista previa",
+    "latexError": "Error",
+    "latexQuickFormulas": "Fórmulas rápidas",
+    "outlineEmpty": "Comience a editar su documento para ver el esquema.",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "noTextDetected": "No se detectó texto",
+    "addIframe": "Agregar iframe",
+    "updateDimensions": "Actualizar dimensiones",
+    "toggleItalic": "Alternar cursiva",
+    "updateWidth": "Actualizar ancho",
+    "closeSpeech": "Cerrar voz",
+    "toggleSpeech": "Alternar voz",
+    "toggleDebug": "Alternar depuración",
+    "closeLeva": "Cerrar leva",
+    "toggleLeva": "Alternar leva",
+    "resetSearch": "Restablecer búsqueda"
   },
   "timeAgo": {
     "just-now": "ahora mismo",

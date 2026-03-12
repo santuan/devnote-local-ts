@@ -28,6 +28,8 @@ import { useSettingsStore } from '@/stores/settings'
 import Tooltip from '../Tooltip.vue'
 import Speech from './Speech.vue'
 
+const speechRef = ref<InstanceType<typeof Speech> | null>(null)
+
 const database = useDatabaseStore()
 const settings = useSettingsStore()
 const focus_store = useFocusStore()
@@ -174,6 +176,12 @@ watch(speech_attach, (value) => {
   }
 })
 
+watch(speech, (value) => {
+  if (!value && speechRef.value?.isSpeaking) {
+    speechRef.value?.stopSpeaking()
+  }
+})
+
 onMounted(() => {
   nextTick(() => {
     if (draggableRef.value) {
@@ -280,13 +288,13 @@ onUnmounted(() => {
             </button>
           </Tooltip>
           <Tooltip
-            name="Close speech"
+            :name="t('verb.closeSpeech')"
             side="bottom"
             shortcut="ctrl + alt + shift + S + C"
           >
             <Toggle
               v-model="speech"
-              aria-label="Toggle speech"
+              :aria-label="t('verb.toggleSpeech')"
               class="flex items-center justify-center hover:border hover:bg-secondary/10 border-secondary size-8"
             >
               <X
@@ -303,7 +311,7 @@ onUnmounted(() => {
         class="CollapsibleContent select-none bg-background"
         :class="speech_attach ? '' : 'not-attach'"
       >
-        <Speech :editor="editor" />
+        <Speech ref="speechRef" :editor="editor" />
       </div>
     </div>
   </div>

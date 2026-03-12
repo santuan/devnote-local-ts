@@ -294,13 +294,13 @@ onUnmounted(() => {
             </button>
           </Tooltip>
           <Tooltip
-            name="Close leva"
+            :name="t('verb.closeLeva')"
             side="bottom"
             shortcut="ctrl + alt + shift + D + C"
           >
             <Toggle
               v-model="leva"
-              aria-label="Toggle leva"
+              :aria-label="t('verb.toggleLeva')"
               class="flex items-center justify-center hover:border hover:bg-secondary/20 border-secondary size-8"
             >
               <X

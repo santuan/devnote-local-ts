@@ -76,7 +76,8 @@
     "stopSpeaking": "停止",
     "searchVoices": "搜索语音...",
     "noVoicesFound": "未找到语音",
-    "local": "本地"
+    "local": "本地",
+    "noTextToRead": "没有可朗读的文本"
   },
   "sidebar": {
     "newDocument": "新文档",
@@ -100,7 +101,8 @@
     "contentPreview": "预览模式",
     "markAsDone": "标记为完成",
     "markAsUndone": "标记为未完成",
-    "showPinned": "仅显示置顶"
+    "showPinned": "仅显示置顶",
+    "selectDocument": "选择文档"
   },
   "settings": {
     "title": "设置",
@@ -235,7 +237,26 @@
     "jump": "跳转到",
     "loading": "加载中",
     "showAll": "显示全部",
-    "focus": "聚焦"
+    "focus": "聚焦",
+    "latex": "LaTeX",
+    "latexPreview": "预览",
+    "latexEnter": "输入 LaTeX 表达式以查看预览",
+    "latexError": "错误",
+    "latexQuickFormulas": "快速公式",
+    "outlineEmpty": "开始编辑您的文档以查看大纲。",
+    "copy": "复制",
+    "copied": "已复制",
+    "noTextDetected": "未检测到文本",
+    "addIframe": "添加 iframe",
+    "updateDimensions": "更新尺寸",
+    "toggleItalic": "切换斜体",
+    "updateWidth": "更新宽度",
+    "closeSpeech": "关闭语音",
+    "toggleSpeech": "切换语音",
+    "toggleDebug": "切换调试",
+    "closeLeva": "关闭 leva",
+    "toggleLeva": "切换 leva",
+    "resetSearch": "重置搜索"
   },
   "timeAgo": {
     "just-now": "刚刚",

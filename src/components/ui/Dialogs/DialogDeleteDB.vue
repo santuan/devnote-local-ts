@@ -37,7 +37,7 @@ function clear() {
   <DialogRoot v-model:open="show_delete_db_modal">
     <DialogTrigger
       class="bg-destructive text-white hover:bg-red-800 outline-hidden inline-flex ring-0 hover:ring-2 ring-destructive h-8 items-center justify-center rounded-[4px] px-3 text-xs font-semibold leading-none focus:outline-2 focus:outline-foreground focus:outline-dashed gap-3 focus:outline-offset-2"
-      aria-label="Delete DB"
+      :aria-label="t('settings.deleteDB')"
     >
       {{ t("verb.delete") }} DB
       <span class="sr-only"> {{ t("settings.deleteDB") }}</span>
@@ -49,7 +49,7 @@ function clear() {
       >
         <DialogClose
           class="text-foreground hover:bg-secondary/80 hover:text-foreground absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center focus:outline-hidden focus-visible:ring-1 focus-visible:ring-primary focus-visible:text-primary"
-          aria-label="Close"
+          :aria-label="t('verb.close')"
         >
           <X class="size-4 text-foreground" />
         </DialogClose>

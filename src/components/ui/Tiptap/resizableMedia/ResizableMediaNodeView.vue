@@ -236,7 +236,7 @@ function togglePause() {
       <div class="flex">
         <PopoverRoot>
           <PopoverTrigger
-            aria-label="Update dimensions"
+            :aria-label="t('verb.updateDimensions')"
             class=" z-50 flex items-center justify-center size-9 bg-secondary text-foreground PopoverTrigger print:hidden focus-within:bg-secondary focus-within:text-secondary-foreground focus-within:outlined focus-within:outline-dashed focus-within:-outline-offset-4 focus-within:outline-primary"
           >
             <AlignStartVertical v-if="props.node.attrs.dataAlign === 'start'" class="size-4" />
@@ -256,7 +256,7 @@ function togglePause() {
                   v-for="(mediaAction, i) in resizableMediaActions"
                   :key="i"
                   :value="mediaAction.tooltip"
-                  aria-label="Toggle italic"
+                  :aria-label="t('verb.toggleItalic')"
                   :content="mediaAction.tooltip"
                   class="flex items-center justify-center gap-1 size-8 hover:text-primary"
                   @click="mediaAction.action?.(updateAttributes)"
@@ -271,7 +271,7 @@ function togglePause() {
         <PopoverRoot @update:open="(isOpen) => isOpen ? handlePopoverOpen() : handlePopoverClose()">
           <div class=" flex  z-20">
             <PopoverTrigger
-              aria-label="Update width"
+              :aria-label="t('verb.updateWidth')"
               class="flex items-center justify-center PopoverTrigger print:hidden size-9 focus-within:bg-secondary focus-within:text-secondary-foreground focus-within:outlined focus-within:outline-dashed focus-within:-outline-offset-4 focus-within:outline-primary bg-secondary text-foreground"
             >
               <span class="">
@@ -359,9 +359,9 @@ function togglePause() {
             <svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41.12 56.2"><path d="M0 0h11.01v56.2H0zM30.11 0h11.01v56.2H30.11z" /></svg>
           </div>
         </button>
-        <button aria-label="Delete image" class="flex items-center justify-center size-9 bg-secondary text-foreground focus-within:bg-secondary focus-within:text-secondary-foreground focus-within:outlined focus-within:outline-dashed focus-within:-outline-offset-4 focus-within:outline-primary" @click="deleteNode()">
+        <button :aria-label="t('verb.delete') + ' ' + t('toolbar.image')" class="flex items-center justify-center size-9 bg-secondary text-foreground focus-within:bg-secondary focus-within:text-secondary-foreground focus-within:outlined focus-within:outline-dashed focus-within:-outline-offset-4 focus-within:outline-primary" @click="deleteNode()">
           <Trash class="size-4" />
-          <span class="sr-only">Delete</span>
+          <span class="sr-only">{{ t('verb.delete') }}</span>
         </button>
       </div>
     </div>

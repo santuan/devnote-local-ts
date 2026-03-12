@@ -2,9 +2,11 @@
 import { Volume2 } from 'lucide-vue-next'
 import { storeToRefs } from 'pinia'
 import { Toggle } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useSettingsStore } from '@/stores/settings'
 
+const { t } = useI18n()
 const settings = useSettingsStore()
 const { speech } = storeToRefs(settings)
 </script>
@@ -12,11 +14,11 @@ const { speech } = storeToRefs(settings)
 <template>
   <Toggle
     v-model="speech"
-    aria-label="Toggle speech"
+    :aria-label="t('verb.toggleSpeech')"
     class="flex items-center data-[state=on]:text-primary-foreground data-[state=on]:bg-primary justify-center border hover:bg-secondary/80 border-secondary bg-background size-8"
   >
     <Tooltip
-      name="Toggle speech"
+      :name="t('verb.toggleSpeech')"
       side="bottom"
       shortcut="Ctrl Shift Alt P"
     >

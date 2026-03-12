@@ -76,7 +76,8 @@
     "stopSpeaking": "Arrêter",
     "searchVoices": "Rechercher des voix...",
     "noVoicesFound": "Aucune voix trouvée",
-    "local": "Local"
+    "local": "Local",
+    "noTextToRead": "Aucun texte à lire"
   },
   "sidebar": {
     "newDocument": "Nouveau document",
@@ -100,7 +101,8 @@
     "contentPreview": "Mode aperçu",
     "markAsDone": "Marquer comme terminé",
     "markAsUndone": "Marquer comme non terminé",
-    "showPinned": "Afficher uniquement les épinglés"
+    "showPinned": "Afficher uniquement les épinglés",
+    "selectDocument": "Sélectionner un document"
   },
   "settings": {
     "title": "Paramètres",
@@ -210,7 +212,26 @@
     "jump": "Aller à",
     "loading": "Chargement",
     "showAll": "Afficher tout",
-    "focus": "Focus"
+    "focus": "Focus",
+    "latex": "LaTeX",
+    "latexPreview": "Aperçu",
+    "latexEnter": "Entrez une expression LaTeX pour voir l'aperçu",
+    "latexError": "Erreur",
+    "latexQuickFormulas": "Formules rapides",
+    "outlineEmpty": "Commencez à éditer votre document pour voir le plan.",
+    "copy": "Copier",
+    "copied": "Copié",
+    "noTextDetected": "Aucun texte détecté",
+    "addIframe": "Ajouter iframe",
+    "updateDimensions": "Mettre à jour les dimensions",
+    "toggleItalic": "Basculer l'italique",
+    "updateWidth": "Mettre à jour la largeur",
+    "closeSpeech": "Fermer la voix",
+    "toggleSpeech": "Basculer la voix",
+    "toggleDebug": "Basculer le débogage",
+    "closeLeva": "Fermer leva",
+    "toggleLeva": "Basculer leva",
+    "resetSearch": "Réinitialiser la recherche"
   },
   "timeAgo": {
     "just-now": "à l'instant",

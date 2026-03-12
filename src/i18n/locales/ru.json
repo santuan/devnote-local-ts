@@ -76,7 +76,8 @@
     "stopSpeaking": "Остановить",
     "searchVoices": "Поиск голосов...",
     "noVoicesFound": "Голоса не найдены",
-    "local": "Локальный"
+    "local": "Локальный",
+    "noTextToRead": "Нет текста для чтения"
   },
   "sidebar": {
     "newDocument": "Новый документ",
@@ -100,7 +101,8 @@
     "contentPreview": "Режим просмотра",
     "markAsDone": "Отметить как выполненное",
     "markAsUndone": "Отметить как невыполненное",
-    "showPinned": "Показать только закрепленные"
+    "showPinned": "Показать только закрепленные",
+    "selectDocument": "Выбрать документ"
   },
   "settings": {
     "title": "Настройки",
@@ -210,7 +212,26 @@
     "jump": "Перейти к",
     "loading": "Загрузка",
     "showAll": "Показать все",
-    "focus": "Фокус"
+    "focus": "Фокус",
+    "latex": "LaTeX",
+    "latexPreview": "Предпросмотр",
+    "latexEnter": "Введите выражение LaTeX для предпросмотра",
+    "latexError": "Ошибка",
+    "latexQuickFormulas": "Быстрые формулы",
+    "outlineEmpty": "Начните редактировать документ, чтобы увидеть структуру.",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "noTextDetected": "Текст не обнаружен",
+    "addIframe": "Добавить iframe",
+    "updateDimensions": "Обновить размеры",
+    "toggleItalic": "Переключить курсив",
+    "updateWidth": "Обновить ширину",
+    "closeSpeech": "Закрыть речь",
+    "toggleSpeech": "Переключить речь",
+    "toggleDebug": "Переключить отладку",
+    "closeLeva": "Закрыть leva",
+    "toggleLeva": "Переключить leva",
+    "resetSearch": "Сбросить поиск"
   },
   "timeAgo": {
     "just-now": "только что",

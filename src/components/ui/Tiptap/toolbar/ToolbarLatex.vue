@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { ToolbarButton } from 'reka-ui'
+import { useI18n } from 'vue-i18n'
 import Tooltip from '@/components/ui/Tooltip.vue'
 import { useEditorStore } from '@/stores/editor'
 
+const { t } = useI18n()
 const editor_store = useEditorStore()
 const { editor } = storeToRefs(editor_store)
 
@@ -17,9 +19,9 @@ function insertLatex() {
 </script>
 
 <template>
-  <Tooltip name="Latex" side="bottom">
-    <ToolbarButton type="button" title="Insert LaTeX" @click="insertLatex">
-      <span class="sr-only">LaTeX</span>
+  <Tooltip :name="t('verb.latex')" side="bottom">
+    <ToolbarButton type="button" :title="t('verb.latex')" @click="insertLatex">
+      <span class="sr-only">{{ t('verb.latex') }}</span>
       <svg
         class="size-5!"
         xmlns="http://www.w3.org/2000/svg"

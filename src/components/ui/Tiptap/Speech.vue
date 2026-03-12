@@ -17,7 +17,7 @@ import {
   ComboboxTrigger,
   ComboboxViewport,
 } from 'reka-ui'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SiriWave from '@/components/ui/Audio/SiriWave.vue'
 import Tooltip from '@/components/ui/Tooltip.vue'
@@ -52,7 +52,10 @@ const selectedVoice = ref<SpeechSynthesisVoice | null>(null)
 const selectedVoiceName = ref(settings.speech_voice_name || '')
 const selectedLang = ref(settings.speech_voice_lang || 'en-US')
 
-const MAX_CHUNK_SIZE = 100
+const MAX_CHUNK_SIZE = 300
+const PARAGRAPH_SPLIT_REGEX = /\n{2,}/
+
+const SENTENCE_REGEX = /[^.!?]+(?:[.!?]+|$)/g
 
 let synth: SpeechSynthesis | null = null
 let utterance: SpeechSynthesisUtterance | null = null
@@ -94,7 +97,6 @@ function loadVoices() {
   availableVoices.value = synth.getVoices()
 
   if (availableVoices.value.length > 0 && !selectedVoice.value) {
-    // Try to restore from store first
     if (settings.speech_voice_name) {
       const savedVoice = availableVoices.value.find(
         v => v.name === settings.speech_voice_name,
@@ -107,7 +109,6 @@ function loadVoices() {
       }
     }
 
-    // Select default voice for browser's language or first available
     const browserLang = navigator.language
     const defaultVoice
       = availableVoices.value.find(v => v.lang === browserLang)
@@ -127,8 +128,6 @@ function loadVoices() {
 onMounted(() => {
   if (isSpeechSynthesisSupported) {
     synth = window.speechSynthesis
-
-    // Load voices (some browsers load them asynchronously)
     loadVoices()
 
     if (synth.onvoiceschanged !== undefined) {
@@ -138,8 +137,11 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (synth && synth.speaking) {
-    synth.cancel()
+  if (synth) {
+    if (synth.speaking) {
+      synth.cancel()
+    }
+    synth.onvoiceschanged = null
   }
 })
 
@@ -149,30 +151,43 @@ function splitIntoChunks(text: string): string[] {
   }
 
   const chunks: string[] = []
-  const paragraphs = text.split(/\n{2,}/)
+  const paragraphs = text.split(PARAGRAPH_SPLIT_REGEX)
 
   let currentChunk = ''
+
   for (const paragraph of paragraphs) {
     if ((currentChunk + paragraph).length <= MAX_CHUNK_SIZE) {
       currentChunk += (currentChunk ? '\n\n' : '') + paragraph
     }
     else {
+      // Flush accumulated chunk before processing the long paragraph
       if (currentChunk) {
         chunks.push(currentChunk)
-      }
-      if (paragraph.length > MAX_CHUNK_SIZE) {
-        const sentences = paragraph.match(/[^.!?]+[.!?]+/g) || [paragraph]
         currentChunk = ''
+      }
+
+      if (paragraph.length > MAX_CHUNK_SIZE) {
+        const sentences = paragraph.match(SENTENCE_REGEX) || [paragraph]
+        let sentenceChunk = ''
+
         for (const sentence of sentences) {
-          if ((currentChunk + sentence).length <= MAX_CHUNK_SIZE) {
-            currentChunk += sentence
+          if ((sentenceChunk + sentence).length <= MAX_CHUNK_SIZE) {
+            sentenceChunk += sentence
           }
           else {
-            if (currentChunk) {
-              chunks.push(currentChunk)
+            if (sentenceChunk) {
+              chunks.push(sentenceChunk)
             }
-            currentChunk = sentence
+            // If a single sentence exceeds the limit, push it as-is
+            sentenceChunk = sentence.length > MAX_CHUNK_SIZE ? '' : sentence
+            if (sentence.length > MAX_CHUNK_SIZE) {
+              chunks.push(sentence)
+            }
           }
+        }
+
+        if (sentenceChunk) {
+          chunks.push(sentenceChunk)
         }
       }
       else {
@@ -198,8 +213,9 @@ function speak(text: string) {
     synth.cancel()
   }
 
-  const chunks = splitIntoChunks(text)
+  isSpeaking.value = true
 
+  const chunks = splitIntoChunks(text)
   let currentChunkIndex = 0
 
   function speakNextChunk() {
@@ -221,7 +237,6 @@ function speak(text: string) {
     utterance.volume = props.volume
 
     utterance.onstart = () => {
-      isSpeaking.value = true
       if (currentChunkIndex === 0) {
         emit('speaking', text)
       }
@@ -264,7 +279,6 @@ function setVoice(voice: SpeechSynthesisVoice) {
   selectedVoiceName.value = voice.name
   selectedLang.value = voice.lang
 
-  // Save to store
   settings.speech_voice_name = voice.name
   settings.speech_voice_lang = voice.lang
 }
@@ -275,19 +289,6 @@ function onVoiceSelect(voiceName: string) {
     setVoice(voice)
   }
 }
-
-// Watch for changes and save to store
-watch(selectedVoiceName, (newValue) => {
-  if (newValue) {
-    settings.speech_voice_name = newValue
-  }
-})
-
-watch(selectedLang, (newValue) => {
-  if (newValue) {
-    settings.speech_voice_lang = newValue
-  }
-})
 
 defineExpose({
   speak,
@@ -306,11 +307,12 @@ defineExpose({
       >
         <SiriWave :active="isSpeaking" />
       </div>
+      <!-- FIX #7: Replaced hardcoded Spanish string with i18n key -->
       <div
         v-else
         class="h-20 flex justify-center items-center text-primary/20 mt-3 text-center"
       >
-        No hay texto para leer.
+        {{ t("toolbar.noTextToRead") }}
       </div>
     </Transition>
     <div class="mb-3 px-3">
@@ -341,7 +343,7 @@ defineExpose({
                 <span class="truncate max-w-[245px] text-left">
                   {{ selectedVoice ? selectedVoice.name : selectedLang }}
                 </span>
-                <span class="sr-only">Select speech language and voice</span>
+                <span class="sr-only">{{ t('toolbar.selectVoiceTooltip') }}</span>
               </Tooltip>
               <ChevronDown class="size-4 shrink-0" />
             </ComboboxTrigger>

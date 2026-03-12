@@ -5,6 +5,7 @@ import { Clipboard, ClipboardCheck, Maximize, Minimize2 } from 'lucide-vue-next'
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'reka-ui'
 import { bundledLanguages } from 'shiki/bundle/web'
 import { shallowRef } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ListboxVirtual from '@/components/ui/Tiptap/ListboxVirtual.vue'
 import { useDocumentStore } from '@/stores/document'
 
@@ -26,6 +27,7 @@ export default {
   props: nodeViewProps,
 
   setup() {
+    const { t } = useI18n()
     const documentStore = useDocumentStore()
     const codeHeight = shallowRef(null)
 
@@ -35,6 +37,7 @@ export default {
       codeHeight,
       width,
       height,
+      t,
     }
   },
 
@@ -80,7 +83,7 @@ export default {
           el.select()
           el.setSelectionRange(0, value.length)
           if (document.execCommand('copy')) {
-            this.copyText = 'Copied' // popper?
+            this.copyText = 'Copied'
           }
           el.remove()
         }
@@ -129,7 +132,7 @@ export default {
             v-if="copyTextError"
             class="flex items-center justify-center duration-100 font-mono h-6 shrink-0 text-xs px-2 bg-primary/80 text-primary-foreground"
           >
-            No text detected
+            {{ t('verb.noTextDetected') }}
           </span>
         </Transition>
         <ListboxVirtual v-model="selectedLanguage" :items="languages" />

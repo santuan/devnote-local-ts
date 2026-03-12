@@ -68,7 +68,7 @@
     "dexie": "4.3.0",
     "dexie-export-import": "4.1.4",
     "driver.js": "1.4.0",
-    "katex": "0.16.37",
+    "katex": "0.16.38",
     "lucide-vue-next": "0.577.0",
     "medium-zoom": "1.1.0",
     "motion-v": "2.0.0",
@@ -84,12 +84,12 @@
     "vue-sonner": "2.0.9"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "7.7.0",
+    "@antfu/eslint-config": "7.7.2",
     "@inspira-ui/plugins": "0.0.2",
     "@tailwindcss/typography": "0.5.19",
     "@testing-library/vue": "8.1.0",
-    "@types/node": "25.3.5",
-    "@vitejs/plugin-vue": "6.0.4",
+    "@types/node": "25.5.0",
+    "@vitejs/plugin-vue": "6.0.5",
     "@vue/tsconfig": "0.9.0",
     "autoprefixer": "10.4.27",
     "class-variance-authority": "0.7.1",
@@ -103,10 +103,10 @@
     "tailwindcss": "4.2.1",
     "tailwindcss-animate": "1.0.7",
     "typescript": "5.9.3",
-    "vite": "^7.3.1",
+    "vite": "^8.0.0",
     "vite-plugin-pwa": "1.2.0",
     "vite-plugin-vue-devtools": "8.0.7",
-    "vitest": "4.0.18",
+    "vitest": "4.1.0",
     "vue-tsc": "3.2.5"
   },
   "overrides": {

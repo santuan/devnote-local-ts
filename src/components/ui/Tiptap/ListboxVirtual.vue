@@ -164,7 +164,7 @@ const filteredOptions = computed(() =>
           <Transition mode="out-in">
             <button
               v-if="searchTerm.length !== 0"
-              aria-label="Reset search"
+              :aria-label="t('verb.resetSearch')"
               class="absolute focus:bg-primary hover:text-foreground focus:text-primary-foreground inline-flex items-center cursor-pointer justify-center text-foreground outline-hidden size-7 top-[2px] right-8 hover:bg-background bg-background"
               @click="searchTerm = ''"
             >
@@ -173,7 +173,7 @@ const filteredOptions = computed(() =>
           </Transition>
           <PopoverClose
             class="absolute focus:bg-primary hover:text-white! focus:text-primary-foreground inline-flex items-center justify-center cursor-auto text-foreground outline-hidden size-7 top-[2px] right-0 hover:bg-background bg-background"
-            aria-label="Close"
+            :aria-label="t('verb.close')"
           >
             <X class="size-4" />
           </PopoverClose>

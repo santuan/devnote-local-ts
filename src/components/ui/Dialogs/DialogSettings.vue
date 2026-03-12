@@ -61,7 +61,7 @@ const { show_settings } = storeToRefs(modal)
           </DialogDescription>
           <DialogClose
             class="absolute inline-flex items-center justify-center appearance-none top-0 text-foreground hover:bg-secondary/80 right-0 size-7 focus:shadow-sm focus:outline-hidden focus-visible:ring-1 focus-visible:ring-primary focus-visible:text-primary"
-            aria-label="Close"
+            :aria-label="t('verb.close')"
           >
             <X />
           </DialogClose>

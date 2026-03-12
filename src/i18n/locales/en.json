@@ -76,7 +76,8 @@
     "stopSpeaking": "Stop",
     "searchVoices": "Search voices...",
     "noVoicesFound": "No voices found",
-    "local": "Local"
+    "local": "Local",
+    "noTextToRead": "No text to read"
   },
   "sidebar": {
     "newDocument": "New document",
@@ -100,7 +101,8 @@
     "contentPreview": "Preview mode",
     "markAsDone": "Mark as done",
     "markAsUndone": "Mark as undone",
-    "showPinned": "Show pinned only"
+    "showPinned": "Show pinned only",
+    "selectDocument": "Select document"
   },
   "settings": {
     "title": "Settings",
@@ -235,7 +237,26 @@
     "jump": "Jump to",
     "loading": "Loading",
     "showAll": "Show all",
-    "focus": "Focus"
+    "focus": "Focus",
+    "latex": "LaTeX",
+    "latexPreview": "Preview",
+    "latexEnter": "Enter a LaTeX expression to see preview",
+    "latexError": "Error",
+    "latexQuickFormulas": "Quick Formulas",
+    "outlineEmpty": "Start editing your document to see the outline.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "noTextDetected": "No text detected",
+    "addIframe": "Add iframe",
+    "updateDimensions": "Update dimensions",
+    "toggleItalic": "Toggle italic",
+    "updateWidth": "Update width",
+    "closeSpeech": "Close speech",
+    "toggleSpeech": "Toggle speech",
+    "toggleDebug": "Toggle debug",
+    "closeLeva": "Close leva",
+    "toggleLeva": "Toggle leva",
+    "resetSearch": "Reset search"
   },
   "timeAgo": {
     "just-now": "just now",

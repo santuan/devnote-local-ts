@@ -76,7 +76,8 @@
     "stopSpeaking": "Stopp",
     "searchVoices": "Stimmen suchen...",
     "noVoicesFound": "Keine Stimmen gefunden",
-    "local": "Lokal"
+    "local": "Lokal",
+    "noTextToRead": "Kein Text zum Vorlesen"
   },
   "sidebar": {
     "newDocument": "Neues Dokument",
@@ -100,7 +101,8 @@
     "contentPreview": "Vorschaumodus",
     "markAsDone": "Als erledigt markieren",
     "markAsUndone": "Als unerledigt markieren",
-    "showPinned": "Nur angeheftete anzeigen"
+    "showPinned": "Nur angeheftete anzeigen",
+    "selectDocument": "Dokument auswählen"
   },
   "settings": {
     "title": "Einstellungen",
@@ -210,7 +212,26 @@
     "jump": "Springen zu",
     "loading": "Laden",
     "showAll": "Alle anzeigen",
-    "focus": "Fokus"
+    "focus": "Fokus",
+    "latex": "LaTeX",
+    "latexPreview": "Vorschau",
+    "latexEnter": "Geben Sie einen LaTeX-Ausdruck ein, um die Vorschau zu sehen",
+    "latexError": "Fehler",
+    "latexQuickFormulas": "Schnelle Formeln",
+    "outlineEmpty": "Beginnen Sie mit der Bearbeitung Ihres Dokuments, um die Gliederung zu sehen.",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "noTextDetected": "Kein Text erkannt",
+    "addIframe": "iframe hinzufügen",
+    "updateDimensions": "Abmessungen aktualisieren",
+    "toggleItalic": "Kursiv umschalten",
+    "updateWidth": "Breite aktualisieren",
+    "closeSpeech": "Sprache schließen",
+    "toggleSpeech": "Sprache umschalten",
+    "toggleDebug": "Debug umschalten",
+    "closeLeva": "Leva schließen",
+    "toggleLeva": "Leva umschalten",
+    "resetSearch": "Suche zurücksetzen"
   },
   "timeAgo": {
     "just-now": "gerade eben",

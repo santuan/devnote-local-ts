@@ -76,7 +76,8 @@
     "stopSpeaking": "停止",
     "searchVoices": "音声を検索...",
     "noVoicesFound": "音声が見つかりません",
-    "local": "ローカル"
+    "local": "ローカル",
+    "noTextToRead": "読み上げるテキストがありません"
   },
   "sidebar": {
     "newDocument": "新規ドキュメント",
@@ -100,7 +101,8 @@
     "contentPreview": "プレビューモード",
     "markAsDone": "完了としてマーク",
     "markAsUndone": "未完了としてマーク",
-    "showPinned": "固定されたもののみ表示"
+    "showPinned": "固定されたもののみ表示",
+    "selectDocument": "ドキュメントを選択"
   },
   "settings": {
     "title": "設定",
@@ -210,7 +212,26 @@
     "jump": "ジャンプ",
     "loading": "読み込み中",
     "showAll": "すべて表示",
-    "focus": "フォーカス"
+    "focus": "フォーカス",
+    "latex": "LaTeX",
+    "latexPreview": "プレビュー",
+    "latexEnter": "LaTeX式を入力してプレビューを表示",
+    "latexError": "エラー",
+    "latexQuickFormulas": "クイック数式",
+    "outlineEmpty": "ドキュメントを編集してアウトラインを表示してください。",
+    "copy": "コピー",
+    "copied": "コピーしました",
+    "noTextDetected": "テキストが検出されません",
+    "addIframe": "iframeを追加",
+    "updateDimensions": "寸法を更新",
+    "toggleItalic": "斜体を切り替え",
+    "updateWidth": "幅を更新",
+    "closeSpeech": "音声を閉じる",
+    "toggleSpeech": "音声を切り替え",
+    "toggleDebug": "デバッグを切り替え",
+    "closeLeva": "levaを閉じる",
+    "toggleLeva": "levaを切り替え",
+    "resetSearch": "検索をリセット"
   },
   "timeAgo": {
     "just-now": "たった今",
