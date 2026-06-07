@@ -77,7 +77,8 @@
     "searchVoices": "Поиск голосов...",
     "noVoicesFound": "Голоса не найдены",
     "local": "Локальный",
-    "noTextToRead": "Нет текста для чтения"
+    "noTextToRead": "Нет текста для чтения",
+    "loadingEditor": "Загрузка редактора..."
   },
   "sidebar": {
     "newDocument": "Новый документ",

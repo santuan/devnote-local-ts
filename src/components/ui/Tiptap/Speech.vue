@@ -299,174 +299,179 @@ defineExpose({
 </script>
 
 <template>
-  <div v-if="editor" class="speech-component">
-    <Transition mode="out-in">
-      <div
-        v-if="editor?.getText().trim()"
-        class="mt-3 py-3 h-20 rounded flex justify-center items-center"
-      >
-        <SiriWave :active="isSpeaking" />
-      </div>
-      <!-- FIX #7: Replaced hardcoded Spanish string with i18n key -->
-      <div
-        v-else
-        class="h-20 flex justify-center items-center text-primary/20 mt-3 text-center"
-      >
-        {{ t("toolbar.noTextToRead") }}
-      </div>
-    </Transition>
-    <div class="mb-3 px-3">
-      <h3 class="text-xs font-semibold text-primary mb-2">
-        {{ t("toolbar.selectVoice") }}
-      </h3>
-      <div class="flex mb-3 w-full">
-        <ComboboxRoot
-          v-model="selectedVoiceName"
-          class="relative w-full"
-          @update:model-value="onVoiceSelect"
+  <div class="speech-component">
+    <div v-if="!editor" class="loading-state text-center py-8">
+      {{ t("toolbar.loadingEditor") }}
+    </div>
+    <div v-else>
+      <Transition mode="out-in">
+        <div
+          v-if="editor?.getText().trim()"
+          class="mt-3 py-3 h-20 rounded flex justify-center items-center"
         >
-          <ComboboxAnchor class="flex items-center gap-2">
-            <ComboboxTrigger
-              class="langSelector px-3"
-              :disabled="isSpeaking || availableVoices.length === 0"
-              tabindex="0"
-            >
-              <Tooltip
-                :name="
-                  selectedVoice
-                    ? selectedVoice.name
-                    : t('toolbar.selectVoiceTooltip')
-                "
-                :side="'top'"
-                :align="'center'"
+          <SiriWave :active="isSpeaking" />
+        </div>
+        <!-- FIX #7: Replaced hardcoded Spanish string with i18n key -->
+        <div
+          v-else
+          class="h-20 flex justify-center items-center text-primary/20 mt-3 text-center"
+        >
+          {{ t("toolbar.noTextToRead") }}
+        </div>
+      </Transition>
+      <div class="mb-3 px-3">
+        <h3 class="text-xs font-semibold text-primary mb-2">
+          {{ t("toolbar.selectVoice") }}
+        </h3>
+        <div class="flex mb-3 w-full">
+          <ComboboxRoot
+            v-model="selectedVoiceName"
+            class="relative w-full"
+            @update:model-value="onVoiceSelect"
+          >
+            <ComboboxAnchor class="flex items-center gap-2">
+              <ComboboxTrigger
+                class="langSelector px-3"
+                :disabled="isSpeaking || availableVoices.length === 0"
+                tabindex="0"
               >
-                <span class="truncate max-w-[245px] text-left">
-                  {{ selectedVoice ? selectedVoice.name : selectedLang }}
-                </span>
-                <span class="sr-only">{{ t('toolbar.selectVoiceTooltip') }}</span>
-              </Tooltip>
-              <ChevronDown class="size-4 shrink-0" />
-            </ComboboxTrigger>
-          </ComboboxAnchor>
-          <ComboboxPortal>
-            <ComboboxContent
-              :align="'start'"
-              :side="'bottom'"
-              :side-offset="0"
-              position="popper"
-              class="z-10 w-full mt-0 text-foreground font-mono min-w-[360px] bg-background overflow-hidden text-xs shadow-sm border border-secondary"
-            >
-              <div
-                class="flex justify-center items-center border-b border-secondary pr-1"
+                <Tooltip
+                  :name="
+                    selectedVoice
+                      ? selectedVoice.name
+                      : t('toolbar.selectVoiceTooltip')
+                  "
+                  :side="'top'"
+                  :align="'center'"
+                >
+                  <span class="truncate max-w-[245px] text-left">
+                    {{ selectedVoice ? selectedVoice.name : selectedLang }}
+                  </span>
+                  <span class="sr-only">{{ t('toolbar.selectVoiceTooltip') }}</span>
+                </Tooltip>
+                <ChevronDown class="size-4 shrink-0" />
+              </ComboboxTrigger>
+            </ComboboxAnchor>
+            <ComboboxPortal>
+              <ComboboxContent
+                :align="'start'"
+                :side="'bottom'"
+                :side-offset="0"
+                position="popper"
+                class="z-10 w-full mt-0 text-foreground font-mono min-w-[360px] bg-background overflow-hidden text-xs shadow-sm border border-secondary"
               >
-                <ComboboxInput
-                  class="p-2 py-3 bg-background w-full outline-none"
-                  :placeholder="t('toolbar.searchVoices')"
-                />
-                <ComboboxCancel
-                  class="size-8 flex justify-center shrink-0 items-center rounded-full"
+                <div
+                  class="flex justify-center items-center border-b border-secondary pr-1"
                 >
-                  <X class="size-4" />
-                </ComboboxCancel>
-              </div>
-              <ComboboxViewport class="max-h-72 overflow-y-auto">
-                <ComboboxEmpty class="text-center p-3 bg-secondary">
-                  {{ t("toolbar.noVoicesFound") }}
-                </ComboboxEmpty>
-                <ComboboxGroup
-                  v-for="group in languageGroups"
-                  :key="group.lang"
-                >
-                  <ComboboxLabel
-                    class="px-2 py-3 font-semibold text-foreground/70 uppercase"
-                  >
-                    {{ group.name }} ({{ group.lang }})
-                  </ComboboxLabel>
-                  <ComboboxItem
-                    v-for="voice in group.voices"
-                    :key="voice.name"
-                    :value="voice.name"
-                    class="p-2 pl-2 relative hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset cursor-pointer"
-                    :class="{
-                      'bg-primary/20': selectedVoice?.name === voice.name,
-                    }"
-                  >
-                    <div class="flex flex-col">
-                      <span class="font-medium">{{ voice.name }}</span>
-                      <span
-                        v-if="voice.localService"
-                        class="text-[10px] text-foreground/50"
-                      >
-                        {{ t("toolbar.local") }}
-                      </span>
-                    </div>
-                    <ComboboxItemIndicator class="absolute right-0 top-0 m-2">
-                      <Check class="size-4" />
-                    </ComboboxItemIndicator>
-                  </ComboboxItem>
-                  <ComboboxSeparator
-                    class="border-y border-secondary-foreground/10"
+                  <ComboboxInput
+                    class="p-2 py-3 bg-background w-full outline-none"
+                    :placeholder="t('toolbar.searchVoices')"
                   />
-                </ComboboxGroup>
-              </ComboboxViewport>
-            </ComboboxContent>
-          </ComboboxPortal>
-        </ComboboxRoot>
-      </div>
-      <button
-        v-if="!isSpeaking"
-        :disabled="isSpeaking || !isSpeechSynthesisSupported || !selectedVoice"
-        class="btn w-full px-3 py-2 flex items-center justify-center btn-secondary gap-2"
-        :class="
-          !editor?.getText().trim() ? ' opacity-50! pointer-events-none' : ''
-        "
-        @click="speakEditorContent"
-      >
-        <Play class="size-4" />
-        {{ t("toolbar.speakDocument") }}
-      </button>
-
-      <button
-        v-if="isSpeaking"
-        class="btn btn-primary w-full px-3 py-2 gap-2"
-        @click="stopSpeaking"
-      >
-        <Pause class="size-4" />
-        {{ t("toolbar.stopSpeaking") }}
-      </button>
-
-      <span v-if="isSpeaking" class="sr-only">{{
-        t("toolbar.stopSpeaking")
-      }}</span>
-
-      <div v-if="!isSpeechSynthesisSupported" class="warning">
-        <p>⚠️ Speech synthesis not supported in this browser</p>
-      </div>
-      <div v-else-if="availableVoices.length === 0" class="warning">
-        <p>⏳ Loading voices...</p>
-      </div>
-      <Teleport to="#SpeechPortal">
+                  <ComboboxCancel
+                    class="size-8 flex justify-center shrink-0 items-center rounded-full"
+                  >
+                    <X class="size-4" />
+                  </ComboboxCancel>
+                </div>
+                <ComboboxViewport class="max-h-72 overflow-y-auto">
+                  <ComboboxEmpty class="text-center p-3 bg-secondary">
+                    {{ t("toolbar.noVoicesFound") }}
+                  </ComboboxEmpty>
+                  <ComboboxGroup
+                    v-for="group in languageGroups"
+                    :key="group.lang"
+                  >
+                    <ComboboxLabel
+                      class="px-2 py-3 font-semibold text-foreground/70 uppercase"
+                    >
+                      {{ group.name }} ({{ group.lang }})
+                    </ComboboxLabel>
+                    <ComboboxItem
+                      v-for="voice in group.voices"
+                      :key="voice.name"
+                      :value="voice.name"
+                      class="p-2 pl-2 relative hover:bg-secondary-foreground/10 outline-hidden focus:ring-1 focus:ring-primary focus:bg-primary/20 focus:ring-inset cursor-pointer"
+                      :class="{
+                        'bg-primary/20': selectedVoice?.name === voice.name,
+                      }"
+                    >
+                      <div class="flex flex-col">
+                        <span class="font-medium">{{ voice.name }}</span>
+                        <span
+                          v-if="voice.localService"
+                          class="text-[10px] text-foreground/50"
+                        >
+                          {{ t("toolbar.local") }}
+                        </span>
+                      </div>
+                      <ComboboxItemIndicator class="absolute right-0 top-0 m-2">
+                        <Check class="size-4" />
+                      </ComboboxItemIndicator>
+                    </ComboboxItem>
+                    <ComboboxSeparator
+                      class="border-y border-secondary-foreground/10"
+                    />
+                  </ComboboxGroup>
+                </ComboboxViewport>
+              </ComboboxContent>
+            </ComboboxPortal>
+          </ComboboxRoot>
+        </div>
         <button
           v-if="!isSpeaking"
-          :disabled="
-            isSpeaking || !isSpeechSynthesisSupported || !selectedVoice
-          "
-          class="size-8 flex items-center justify-center "
+          :disabled="isSpeaking || !isSpeechSynthesisSupported || !selectedVoice"
+          class="btn w-full px-3 py-2 flex items-center justify-center btn-secondary gap-2"
           :class="
             !editor?.getText().trim() ? ' opacity-50! pointer-events-none' : ''
           "
           @click="speakEditorContent"
         >
-          <Play class="size-3" />
+          <Play class="size-4" />
+          {{ t("toolbar.speakDocument") }}
         </button>
+
         <button
           v-if="isSpeaking"
-          class="size-8 flex items-center justify-center "
+          class="btn btn-primary w-full px-3 py-2 gap-2"
           @click="stopSpeaking"
         >
-          <Pause class="size-3" />
+          <Pause class="size-4" />
+          {{ t("toolbar.stopSpeaking") }}
         </button>
-      </Teleport>
+
+        <span v-if="isSpeaking" class="sr-only">{{
+          t("toolbar.stopSpeaking")
+        }}</span>
+
+        <div v-if="!isSpeechSynthesisSupported" class="warning">
+          <p>⚠️ Speech synthesis not supported in this browser</p>
+        </div>
+        <div v-else-if="availableVoices.length === 0" class="warning">
+          <p>⏳ Loading voices...</p>
+        </div>
+        <Teleport to="#SpeechPortal">
+          <button
+            v-if="!isSpeaking"
+            :disabled="
+              isSpeaking || !isSpeechSynthesisSupported || !selectedVoice
+            "
+            class="size-8 flex items-center justify-center "
+            :class="
+              !editor?.getText().trim() ? ' opacity-50! pointer-events-none' : ''
+            "
+            @click="speakEditorContent"
+          >
+            <Play class="size-3" />
+          </button>
+          <button
+            v-if="isSpeaking"
+            class="size-8 flex items-center justify-center "
+            @click="stopSpeaking"
+          >
+            <Pause class="size-3" />
+          </button>
+        </Teleport>
+      </div>
     </div>
   </div>
 </template>

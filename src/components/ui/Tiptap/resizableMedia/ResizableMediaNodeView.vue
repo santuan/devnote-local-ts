@@ -359,7 +359,7 @@ function togglePause() {
             <svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41.12 56.2"><path d="M0 0h11.01v56.2H0zM30.11 0h11.01v56.2H30.11z" /></svg>
           </div>
         </button>
-        <button :aria-label="t('verb.delete') + ' ' + t('toolbar.image')" class="flex items-center justify-center size-9 bg-secondary text-foreground focus-within:bg-secondary focus-within:text-secondary-foreground focus-within:outlined focus-within:outline-dashed focus-within:-outline-offset-4 focus-within:outline-primary" @click="deleteNode()">
+        <button :aria-label="`${t('verb.delete')} ${t('toolbar.image')}`" class="flex items-center justify-center size-9 bg-secondary text-foreground focus-within:bg-secondary focus-within:text-secondary-foreground focus-within:outlined focus-within:outline-dashed focus-within:-outline-offset-4 focus-within:outline-primary" @click="deleteNode()">
           <Trash class="size-4" />
           <span class="sr-only">{{ t('verb.delete') }}</span>
         </button>

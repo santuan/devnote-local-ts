@@ -77,7 +77,8 @@
     "searchVoices": "Buscar voces...",
     "noVoicesFound": "No se encontraron voces",
     "local": "Local",
-    "noTextToRead": "No hay texto para leer"
+    "noTextToRead": "No hay texto para leer",
+    "loadingEditor": "Cargando Editor..."
   },
   "sidebar": {
     "newDocument": "nuevo documento",

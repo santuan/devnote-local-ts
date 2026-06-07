@@ -77,7 +77,8 @@
     "searchVoices": "Search voices...",
     "noVoicesFound": "No voices found",
     "local": "Local",
-    "noTextToRead": "No text to read"
+    "noTextToRead": "No text to read",
+    "loadingEditor": "Loading Editor..."
   },
   "sidebar": {
     "newDocument": "New document",

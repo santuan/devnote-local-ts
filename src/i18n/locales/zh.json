@@ -77,7 +77,8 @@
     "searchVoices": "搜索语音...",
     "noVoicesFound": "未找到语音",
     "local": "本地",
-    "noTextToRead": "没有可朗读的文本"
+    "noTextToRead": "没有可朗读的文本",
+    "loadingEditor": "正在加载编辑器..."
   },
   "sidebar": {
     "newDocument": "新文档",

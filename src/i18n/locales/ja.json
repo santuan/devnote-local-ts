@@ -77,7 +77,8 @@
     "searchVoices": "音声を検索...",
     "noVoicesFound": "音声が見つかりません",
     "local": "ローカル",
-    "noTextToRead": "読み上げるテキストがありません"
+    "noTextToRead": "読み上げるテキストがありません",
+    "loadingEditor": "エディターを読み込み中..."
   },
   "sidebar": {
     "newDocument": "新規ドキュメント",
