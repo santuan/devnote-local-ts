@@ -30,6 +30,7 @@ watch(focus_debug_heading, () => {
 
 const showContentAnalysis = shallowRef(true)
 const showOnlyHeadings = shallowRef(true)
+const hasMultipleDocuments = computed(() => database.results.length > 1)
 
 const contentAnalysis = computed(() => {
   if (!editor.value) {
@@ -129,13 +130,15 @@ async function toggleDocumentFixed() {
             <Pin class="origin-center size-3 outline-none" :class="[{ 'fill-current text-primary': database.document_fixed }]" />
           </Tooltip>
           <button
-            class="flex items-center justify-center p-1 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+            class="flex items-center justify-center p-1 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            :disabled="!hasMultipleDocuments"
             @click="database.navigate_document('prev')"
           >
             <ChevronLeft class="size-3" />
           </button>
           <button
-            class="flex items-center justify-center p-1 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary"
+            class="flex items-center justify-center p-1 text-xs border border-secondary hover:bg-secondary/50 focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            :disabled="!hasMultipleDocuments"
             @click="database.navigate_document('next')"
           >
             <ChevronRight class="size-3" />
